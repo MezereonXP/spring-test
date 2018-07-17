@@ -6,7 +6,9 @@ import com.mezereon.springtest.bean.FavoriteExample;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface FavoriteMapper {
     long countByExample(FavoriteExample example);
 

@@ -6,7 +6,9 @@ import com.mezereon.springtest.bean.TeamShopGoodsExample;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface TeamShopGoodsMapper {
     long countByExample(TeamShopGoodsExample example);
 

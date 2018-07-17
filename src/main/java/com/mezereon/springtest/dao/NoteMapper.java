@@ -6,7 +6,9 @@ import com.mezereon.springtest.bean.NoteExample;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface NoteMapper {
     long countByExample(NoteExample example);
 

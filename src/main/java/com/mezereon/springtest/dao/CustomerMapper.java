@@ -6,7 +6,9 @@ import com.mezereon.springtest.bean.CustomerExample;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface CustomerMapper {
     long countByExample(CustomerExample example);
 

@@ -6,7 +6,9 @@ import com.mezereon.springtest.bean.ShopCarExample;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface ShopCarMapper {
     long countByExample(ShopCarExample example);
 
