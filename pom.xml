@@ -95,11 +95,6 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
-        <dependency>
-            <groupId>com.thetransactioncompany</groupId>
-            <artifactId>cors-filter</artifactId>
-            <version>[ version ]</version>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>
