@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mezereon.springtest.dao.CustomerMapper">
+    <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Customer">
+        <id column="c_id" jdbcType="INTEGER" property="cId"/>
+        <result column="c_password" jdbcType="VARCHAR" property="cPassword"/>
+        <result column="c_name" jdbcType="VARCHAR" property="cName"/>
+        <result column="c_sex" jdbcType="INTEGER" property="cSex"/>
+        <result column="c_birthday" jdbcType="VARCHAR" property="cBirthday"/>
+        <result column="c_telephone" jdbcType="VARCHAR" property="cTelephone"/>
+        <result column="c_area" jdbcType="VARCHAR" property="cArea"/>
+        <result column="c_bankcard" jdbcType="VARCHAR" property="cBankcard"/>
+        <result column="c_email" jdbcType="VARCHAR" property="cEmail"/>
+        <result column="c_pictureurl" jdbcType="VARCHAR" property="cPictureurl"/>
+        <result column="c_status" jdbcType="INTEGER" property="cStatus"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    c_id, c_password, c_name, c_sex, c_birthday, c_telephone, c_area, c_bankcard, c_email, 
+    c_pictureurl, c_status
+  </sql>
+    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.CustomerExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from customer
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from customer
+        where c_id = #{cId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from customer
+    where c_id = #{cId,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.CustomerExample">
+        delete from customer
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.mezereon.springtest.bean.Customer">
+    insert into customer (c_id, c_password, c_name, 
+      c_sex, c_birthday, c_telephone, 
+      c_area, c_bankcard, c_email, 
+      c_pictureurl, c_status)
+    values (#{cId,jdbcType=INTEGER}, #{cPassword,jdbcType=VARCHAR}, #{cName,jdbcType=VARCHAR}, 
+      #{cSex,jdbcType=INTEGER}, #{cBirthday,jdbcType=VARCHAR}, #{cTelephone,jdbcType=VARCHAR}, 
+      #{cArea,jdbcType=VARCHAR}, #{cBankcard,jdbcType=VARCHAR}, #{cEmail,jdbcType=VARCHAR}, 
+      #{cPictureurl,jdbcType=VARCHAR}, #{cStatus,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Customer">
+        insert into customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cId != null">
+                c_id,
+            </if>
+            <if test="cPassword != null">
+                c_password,
+            </if>
+            <if test="cName != null">
+                c_name,
+            </if>
+            <if test="cSex != null">
+                c_sex,
+            </if>
+            <if test="cBirthday != null">
+                c_birthday,
+            </if>
+            <if test="cTelephone != null">
+                c_telephone,
+            </if>
+            <if test="cArea != null">
+                c_area,
+            </if>
+            <if test="cBankcard != null">
+                c_bankcard,
+            </if>
+            <if test="cEmail != null">
+                c_email,
+            </if>
+            <if test="cPictureurl != null">
+                c_pictureurl,
+            </if>
+            <if test="cStatus != null">
+                c_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cId != null">
+                #{cId,jdbcType=INTEGER},
+            </if>
+            <if test="cPassword != null">
+                #{cPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="cName != null">
+                #{cName,jdbcType=VARCHAR},
+            </if>
+            <if test="cSex != null">
+                #{cSex,jdbcType=INTEGER},
+            </if>
+            <if test="cBirthday != null">
+                #{cBirthday,jdbcType=VARCHAR},
+            </if>
+            <if test="cTelephone != null">
+                #{cTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="cArea != null">
+                #{cArea,jdbcType=VARCHAR},
+            </if>
+            <if test="cBankcard != null">
+                #{cBankcard,jdbcType=VARCHAR},
+            </if>
+            <if test="cEmail != null">
+                #{cEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="cPictureurl != null">
+                #{cPictureurl,jdbcType=VARCHAR},
+            </if>
+            <if test="cStatus != null">
+                #{cStatus,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.mezereon.springtest.bean.CustomerExample" resultType="java.lang.Long">
+        select count(*) from customer
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update customer
+        <set>
+            <if test="record.cId != null">
+                c_id = #{record.cId,jdbcType=INTEGER},
+            </if>
+            <if test="record.cPassword != null">
+                c_password = #{record.cPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cName != null">
+                c_name = #{record.cName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cSex != null">
+                c_sex = #{record.cSex,jdbcType=INTEGER},
+            </if>
+            <if test="record.cBirthday != null">
+                c_birthday = #{record.cBirthday,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cTelephone != null">
+                c_telephone = #{record.cTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cArea != null">
+                c_area = #{record.cArea,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cBankcard != null">
+                c_bankcard = #{record.cBankcard,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cEmail != null">
+                c_email = #{record.cEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cPictureurl != null">
+                c_pictureurl = #{record.cPictureurl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.cStatus != null">
+                c_status = #{record.cStatus,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update customer
+        set c_id = #{record.cId,jdbcType=INTEGER},
+        c_password = #{record.cPassword,jdbcType=VARCHAR},
+        c_name = #{record.cName,jdbcType=VARCHAR},
+        c_sex = #{record.cSex,jdbcType=INTEGER},
+        c_birthday = #{record.cBirthday,jdbcType=VARCHAR},
+        c_telephone = #{record.cTelephone,jdbcType=VARCHAR},
+        c_area = #{record.cArea,jdbcType=VARCHAR},
+        c_bankcard = #{record.cBankcard,jdbcType=VARCHAR},
+        c_email = #{record.cEmail,jdbcType=VARCHAR},
+        c_pictureurl = #{record.cPictureurl,jdbcType=VARCHAR},
+        c_status = #{record.cStatus,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mezereon.springtest.bean.Customer">
+        update customer
+        <set>
+            <if test="cPassword != null">
+                c_password = #{cPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="cName != null">
+                c_name = #{cName,jdbcType=VARCHAR},
+            </if>
+            <if test="cSex != null">
+                c_sex = #{cSex,jdbcType=INTEGER},
+            </if>
+            <if test="cBirthday != null">
+                c_birthday = #{cBirthday,jdbcType=VARCHAR},
+            </if>
+            <if test="cTelephone != null">
+                c_telephone = #{cTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="cArea != null">
+                c_area = #{cArea,jdbcType=VARCHAR},
+            </if>
+            <if test="cBankcard != null">
+                c_bankcard = #{cBankcard,jdbcType=VARCHAR},
+            </if>
+            <if test="cEmail != null">
+                c_email = #{cEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="cPictureurl != null">
+                c_pictureurl = #{cPictureurl,jdbcType=VARCHAR},
+            </if>
+            <if test="cStatus != null">
+                c_status = #{cStatus,jdbcType=INTEGER},
+            </if>
+        </set>
+        where c_id = #{cId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Customer">
+    update customer
+    set c_password = #{cPassword,jdbcType=VARCHAR},
+      c_name = #{cName,jdbcType=VARCHAR},
+      c_sex = #{cSex,jdbcType=INTEGER},
+      c_birthday = #{cBirthday,jdbcType=VARCHAR},
+      c_telephone = #{cTelephone,jdbcType=VARCHAR},
+      c_area = #{cArea,jdbcType=VARCHAR},
+      c_bankcard = #{cBankcard,jdbcType=VARCHAR},
+      c_email = #{cEmail,jdbcType=VARCHAR},
+      c_pictureurl = #{cPictureurl,jdbcType=VARCHAR},
+      c_status = #{cStatus,jdbcType=INTEGER}
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+</mapper>

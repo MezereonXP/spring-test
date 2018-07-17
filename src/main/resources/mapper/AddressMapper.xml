@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mezereon.springtest.dao.AddressMapper">
+    <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Address">
+        <id column="a_id" jdbcType="INTEGER" property="aId"/>
+        <result column="a_customer_id" jdbcType="INTEGER" property="aCustomerId"/>
+        <result column="a_receiver" jdbcType="VARCHAR" property="aReceiver"/>
+        <result column="a_telephone" jdbcType="VARCHAR" property="aTelephone"/>
+        <result column="a_zipcode" jdbcType="VARCHAR" property="aZipcode"/>
+        <result column="a_detail" jdbcType="VARCHAR" property="aDetail"/>
+        <result column="a_status" jdbcType="INTEGER" property="aStatus"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    a_id, a_customer_id, a_receiver, a_telephone, a_zipcode, a_detail, a_status
+  </sql>
+    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.AddressExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from address
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from address
+        where a_id = #{aId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from address
+    where a_id = #{aId,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.AddressExample">
+        delete from address
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.mezereon.springtest.bean.Address">
+    insert into address (a_id, a_customer_id, a_receiver, 
+      a_telephone, a_zipcode, a_detail, 
+      a_status)
+    values (#{aId,jdbcType=INTEGER}, #{aCustomerId,jdbcType=INTEGER}, #{aReceiver,jdbcType=VARCHAR}, 
+      #{aTelephone,jdbcType=VARCHAR}, #{aZipcode,jdbcType=VARCHAR}, #{aDetail,jdbcType=VARCHAR}, 
+      #{aStatus,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Address">
+        insert into address
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="aId != null">
+                a_id,
+            </if>
+            <if test="aCustomerId != null">
+                a_customer_id,
+            </if>
+            <if test="aReceiver != null">
+                a_receiver,
+            </if>
+            <if test="aTelephone != null">
+                a_telephone,
+            </if>
+            <if test="aZipcode != null">
+                a_zipcode,
+            </if>
+            <if test="aDetail != null">
+                a_detail,
+            </if>
+            <if test="aStatus != null">
+                a_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="aId != null">
+                #{aId,jdbcType=INTEGER},
+            </if>
+            <if test="aCustomerId != null">
+                #{aCustomerId,jdbcType=INTEGER},
+            </if>
+            <if test="aReceiver != null">
+                #{aReceiver,jdbcType=VARCHAR},
+            </if>
+            <if test="aTelephone != null">
+                #{aTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="aZipcode != null">
+                #{aZipcode,jdbcType=VARCHAR},
+            </if>
+            <if test="aDetail != null">
+                #{aDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="aStatus != null">
+                #{aStatus,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.mezereon.springtest.bean.AddressExample" resultType="java.lang.Long">
+        select count(*) from address
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update address
+        <set>
+            <if test="record.aId != null">
+                a_id = #{record.aId,jdbcType=INTEGER},
+            </if>
+            <if test="record.aCustomerId != null">
+                a_customer_id = #{record.aCustomerId,jdbcType=INTEGER},
+            </if>
+            <if test="record.aReceiver != null">
+                a_receiver = #{record.aReceiver,jdbcType=VARCHAR},
+            </if>
+            <if test="record.aTelephone != null">
+                a_telephone = #{record.aTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.aZipcode != null">
+                a_zipcode = #{record.aZipcode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.aDetail != null">
+                a_detail = #{record.aDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="record.aStatus != null">
+                a_status = #{record.aStatus,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update address
+        set a_id = #{record.aId,jdbcType=INTEGER},
+        a_customer_id = #{record.aCustomerId,jdbcType=INTEGER},
+        a_receiver = #{record.aReceiver,jdbcType=VARCHAR},
+        a_telephone = #{record.aTelephone,jdbcType=VARCHAR},
+        a_zipcode = #{record.aZipcode,jdbcType=VARCHAR},
+        a_detail = #{record.aDetail,jdbcType=VARCHAR},
+        a_status = #{record.aStatus,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mezereon.springtest.bean.Address">
+        update address
+        <set>
+            <if test="aCustomerId != null">
+                a_customer_id = #{aCustomerId,jdbcType=INTEGER},
+            </if>
+            <if test="aReceiver != null">
+                a_receiver = #{aReceiver,jdbcType=VARCHAR},
+            </if>
+            <if test="aTelephone != null">
+                a_telephone = #{aTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="aZipcode != null">
+                a_zipcode = #{aZipcode,jdbcType=VARCHAR},
+            </if>
+            <if test="aDetail != null">
+                a_detail = #{aDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="aStatus != null">
+                a_status = #{aStatus,jdbcType=INTEGER},
+            </if>
+        </set>
+        where a_id = #{aId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Address">
+    update address
+    set a_customer_id = #{aCustomerId,jdbcType=INTEGER},
+      a_receiver = #{aReceiver,jdbcType=VARCHAR},
+      a_telephone = #{aTelephone,jdbcType=VARCHAR},
+      a_zipcode = #{aZipcode,jdbcType=VARCHAR},
+      a_detail = #{aDetail,jdbcType=VARCHAR},
+      a_status = #{aStatus,jdbcType=INTEGER}
+    where a_id = #{aId,jdbcType=INTEGER}
+  </update>
+</mapper>

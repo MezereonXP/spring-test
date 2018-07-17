@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mezereon.springtest.dao.ShopCarMapper">
+    <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.ShopCar">
+        <id column="s_id" jdbcType="INTEGER" property="sId"/>
+        <result column="s_customer_id" jdbcType="INTEGER" property="sCustomerId"/>
+        <result column="s_goods_id" jdbcType="INTEGER" property="sGoodsId"/>
+        <result column="s_quantity" jdbcType="INTEGER" property="sQuantity"/>
+        <result column="s_status" jdbcType="INTEGER" property="sStatus"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    s_id, s_customer_id, s_goods_id, s_quantity, s_status
+  </sql>
+    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.ShopCarExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from shopcar
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from shopcar
+        where s_id = #{sId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shopcar
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.ShopCarExample">
+        delete from shopcar
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.mezereon.springtest.bean.ShopCar">
+    insert into shopcar (s_id, s_customer_id, s_goods_id, 
+      s_quantity, s_status)
+    values (#{sId,jdbcType=INTEGER}, #{sCustomerId,jdbcType=INTEGER}, #{sGoodsId,jdbcType=INTEGER}, 
+      #{sQuantity,jdbcType=INTEGER}, #{sStatus,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.ShopCar">
+        insert into shopcar
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sId != null">
+                s_id,
+            </if>
+            <if test="sCustomerId != null">
+                s_customer_id,
+            </if>
+            <if test="sGoodsId != null">
+                s_goods_id,
+            </if>
+            <if test="sQuantity != null">
+                s_quantity,
+            </if>
+            <if test="sStatus != null">
+                s_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sId != null">
+                #{sId,jdbcType=INTEGER},
+            </if>
+            <if test="sCustomerId != null">
+                #{sCustomerId,jdbcType=INTEGER},
+            </if>
+            <if test="sGoodsId != null">
+                #{sGoodsId,jdbcType=INTEGER},
+            </if>
+            <if test="sQuantity != null">
+                #{sQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="sStatus != null">
+                #{sStatus,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.mezereon.springtest.bean.ShopCarExample" resultType="java.lang.Long">
+        select count(*) from shopcar
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update shopcar
+        <set>
+            <if test="record.sId != null">
+                s_id = #{record.sId,jdbcType=INTEGER},
+            </if>
+            <if test="record.sCustomerId != null">
+                s_customer_id = #{record.sCustomerId,jdbcType=INTEGER},
+            </if>
+            <if test="record.sGoodsId != null">
+                s_goods_id = #{record.sGoodsId,jdbcType=INTEGER},
+            </if>
+            <if test="record.sQuantity != null">
+                s_quantity = #{record.sQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="record.sStatus != null">
+                s_status = #{record.sStatus,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update shopcar
+        set s_id = #{record.sId,jdbcType=INTEGER},
+        s_customer_id = #{record.sCustomerId,jdbcType=INTEGER},
+        s_goods_id = #{record.sGoodsId,jdbcType=INTEGER},
+        s_quantity = #{record.sQuantity,jdbcType=INTEGER},
+        s_status = #{record.sStatus,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mezereon.springtest.bean.ShopCar">
+        update shopcar
+        <set>
+            <if test="sCustomerId != null">
+                s_customer_id = #{sCustomerId,jdbcType=INTEGER},
+            </if>
+            <if test="sGoodsId != null">
+                s_goods_id = #{sGoodsId,jdbcType=INTEGER},
+            </if>
+            <if test="sQuantity != null">
+                s_quantity = #{sQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="sStatus != null">
+                s_status = #{sStatus,jdbcType=INTEGER},
+            </if>
+        </set>
+        where s_id = #{sId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.ShopCar">
+    update shopcar
+    set s_customer_id = #{sCustomerId,jdbcType=INTEGER},
+      s_goods_id = #{sGoodsId,jdbcType=INTEGER},
+      s_quantity = #{sQuantity,jdbcType=INTEGER},
+      s_status = #{sStatus,jdbcType=INTEGER}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+</mapper>

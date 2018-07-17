@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mezereon.springtest.dao.GoodsMapper">
+    <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Goods">
+        <id column="g_id" jdbcType="INTEGER" property="gId"/>
+        <result column="g_name" jdbcType="VARCHAR" property="gName"/>
+        <result column="g_price" jdbcType="DOUBLE" property="gPrice"/>
+        <result column="g_catagory" jdbcType="VARCHAR" property="gCatagory"/>
+        <result column="g_stock" jdbcType="INTEGER" property="gStock"/>
+        <result column="g_pictureurl" jdbcType="VARCHAR" property="gPictureurl"/>
+        <result column="g_status" jdbcType="INTEGER" property="gStatus"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    g_id, g_name, g_price, g_catagory, g_stock, g_pictureurl, g_status
+  </sql>
+    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.GoodsExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from goods
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from goods
+        where g_id = #{gId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from goods
+    where g_id = #{gId,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.GoodsExample">
+        delete from goods
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.mezereon.springtest.bean.Goods">
+    insert into goods (g_id, g_name, g_price, 
+      g_catagory, g_stock, g_pictureurl, 
+      g_status)
+    values (#{gId,jdbcType=INTEGER}, #{gName,jdbcType=VARCHAR}, #{gPrice,jdbcType=DOUBLE}, 
+      #{gCatagory,jdbcType=VARCHAR}, #{gStock,jdbcType=INTEGER}, #{gPictureurl,jdbcType=VARCHAR}, 
+      #{gStatus,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Goods">
+        insert into goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="gId != null">
+                g_id,
+            </if>
+            <if test="gName != null">
+                g_name,
+            </if>
+            <if test="gPrice != null">
+                g_price,
+            </if>
+            <if test="gCatagory != null">
+                g_catagory,
+            </if>
+            <if test="gStock != null">
+                g_stock,
+            </if>
+            <if test="gPictureurl != null">
+                g_pictureurl,
+            </if>
+            <if test="gStatus != null">
+                g_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="gId != null">
+                #{gId,jdbcType=INTEGER},
+            </if>
+            <if test="gName != null">
+                #{gName,jdbcType=VARCHAR},
+            </if>
+            <if test="gPrice != null">
+                #{gPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="gCatagory != null">
+                #{gCatagory,jdbcType=VARCHAR},
+            </if>
+            <if test="gStock != null">
+                #{gStock,jdbcType=INTEGER},
+            </if>
+            <if test="gPictureurl != null">
+                #{gPictureurl,jdbcType=VARCHAR},
+            </if>
+            <if test="gStatus != null">
+                #{gStatus,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.mezereon.springtest.bean.GoodsExample" resultType="java.lang.Long">
+        select count(*) from goods
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update goods
+        <set>
+            <if test="record.gId != null">
+                g_id = #{record.gId,jdbcType=INTEGER},
+            </if>
+            <if test="record.gName != null">
+                g_name = #{record.gName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.gPrice != null">
+                g_price = #{record.gPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="record.gCatagory != null">
+                g_catagory = #{record.gCatagory,jdbcType=VARCHAR},
+            </if>
+            <if test="record.gStock != null">
+                g_stock = #{record.gStock,jdbcType=INTEGER},
+            </if>
+            <if test="record.gPictureurl != null">
+                g_pictureurl = #{record.gPictureurl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.gStatus != null">
+                g_status = #{record.gStatus,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update goods
+        set g_id = #{record.gId,jdbcType=INTEGER},
+        g_name = #{record.gName,jdbcType=VARCHAR},
+        g_price = #{record.gPrice,jdbcType=DOUBLE},
+        g_catagory = #{record.gCatagory,jdbcType=VARCHAR},
+        g_stock = #{record.gStock,jdbcType=INTEGER},
+        g_pictureurl = #{record.gPictureurl,jdbcType=VARCHAR},
+        g_status = #{record.gStatus,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mezereon.springtest.bean.Goods">
+        update goods
+        <set>
+            <if test="gName != null">
+                g_name = #{gName,jdbcType=VARCHAR},
+            </if>
+            <if test="gPrice != null">
+                g_price = #{gPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="gCatagory != null">
+                g_catagory = #{gCatagory,jdbcType=VARCHAR},
+            </if>
+            <if test="gStock != null">
+                g_stock = #{gStock,jdbcType=INTEGER},
+            </if>
+            <if test="gPictureurl != null">
+                g_pictureurl = #{gPictureurl,jdbcType=VARCHAR},
+            </if>
+            <if test="gStatus != null">
+                g_status = #{gStatus,jdbcType=INTEGER},
+            </if>
+        </set>
+        where g_id = #{gId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Goods">
+    update goods
+    set g_name = #{gName,jdbcType=VARCHAR},
+      g_price = #{gPrice,jdbcType=DOUBLE},
+      g_catagory = #{gCatagory,jdbcType=VARCHAR},
+      g_stock = #{gStock,jdbcType=INTEGER},
+      g_pictureurl = #{gPictureurl,jdbcType=VARCHAR},
+      g_status = #{gStatus,jdbcType=INTEGER}
+    where g_id = #{gId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -17,7 +17,7 @@
 
         <!-- 数据库连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://119.29.87.112:3306/mydb?useUnicode=true&amp;characterEncoding=UTF-8"
+                        connectionURL="jdbc:mysql://119.29.87.112:3306/dami?useUnicode=true&amp;characterEncoding=UTF-8"
                         userId="root"
                         password="saber88128559">
         </jdbcConnection>
@@ -43,7 +43,7 @@
         </javaClientGenerator>
 
         <!-- 数据表进行生成操作 schema:相当于库名; tableName:表名; domainObjectName:对应的DO -->
-        <table schema="mydb" tableName="user" domainObjectName="User"
+        <table schema="dami" tableName="teamshop_goods" domainObjectName="TeamShopGoods"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
