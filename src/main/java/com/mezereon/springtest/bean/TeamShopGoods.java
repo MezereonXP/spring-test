@@ -3,7 +3,7 @@ package com.mezereon.springtest.bean;
 public class TeamShopGoods {
     private Integer tgId;
 
-    private Integer tgGoodsId;
+    private Goods goods;
 
     private Double tgDiscount;
 
@@ -19,14 +19,6 @@ public class TeamShopGoods {
 
     public void setTgId(Integer tgId) {
         this.tgId = tgId;
-    }
-
-    public Integer getTgGoodsId() {
-        return tgGoodsId;
-    }
-
-    public void setTgGoodsId(Integer tgGoodsId) {
-        this.tgGoodsId = tgGoodsId;
     }
 
     public Double getTgDiscount() {
@@ -59,5 +51,13 @@ public class TeamShopGoods {
 
     public void setTgMaxpeople(Integer tgMaxpeople) {
         this.tgMaxpeople = tgMaxpeople;
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 }

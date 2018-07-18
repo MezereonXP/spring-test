@@ -3,11 +3,13 @@
 <mapper namespace="com.mezereon.springtest.dao.TeamShopGoodsMapper">
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.TeamShopGoods">
         <id column="tg_id" jdbcType="INTEGER" property="tgId"/>
-        <result column="tg_goods_id" jdbcType="INTEGER" property="tgGoodsId"/>
         <result column="tg_discount" jdbcType="DOUBLE" property="tgDiscount"/>
         <result column="tg_date" jdbcType="VARCHAR" property="tgDate"/>
         <result column="tg_quantity" jdbcType="INTEGER" property="tgQuantity"/>
         <result column="tg_maxpeople" jdbcType="INTEGER" property="tgMaxpeople"/>
+        <association property="goods" javaType="com.mezereon.springtest.bean.Goods"
+                     select="com.mezereon.springtest.dao.GoodsMapper.selectByPrimaryKey"
+                     column="tg_goods_id"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -105,7 +107,7 @@
     insert into teamshop_goods (tg_id, tg_goods_id, tg_discount, 
       tg_date, tg_quantity, tg_maxpeople
       )
-    values (#{tgId,jdbcType=INTEGER}, #{tgGoodsId,jdbcType=INTEGER}, #{tgDiscount,jdbcType=DOUBLE}, 
+    values (#{tgId,jdbcType=INTEGER}, #{goods.gId,jdbcType=INTEGER}, #{tgDiscount,jdbcType=DOUBLE},
       #{tgDate,jdbcType=VARCHAR}, #{tgQuantity,jdbcType=INTEGER}, #{tgMaxpeople,jdbcType=INTEGER}
       )
   </insert>
@@ -136,7 +138,7 @@
                 #{tgId,jdbcType=INTEGER},
             </if>
             <if test="tgGoodsId != null">
-                #{tgGoodsId,jdbcType=INTEGER},
+                #{goods.gId,jdbcType=INTEGER},
             </if>
             <if test="tgDiscount != null">
                 #{tgDiscount,jdbcType=DOUBLE},
@@ -165,7 +167,7 @@
                 tg_id = #{record.tgId,jdbcType=INTEGER},
             </if>
             <if test="record.tgGoodsId != null">
-                tg_goods_id = #{record.tgGoodsId,jdbcType=INTEGER},
+                tg_goods_id = #{record.goods.gId,jdbcType=INTEGER},
             </if>
             <if test="record.tgDiscount != null">
                 tg_discount = #{record.tgDiscount,jdbcType=DOUBLE},
@@ -187,7 +189,7 @@
     <update id="updateByExample" parameterType="map">
         update teamshop_goods
         set tg_id = #{record.tgId,jdbcType=INTEGER},
-        tg_goods_id = #{record.tgGoodsId,jdbcType=INTEGER},
+        tg_goods_id = #{record.goods.gId,jdbcType=INTEGER},
         tg_discount = #{record.tgDiscount,jdbcType=DOUBLE},
         tg_date = #{record.tgDate,jdbcType=VARCHAR},
         tg_quantity = #{record.tgQuantity,jdbcType=INTEGER},
@@ -200,7 +202,7 @@
         update teamshop_goods
         <set>
             <if test="tgGoodsId != null">
-                tg_goods_id = #{tgGoodsId,jdbcType=INTEGER},
+                tg_goods_id = #{goods.gId,jdbcType=INTEGER},
             </if>
             <if test="tgDiscount != null">
                 tg_discount = #{tgDiscount,jdbcType=DOUBLE},
@@ -219,7 +221,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.TeamShopGoods">
     update teamshop_goods
-    set tg_goods_id = #{tgGoodsId,jdbcType=INTEGER},
+    set tg_goods_id = #{goods.gId,jdbcType=INTEGER},
       tg_discount = #{tgDiscount,jdbcType=DOUBLE},
       tg_date = #{tgDate,jdbcType=VARCHAR},
       tg_quantity = #{tgQuantity,jdbcType=INTEGER},

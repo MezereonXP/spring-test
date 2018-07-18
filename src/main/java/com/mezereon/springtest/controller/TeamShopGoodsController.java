@@ -1,5 +1,6 @@
 package com.mezereon.springtest.controller;
 
+import com.mezereon.springtest.bean.Goods;
 import com.mezereon.springtest.bean.TeamShopGoods;
 import com.mezereon.springtest.dao.GoodsMapper;
 import com.mezereon.springtest.dao.TeamShopGoodsMapper;
@@ -28,10 +29,22 @@ public class TeamShopGoodsController {
         try {
             response.setStatus(true);
             TeamShopGoods teamShopGoods = teamShopGoodsMapper.selectByPrimaryKey(id);
-            ArrayList<Object> list = new ArrayList<>();
-            list.add(teamShopGoods);
-            list.add(goodsMapper.selectByPrimaryKey(teamShopGoods.getTgGoodsId()));
-            response.setData(list);
+            response.setData(teamShopGoods);
+            return response;
+        } catch (Exception e) {
+            response.setMsg(e.getMessage());
+            response.setStatus(false);
+            return response;
+        }
+    }
+
+    @RequestMapping(value = "/api/insertGoods", method = RequestMethod.POST)
+    @CrossOrigin
+    public Response insertGoods(@RequestBody TeamShopGoods teamShopGoods) {
+        Response response = new Response();
+        try {
+            teamShopGoodsMapper.insert(teamShopGoods);
+            response.setStatus(true);
             return response;
         } catch (Exception e) {
             response.setMsg(e.getMessage());
