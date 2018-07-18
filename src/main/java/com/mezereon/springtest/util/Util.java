@@ -58,6 +58,7 @@ public class Util {
                 }
                 System.out.printf("stop");
                 flag = false;
+                isRuning = false;
             }
         }).start();
     }
