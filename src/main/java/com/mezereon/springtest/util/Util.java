@@ -16,6 +16,7 @@ public class Util {
 
     public static void startKill() {
         isRuning = true;
+        flag = true;
         new Thread(new Runnable() {
             public void run() {
                 JedisPool pool = new JedisPool(new JedisPoolConfig(), HOST);
