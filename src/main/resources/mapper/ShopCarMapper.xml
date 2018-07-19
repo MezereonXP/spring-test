@@ -3,11 +3,20 @@
 <mapper namespace="com.mezereon.springtest.dao.ShopCarMapper">
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.ShopCar">
         <id column="s_id" jdbcType="INTEGER" property="sId"/>
-        <result column="s_customer_id" jdbcType="INTEGER" property="sCustomerId"/>
-        <result column="s_goods_id" jdbcType="INTEGER" property="sGoodsId"/>
+
         <result column="s_quantity" jdbcType="INTEGER" property="sQuantity"/>
         <result column="s_status" jdbcType="INTEGER" property="sStatus"/>
+        <association property="customer" javaType="com.mezereon.springtest.bean.Customer"
+                     column="s_customer_id"
+                     select="com.mezereon.springtest.dao.CustomerMapper.selectByPrimaryKey">
+        </association>
+
+        <association property="goods" javaType="com.mezereon.springtest.bean.Goods"
+                     column="s_goods_id"
+                     select="com.mezereon.springtest.dao.GoodsMapper.selectByPrimaryKey">
+        </association>
     </resultMap>
+
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -103,7 +112,7 @@
     <insert id="insert" parameterType="com.mezereon.springtest.bean.ShopCar">
     insert into shopcar (s_id, s_customer_id, s_goods_id, 
       s_quantity, s_status)
-    values (#{sId,jdbcType=INTEGER}, #{sCustomerId,jdbcType=INTEGER}, #{sGoodsId,jdbcType=INTEGER}, 
+    values (#{sId,jdbcType=INTEGER}, #{customer.cId,jdbcType=INTEGER}, #{goods.gId,jdbcType=INTEGER},
       #{sQuantity,jdbcType=INTEGER}, #{sStatus,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.ShopCar">
@@ -130,10 +139,10 @@
                 #{sId,jdbcType=INTEGER},
             </if>
             <if test="sCustomerId != null">
-                #{sCustomerId,jdbcType=INTEGER},
+                #{customer.cId,jdbcType=INTEGER},
             </if>
             <if test="sGoodsId != null">
-                #{sGoodsId,jdbcType=INTEGER},
+                #{goods.gId,jdbcType=INTEGER},
             </if>
             <if test="sQuantity != null">
                 #{sQuantity,jdbcType=INTEGER},
@@ -156,10 +165,10 @@
                 s_id = #{record.sId,jdbcType=INTEGER},
             </if>
             <if test="record.sCustomerId != null">
-                s_customer_id = #{record.sCustomerId,jdbcType=INTEGER},
+                s_customer_id = #{record.customer.cId,jdbcType=INTEGER},
             </if>
             <if test="record.sGoodsId != null">
-                s_goods_id = #{record.sGoodsId,jdbcType=INTEGER},
+                s_goods_id = #{record.goods.gId,jdbcType=INTEGER},
             </if>
             <if test="record.sQuantity != null">
                 s_quantity = #{record.sQuantity,jdbcType=INTEGER},
@@ -175,8 +184,8 @@
     <update id="updateByExample" parameterType="map">
         update shopcar
         set s_id = #{record.sId,jdbcType=INTEGER},
-        s_customer_id = #{record.sCustomerId,jdbcType=INTEGER},
-        s_goods_id = #{record.sGoodsId,jdbcType=INTEGER},
+        s_customer_id = #{record.customer.cId,jdbcType=INTEGER},
+        s_goods_id = #{record.goods.gId,jdbcType=INTEGER},
         s_quantity = #{record.sQuantity,jdbcType=INTEGER},
         s_status = #{record.sStatus,jdbcType=INTEGER}
         <if test="_parameter != null">
@@ -187,10 +196,10 @@
         update shopcar
         <set>
             <if test="sCustomerId != null">
-                s_customer_id = #{sCustomerId,jdbcType=INTEGER},
+                s_customer_id = #{customer.cId,jdbcType=INTEGER},
             </if>
             <if test="sGoodsId != null">
-                s_goods_id = #{sGoodsId,jdbcType=INTEGER},
+                s_goods_id = #{goods.gId,jdbcType=INTEGER},
             </if>
             <if test="sQuantity != null">
                 s_quantity = #{sQuantity,jdbcType=INTEGER},
@@ -203,8 +212,8 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.ShopCar">
     update shopcar
-    set s_customer_id = #{sCustomerId,jdbcType=INTEGER},
-      s_goods_id = #{sGoodsId,jdbcType=INTEGER},
+    set s_customer_id = #{customer.cId,jdbcType=INTEGER},
+      s_goods_id = #{goods.gId,jdbcType=INTEGER},
       s_quantity = #{sQuantity,jdbcType=INTEGER},
       s_status = #{sStatus,jdbcType=INTEGER}
     where s_id = #{sId,jdbcType=INTEGER}

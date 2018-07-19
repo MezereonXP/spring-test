@@ -3,9 +3,9 @@ package com.mezereon.springtest.bean;
 public class OrderGoods {
     private Integer ogId;
 
-    private Integer ogOrderId;
+    private Order order;
 
-    private Integer ogGoodsId;
+    private Goods goods;
 
     private Double ogPrice;
 
@@ -21,21 +21,7 @@ public class OrderGoods {
         this.ogId = ogId;
     }
 
-    public Integer getOgOrderId() {
-        return ogOrderId;
-    }
 
-    public void setOgOrderId(Integer ogOrderId) {
-        this.ogOrderId = ogOrderId;
-    }
-
-    public Integer getOgGoodsId() {
-        return ogGoodsId;
-    }
-
-    public void setOgGoodsId(Integer ogGoodsId) {
-        this.ogGoodsId = ogGoodsId;
-    }
 
     public Double getOgPrice() {
         return ogPrice;
@@ -59,5 +45,21 @@ public class OrderGoods {
 
     public void setOgStatus(Integer ogStatus) {
         this.ogStatus = ogStatus;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 }

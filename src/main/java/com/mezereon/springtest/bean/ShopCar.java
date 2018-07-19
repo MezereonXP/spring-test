@@ -3,9 +3,9 @@ package com.mezereon.springtest.bean;
 public class ShopCar {
     private Integer sId;
 
-    private Integer sCustomerId;
+    private Customer customer;
 
-    private Integer sGoodsId;
+    private Goods goods;
 
     private Integer sQuantity;
 
@@ -19,21 +19,6 @@ public class ShopCar {
         this.sId = sId;
     }
 
-    public Integer getsCustomerId() {
-        return sCustomerId;
-    }
-
-    public void setsCustomerId(Integer sCustomerId) {
-        this.sCustomerId = sCustomerId;
-    }
-
-    public Integer getsGoodsId() {
-        return sGoodsId;
-    }
-
-    public void setsGoodsId(Integer sGoodsId) {
-        this.sGoodsId = sGoodsId;
-    }
 
     public Integer getsQuantity() {
         return sQuantity;
@@ -49,5 +34,21 @@ public class ShopCar {
 
     public void setsStatus(Integer sStatus) {
         this.sStatus = sStatus;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 }

@@ -9,8 +9,6 @@ public class Team {
 
     private Integer tStatus;
 
-    private List<Customer> customers;
-
     public Integer gettId() {
         return tId;
     }
@@ -25,14 +23,6 @@ public class Team {
 
     public void setTeamShopGoods(TeamShopGoods teamShopGoods) {
         this.teamShopGoods = teamShopGoods;
-    }
-
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
     }
 
     public Integer gettStatus() {
