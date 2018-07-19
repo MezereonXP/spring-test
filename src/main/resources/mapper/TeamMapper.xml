@@ -106,7 +106,7 @@
     <insert id="insert" parameterType="com.mezereon.springtest.bean.Team">
     insert into team (t_id, t_teamshop_goods_id, t_status
       )
-        values (#{tId,jdbcType=INTEGER}, #{goods.gid,jdbcType=INTEGER}, #{tStatus,jdbcType=INTEGER}
+        values (#{tId,jdbcType=INTEGER}, #{teamShopGoods.tgId,jdbcType=INTEGER}, #{tStatus,jdbcType=INTEGER}
       )
   </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Team">
