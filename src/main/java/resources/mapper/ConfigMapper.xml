@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mezereon.springtest.dao.ConfigMapper">
+    <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Config">
+        <id column="cfg_id" jdbcType="INTEGER" property="cfgId"/>
+        <result column="cfg_goods_id" jdbcType="INTEGER" property="cfgGoodsId"/>
+        <result column="cfg_type" jdbcType="INTEGER" property="cfgType"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    cfg_id, cfg_goods_id, cfg_type
+  </sql>
+    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.ConfigExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from config
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from config
+        where cfg_id = #{cfgId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from config
+    where cfg_id = #{cfgId,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.ConfigExample">
+        delete from config
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.mezereon.springtest.bean.Config">
+    insert into config (cfg_id, cfg_goods_id, cfg_type
+      )
+    values (#{cfgId,jdbcType=INTEGER}, #{cfgGoodsId,jdbcType=INTEGER}, #{cfgType,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Config">
+        insert into config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cfgId != null">
+                cfg_id,
+            </if>
+            <if test="cfgGoodsId != null">
+                cfg_goods_id,
+            </if>
+            <if test="cfgType != null">
+                cfg_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cfgId != null">
+                #{cfgId,jdbcType=INTEGER},
+            </if>
+            <if test="cfgGoodsId != null">
+                #{cfgGoodsId,jdbcType=INTEGER},
+            </if>
+            <if test="cfgType != null">
+                #{cfgType,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.mezereon.springtest.bean.ConfigExample" resultType="java.lang.Long">
+        select count(*) from config
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update config
+        <set>
+            <if test="record.cfgId != null">
+                cfg_id = #{record.cfgId,jdbcType=INTEGER},
+            </if>
+            <if test="record.cfgGoodsId != null">
+                cfg_goods_id = #{record.cfgGoodsId,jdbcType=INTEGER},
+            </if>
+            <if test="record.cfgType != null">
+                cfg_type = #{record.cfgType,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update config
+        set cfg_id = #{record.cfgId,jdbcType=INTEGER},
+        cfg_goods_id = #{record.cfgGoodsId,jdbcType=INTEGER},
+        cfg_type = #{record.cfgType,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mezereon.springtest.bean.Config">
+        update config
+        <set>
+            <if test="cfgGoodsId != null">
+                cfg_goods_id = #{cfgGoodsId,jdbcType=INTEGER},
+            </if>
+            <if test="cfgType != null">
+                cfg_type = #{cfgType,jdbcType=INTEGER},
+            </if>
+        </set>
+        where cfg_id = #{cfgId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Config">
+    update config
+    set cfg_goods_id = #{cfgGoodsId,jdbcType=INTEGER},
+      cfg_type = #{cfgType,jdbcType=INTEGER}
+    where cfg_id = #{cfgId,jdbcType=INTEGER}
+  </update>
+</mapper>
