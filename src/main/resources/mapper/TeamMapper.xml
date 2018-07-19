@@ -3,8 +3,12 @@
 <mapper namespace="com.mezereon.springtest.dao.TeamMapper">
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Team">
         <id column="t_id" jdbcType="INTEGER" property="tId"/>
-        <result column="t_teamshop_goods_id" jdbcType="INTEGER" property="tTeamshopGoodsId"/>
+        <!--<result column="t_teamshop_goods_id" jdbcType="INTEGER" property="tTeamshopGoodsId"/>-->
         <result column="t_status" jdbcType="INTEGER" property="tStatus"/>
+        <association property="TeamShopGoods" javaType="com.mezereon.springtest.bean.TeamShopGoods"
+                     select="com.mezereon.springtest.dao.TeamShopGoodsMapper.selectByPrimaryKey"
+                     column="t_teamshop_goods_id"
+        />
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -98,10 +102,11 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
+    <!-- 建立团购  -->
     <insert id="insert" parameterType="com.mezereon.springtest.bean.Team">
     insert into team (t_id, t_teamshop_goods_id, t_status
       )
-    values (#{tId,jdbcType=INTEGER}, #{tTeamshopGoodsId,jdbcType=INTEGER}, #{tStatus,jdbcType=INTEGER}
+        values (#{tId,jdbcType=INTEGER}, #{goods.gid,jdbcType=INTEGER}, #{tStatus,jdbcType=INTEGER}
       )
   </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Team">
@@ -178,5 +183,16 @@
     set t_teamshop_goods_id = #{tTeamshopGoodsId,jdbcType=INTEGER},
       t_status = #{tStatus,jdbcType=INTEGER}
     where t_id = #{tId,jdbcType=INTEGER}
-  </update>
+    </update>
+    <!-- 查询该团的人数  -->
+    <select id="selectNofCustomer" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM team-customer
+        WHERE team-customer.tc_team_id =#{t_id,jdbcType=INTEGER}
+    </select>
+    <!-- 更新team-customer表 -->
+    <insert id="updateTeam" parameterType="map">
+        INSERT INTO team-customer(tc_team_id,tc_customer_id)
+        VALUES (#{tc_team_id,jdbcType=INTEGER},#{tc_customer_id,jdbcType=INTEGER})
+    </insert>
 </mapper>

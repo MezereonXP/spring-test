@@ -1,5 +1,7 @@
 package com.mezereon.springtest.bean;
 
+import java.util.List;
+
 public class Customer {
     private Integer cId;
 
@@ -22,6 +24,8 @@ public class Customer {
     private String cPictureurl;
 
     private Integer cStatus;
+
+    private List<Team> teams;
 
     public Integer getcId() {
         return cId;
@@ -109,5 +113,13 @@ public class Customer {
 
     public void setcStatus(Integer cStatus) {
         this.cStatus = cStatus;
+    }
+
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
     }
 }

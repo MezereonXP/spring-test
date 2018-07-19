@@ -1,5 +1,7 @@
 package com.mezereon.springtest.bean;
 
+import java.util.List;
+
 public class Order {
     private Integer oId;
 
@@ -18,6 +20,8 @@ public class Order {
     private String oRemark;
 
     private Integer oStatus;
+
+    private List<Team> teams;
 
     public Integer getoId() {
         return oId;
@@ -89,5 +93,13 @@ public class Order {
 
     public void setoStatus(Integer oStatus) {
         this.oStatus = oStatus;
+    }
+
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
     }
 }

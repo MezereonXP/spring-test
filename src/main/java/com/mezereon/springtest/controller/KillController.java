@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 
 /**
  * @program: KillController
@@ -41,9 +38,9 @@ public class KillController {
             response.setStatus(true);
             return response;
         } catch (Exception e) {
-            response.setMsg(e.getMessage());
             response.setStatus(false);
-            return response;
+            return resptMsg(e.getMessage());
+            response.seonse;
         }
     }
 

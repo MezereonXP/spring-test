@@ -227,5 +227,11 @@
       tg_quantity = #{tgQuantity,jdbcType=INTEGER},
       tg_maxpeople = #{tgMaxpeople,jdbcType=INTEGER}
     where tg_id = #{tgId,jdbcType=INTEGER}
-  </update>
+    </update>
+    <!-- 查询所有团购商品 -->
+    <select id="selectAllTSGMapper" resultType="com.mezereon.springtest.bean.TeamShopGoods">
+        SELECT *
+        FROM teamshop_goods
+    </select>
+
 </mapper>

@@ -1,11 +1,15 @@
 package com.mezereon.springtest.bean;
 
+import java.util.List;
+
 public class Team {
     private Integer tId;
 
-    private Integer tTeamshopGoodsId;
+    private TeamShopGoods teamShopGoods;
 
     private Integer tStatus;
+
+    private List<Customer> customers;
 
     public Integer gettId() {
         return tId;
@@ -15,12 +19,20 @@ public class Team {
         this.tId = tId;
     }
 
-    public Integer gettTeamshopGoodsId() {
-        return tTeamshopGoodsId;
+    public TeamShopGoods getTeamShopGoods() {
+        return teamShopGoods;
     }
 
-    public void settTeamshopGoodsId(Integer tTeamshopGoodsId) {
-        this.tTeamshopGoodsId = tTeamshopGoodsId;
+    public void setTeamShopGoods(TeamShopGoods teamShopGoods) {
+        this.teamShopGoods = teamShopGoods;
+    }
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
     }
 
     public Integer gettStatus() {

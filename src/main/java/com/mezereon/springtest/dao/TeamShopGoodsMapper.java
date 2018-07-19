@@ -31,4 +31,7 @@ public interface TeamShopGoodsMapper {
     int updateByPrimaryKeySelective(TeamShopGoods record);
 
     int updateByPrimaryKey(TeamShopGoods record);
+
+    //查询所有团购商品
+    List<TeamShopGoods> selectAllTSGMapper();
 }
