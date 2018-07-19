@@ -3,12 +3,17 @@
 <mapper namespace="com.mezereon.springtest.dao.AddressMapper">
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Address">
         <id column="a_id" jdbcType="INTEGER" property="aId"/>
-        <result column="a_customer_id" jdbcType="INTEGER" property="aCustomerId"/>
         <result column="a_receiver" jdbcType="VARCHAR" property="aReceiver"/>
         <result column="a_telephone" jdbcType="VARCHAR" property="aTelephone"/>
         <result column="a_zipcode" jdbcType="VARCHAR" property="aZipcode"/>
         <result column="a_detail" jdbcType="VARCHAR" property="aDetail"/>
         <result column="a_status" jdbcType="INTEGER" property="aStatus"/>
+
+        <association property="customer" javaType="com.mezereon.springtest.bean.Customer"
+                     column="a_customer_id"
+                     select="com.mezereon.springtest.dao.CustomerMapper.selectByPrimaryKey">
+        </association>
+
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>

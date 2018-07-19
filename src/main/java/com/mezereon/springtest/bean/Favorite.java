@@ -3,9 +3,9 @@ package com.mezereon.springtest.bean;
 public class Favorite {
     private Integer fId;
 
-    private Integer fCustomerId;
+    private Customer customer;
 
-    private Integer fGoodsId;
+    private Goods goods;
 
     private Integer fStatus;
 
@@ -17,21 +17,6 @@ public class Favorite {
         this.fId = fId;
     }
 
-    public Integer getfCustomerId() {
-        return fCustomerId;
-    }
-
-    public void setfCustomerId(Integer fCustomerId) {
-        this.fCustomerId = fCustomerId;
-    }
-
-    public Integer getfGoodsId() {
-        return fGoodsId;
-    }
-
-    public void setfGoodsId(Integer fGoodsId) {
-        this.fGoodsId = fGoodsId;
-    }
 
     public Integer getfStatus() {
         return fStatus;
@@ -39,5 +24,21 @@ public class Favorite {
 
     public void setfStatus(Integer fStatus) {
         this.fStatus = fStatus;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 }

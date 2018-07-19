@@ -3,7 +3,7 @@ package com.mezereon.springtest.bean;
 public class KillGood {
     private Integer kgId;
 
-    private Integer kgGoodsId;
+    private Goods goods;
 
     private Integer kgQuantity;
 
@@ -19,12 +19,12 @@ public class KillGood {
         this.kgId = kgId;
     }
 
-    public Integer getKgGoodsId() {
-        return kgGoodsId;
+    public Goods getGoods() {
+        return goods;
     }
 
-    public void setKgGoodsId(Integer kgGoodsId) {
-        this.kgGoodsId = kgGoodsId;
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 
     public Integer getKgQuantity() {

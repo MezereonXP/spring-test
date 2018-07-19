@@ -4,13 +4,22 @@
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Order">
         <id column="o_id" jdbcType="INTEGER" property="oId"/>
         <result column="o_code" jdbcType="VARCHAR" property="oCode"/>
-        <result column="o_customer_id" jdbcType="INTEGER" property="oCustomerId"/>
         <result column="o_address_id" jdbcType="INTEGER" property="oAddressId"/>
         <result column="o_state" jdbcType="INTEGER" property="oState"/>
         <result column="o_type" jdbcType="INTEGER" property="oType"/>
         <result column="o_setDate" jdbcType="VARCHAR" property="oSetdate"/>
         <result column="o_remark" jdbcType="VARCHAR" property="oRemark"/>
         <result column="o_status" jdbcType="INTEGER" property="oStatus"/>
+        <association property="customer" column="o_customer_id"
+                     javaType="com.mezereon.springtest.bean.Customer"
+                     select="com.mezereon.springtest.dao.CustomerMapper.selectByPrimaryKey">
+
+        </association>
+        <association property="address" column="o_address_id"
+                     javaType="com.mezereon.springtest.bean.Address"
+                     select="com.mezereon.springtest.dao.AddressMapper.selectByPrimaryKey">
+
+        </association>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -110,8 +119,8 @@
       o_address_id, o_state, o_type, 
       o_setDate, o_remark, o_status
       )
-    values (#{oId,jdbcType=INTEGER}, #{oCode,jdbcType=VARCHAR}, #{oCustomerId,jdbcType=INTEGER}, 
-      #{oAddressId,jdbcType=INTEGER}, #{oState,jdbcType=INTEGER}, #{oType,jdbcType=INTEGER}, 
+    values (#{oId,jdbcType=INTEGER}, #{oCode,jdbcType=VARCHAR}, #{customer.cId,jdbcType=INTEGER},
+      #{address.aId,jdbcType=INTEGER}, #{oState,jdbcType=INTEGER}, #{oType,jdbcType=INTEGER},
       #{oSetdate,jdbcType=VARCHAR}, #{oRemark,jdbcType=VARCHAR}, #{oStatus,jdbcType=INTEGER}
       )
   </insert>
@@ -154,10 +163,10 @@
                 #{oCode,jdbcType=VARCHAR},
             </if>
             <if test="oCustomerId != null">
-                #{oCustomerId,jdbcType=INTEGER},
+                #{customer.cId,jdbcType=INTEGER},
             </if>
             <if test="oAddressId != null">
-                #{oAddressId,jdbcType=INTEGER},
+                #{address.aId,jdbcType=INTEGER},
             </if>
             <if test="oState != null">
                 #{oState,jdbcType=INTEGER},
@@ -192,10 +201,10 @@
                 o_code = #{record.oCode,jdbcType=VARCHAR},
             </if>
             <if test="record.oCustomerId != null">
-                o_customer_id = #{record.oCustomerId,jdbcType=INTEGER},
+                o_customer_id = #{record.customer.cId,jdbcType=INTEGER},
             </if>
             <if test="record.oAddressId != null">
-                o_address_id = #{record.oAddressId,jdbcType=INTEGER},
+                o_address_id = #{record.address.aId,jdbcType=INTEGER},
             </if>
             <if test="record.oState != null">
                 o_state = #{record.oState,jdbcType=INTEGER},
@@ -221,8 +230,8 @@
         update order
         set o_id = #{record.oId,jdbcType=INTEGER},
         o_code = #{record.oCode,jdbcType=VARCHAR},
-        o_customer_id = #{record.oCustomerId,jdbcType=INTEGER},
-        o_address_id = #{record.oAddressId,jdbcType=INTEGER},
+        o_customer_id = #{record.customer.cId,jdbcType=INTEGER},
+        o_address_id = #{record.address.aId,jdbcType=INTEGER},
         o_state = #{record.oState,jdbcType=INTEGER},
         o_type = #{record.oType,jdbcType=INTEGER},
         o_setDate = #{record.oSetdate,jdbcType=VARCHAR},
@@ -239,10 +248,10 @@
                 o_code = #{oCode,jdbcType=VARCHAR},
             </if>
             <if test="oCustomerId != null">
-                o_customer_id = #{oCustomerId,jdbcType=INTEGER},
+                o_customer_id = #{customer.cId,jdbcType=INTEGER},
             </if>
             <if test="oAddressId != null">
-                o_address_id = #{oAddressId,jdbcType=INTEGER},
+                o_address_id = #{address.aId,jdbcType=INTEGER},
             </if>
             <if test="oState != null">
                 o_state = #{oState,jdbcType=INTEGER},
@@ -265,8 +274,8 @@
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Order">
     update order
     set o_code = #{oCode,jdbcType=VARCHAR},
-      o_customer_id = #{oCustomerId,jdbcType=INTEGER},
-      o_address_id = #{oAddressId,jdbcType=INTEGER},
+      o_customer_id = #{customer.cId,jdbcType=INTEGER},
+      o_address_id = #{address.aId,jdbcType=INTEGER},
       o_state = #{oState,jdbcType=INTEGER},
       o_type = #{oType,jdbcType=INTEGER},
       o_setDate = #{oSetdate,jdbcType=VARCHAR},

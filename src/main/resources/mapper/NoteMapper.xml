@@ -3,9 +3,12 @@
 <mapper namespace="com.mezereon.springtest.dao.NoteMapper">
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Note">
         <id column="n_id" jdbcType="INTEGER" property="nId"/>
-        <result column="n_customer_id" jdbcType="INTEGER" property="nCustomerId"/>
         <result column="n_tip_time" jdbcType="VARCHAR" property="nTipTime"/>
         <result column="n_note" jdbcType="VARCHAR" property="nNote"/>
+        <association property="customer" javaType="com.mezereon.springtest.bean.Customer"
+                     column="n_customer_id"
+                     select="com.mezereon.springtest.dao.CustomerMapper.selectByPrimaryKey">
+        </association>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -102,7 +105,7 @@
     <insert id="insert" parameterType="com.mezereon.springtest.bean.Note">
     insert into note (n_id, n_customer_id, n_tip_time, 
       n_note)
-    values (#{nId,jdbcType=INTEGER}, #{nCustomerId,jdbcType=INTEGER}, #{nTipTime,jdbcType=VARCHAR}, 
+    values (#{nId,jdbcType=INTEGER}, #{customer.cId,jdbcType=INTEGER}, #{nTipTime,jdbcType=VARCHAR},
       #{nNote,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Note">
@@ -126,7 +129,7 @@
                 #{nId,jdbcType=INTEGER},
             </if>
             <if test="nCustomerId != null">
-                #{nCustomerId,jdbcType=INTEGER},
+                #{customer.cId,jdbcType=INTEGER},
             </if>
             <if test="nTipTime != null">
                 #{nTipTime,jdbcType=VARCHAR},
@@ -149,7 +152,7 @@
                 n_id = #{record.nId,jdbcType=INTEGER},
             </if>
             <if test="record.nCustomerId != null">
-                n_customer_id = #{record.nCustomerId,jdbcType=INTEGER},
+                n_customer_id = #{record.customer.cId,jdbcType=INTEGER},
             </if>
             <if test="record.nTipTime != null">
                 n_tip_time = #{record.nTipTime,jdbcType=VARCHAR},
@@ -165,7 +168,7 @@
     <update id="updateByExample" parameterType="map">
         update note
         set n_id = #{record.nId,jdbcType=INTEGER},
-        n_customer_id = #{record.nCustomerId,jdbcType=INTEGER},
+        n_customer_id = #{record.customer.cId,jdbcType=INTEGER},
         n_tip_time = #{record.nTipTime,jdbcType=VARCHAR},
         n_note = #{record.nNote,jdbcType=VARCHAR}
         <if test="_parameter != null">
@@ -176,7 +179,7 @@
         update note
         <set>
             <if test="nCustomerId != null">
-                n_customer_id = #{nCustomerId,jdbcType=INTEGER},
+                n_customer_id = #{customer.cId,jdbcType=INTEGER},
             </if>
             <if test="nTipTime != null">
                 n_tip_time = #{nTipTime,jdbcType=VARCHAR},
@@ -189,7 +192,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Note">
     update note
-    set n_customer_id = #{nCustomerId,jdbcType=INTEGER},
+    set n_customer_id = #{customer.cId,jdbcType=INTEGER},
       n_tip_time = #{nTipTime,jdbcType=VARCHAR},
       n_note = #{nNote,jdbcType=VARCHAR}
     where n_id = #{nId,jdbcType=INTEGER}

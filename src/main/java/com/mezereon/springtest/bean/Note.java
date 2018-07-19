@@ -3,7 +3,7 @@ package com.mezereon.springtest.bean;
 public class Note {
     private Integer nId;
 
-    private Integer nCustomerId;
+    private Customer customer;
 
     private String nTipTime;
 
@@ -17,12 +17,12 @@ public class Note {
         this.nId = nId;
     }
 
-    public Integer getnCustomerId() {
-        return nCustomerId;
+    public Customer getnCustomer() {
+        return customer;
     }
 
-    public void setnCustomerId(Integer nCustomerId) {
-        this.nCustomerId = nCustomerId;
+    public void setnCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public String getnTipTime() {

@@ -7,9 +7,9 @@ public class Order {
 
     private String oCode;
 
-    private Integer oCustomerId;
+    private Customer customer;
 
-    private Integer oAddressId;
+    private Address address;
 
     private Integer oState;
 
@@ -20,8 +20,6 @@ public class Order {
     private String oRemark;
 
     private Integer oStatus;
-
-    private List<Team> teams;
 
     public Integer getoId() {
         return oId;
@@ -37,22 +35,6 @@ public class Order {
 
     public void setoCode(String oCode) {
         this.oCode = oCode == null ? null : oCode.trim();
-    }
-
-    public Integer getoCustomerId() {
-        return oCustomerId;
-    }
-
-    public void setoCustomerId(Integer oCustomerId) {
-        this.oCustomerId = oCustomerId;
-    }
-
-    public Integer getoAddressId() {
-        return oAddressId;
-    }
-
-    public void setoAddressId(Integer oAddressId) {
-        this.oAddressId = oAddressId;
     }
 
     public Integer getoState() {
@@ -95,11 +77,19 @@ public class Order {
         this.oStatus = oStatus;
     }
 
-    public List<Team> getTeams() {
-        return teams;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setTeams(List<Team> teams) {
-        this.teams = teams;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

@@ -3,7 +3,7 @@ package com.mezereon.springtest.bean;
 public class Address {
     private Integer aId;
 
-    private Integer aCustomerId;
+    private Customer customer;
 
     private String aReceiver;
 
@@ -23,13 +23,6 @@ public class Address {
         this.aId = aId;
     }
 
-    public Integer getaCustomerId() {
-        return aCustomerId;
-    }
-
-    public void setaCustomerId(Integer aCustomerId) {
-        this.aCustomerId = aCustomerId;
-    }
 
     public String getaReceiver() {
         return aReceiver;
@@ -69,5 +62,13 @@ public class Address {
 
     public void setaStatus(Integer aStatus) {
         this.aStatus = aStatus;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

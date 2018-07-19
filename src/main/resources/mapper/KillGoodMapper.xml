@@ -3,10 +3,13 @@
 <mapper namespace="com.mezereon.springtest.dao.KillGoodMapper">
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.KillGood">
         <id column="kg_id" jdbcType="INTEGER" property="kgId"/>
-        <result column="kg_goods_id" jdbcType="INTEGER" property="kgGoodsId"/>
         <result column="kg_quantity" jdbcType="INTEGER" property="kgQuantity"/>
         <result column="kg_time" jdbcType="VARCHAR" property="kgTime"/>
         <result column="kg_price" jdbcType="INTEGER" property="kgPrice"/>
+        <association property="goods" javaType="com.mezereon.springtest.bean.Goods"
+                     column="kg_goods_id"
+                     select="com.mezereon.springtest.dao.GoodsMapper.selectByPrimaryKey">
+        </association>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -103,7 +106,7 @@
     <insert id="insert" parameterType="com.mezereon.springtest.bean.KillGood">
     insert into kill_good (kg_id, kg_goods_id, kg_quantity, 
       kg_time, kg_price)
-    values (#{kgId,jdbcType=INTEGER}, #{kgGoodsId,jdbcType=INTEGER}, #{kgQuantity,jdbcType=INTEGER}, 
+    values (#{kgId,jdbcType=INTEGER}, #{goods.gId,jdbcType=INTEGER}, #{kgQuantity,jdbcType=INTEGER},
       #{kgTime,jdbcType=VARCHAR}, #{kgPrice,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.KillGood">
@@ -130,7 +133,7 @@
                 #{kgId,jdbcType=INTEGER},
             </if>
             <if test="kgGoodsId != null">
-                #{kgGoodsId,jdbcType=INTEGER},
+                #{goods.gId,jdbcType=INTEGER},
             </if>
             <if test="kgQuantity != null">
                 #{kgQuantity,jdbcType=INTEGER},
@@ -156,7 +159,7 @@
                 kg_id = #{record.kgId,jdbcType=INTEGER},
             </if>
             <if test="record.kgGoodsId != null">
-                kg_goods_id = #{record.kgGoodsId,jdbcType=INTEGER},
+                kg_goods_id = #{record.goods.gId,jdbcType=INTEGER},
             </if>
             <if test="record.kgQuantity != null">
                 kg_quantity = #{record.kgQuantity,jdbcType=INTEGER},
@@ -175,7 +178,7 @@
     <update id="updateByExample" parameterType="map">
         update kill_good
         set kg_id = #{record.kgId,jdbcType=INTEGER},
-        kg_goods_id = #{record.kgGoodsId,jdbcType=INTEGER},
+        kg_goods_id = #{record.goods.gId,jdbcType=INTEGER},
         kg_quantity = #{record.kgQuantity,jdbcType=INTEGER},
         kg_time = #{record.kgTime,jdbcType=VARCHAR},
         kg_price = #{record.kgPrice,jdbcType=INTEGER}
@@ -187,7 +190,7 @@
         update kill_good
         <set>
             <if test="kgGoodsId != null">
-                kg_goods_id = #{kgGoodsId,jdbcType=INTEGER},
+                kg_goods_id = #{goods.gId,jdbcType=INTEGER},
             </if>
             <if test="kgQuantity != null">
                 kg_quantity = #{kgQuantity,jdbcType=INTEGER},
@@ -203,7 +206,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.KillGood">
     update kill_good
-    set kg_goods_id = #{kgGoodsId,jdbcType=INTEGER},
+    set kg_goods_id = #{goods.gId,jdbcType=INTEGER},
       kg_quantity = #{kgQuantity,jdbcType=INTEGER},
       kg_time = #{kgTime,jdbcType=VARCHAR},
       kg_price = #{kgPrice,jdbcType=INTEGER}
