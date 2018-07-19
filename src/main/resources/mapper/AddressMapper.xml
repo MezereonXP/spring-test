@@ -145,7 +145,7 @@
                 #{aId,jdbcType=INTEGER},
             </if>
             <if test="aCustomerId != null">
-                #{aCustomerId,jdbcType=INTEGER},
+                #{customer.cId,jdbcType=INTEGER},
             </if>
             <if test="aReceiver != null">
                 #{aReceiver,jdbcType=VARCHAR},
@@ -177,7 +177,7 @@
                 a_id = #{record.aId,jdbcType=INTEGER},
             </if>
             <if test="record.aCustomerId != null">
-                a_customer_id = #{record.aCustomerId,jdbcType=INTEGER},
+                a_customer_id = #{record.customer.cId,jdbcType=INTEGER},
             </if>
             <if test="record.aReceiver != null">
                 a_receiver = #{record.aReceiver,jdbcType=VARCHAR},
@@ -202,7 +202,7 @@
     <update id="updateByExample" parameterType="map">
         update address
         set a_id = #{record.aId,jdbcType=INTEGER},
-        a_customer_id = #{record.aCustomerId,jdbcType=INTEGER},
+        a_customer_id = #{record.customer.cId,jdbcType=INTEGER},
         a_receiver = #{record.aReceiver,jdbcType=VARCHAR},
         a_telephone = #{record.aTelephone,jdbcType=VARCHAR},
         a_zipcode = #{record.aZipcode,jdbcType=VARCHAR},
@@ -216,7 +216,7 @@
         update address
         <set>
             <if test="aCustomerId != null">
-                a_customer_id = #{aCustomerId,jdbcType=INTEGER},
+                a_customer_id = #{customer.cId,jdbcType=INTEGER},
             </if>
             <if test="aReceiver != null">
                 a_receiver = #{aReceiver,jdbcType=VARCHAR},
@@ -238,7 +238,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Address">
     update address
-    set a_customer_id = #{aCustomerId,jdbcType=INTEGER},
+    set a_customer_id = #{customer.cId,jdbcType=INTEGER},
       a_receiver = #{aReceiver,jdbcType=VARCHAR},
       a_telephone = #{aTelephone,jdbcType=VARCHAR},
       a_zipcode = #{aZipcode,jdbcType=VARCHAR},

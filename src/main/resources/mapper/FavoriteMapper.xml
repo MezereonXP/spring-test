@@ -4,12 +4,10 @@
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Favorite">
         <id column="f_id" jdbcType="INTEGER" property="fId"/>
         <result column="f_status" jdbcType="INTEGER" property="fStatus"/>
-
         <association property="customer" javaType="com.mezereon.springtest.bean.Customer"
                      column="f_customer_id"
                      select="com.mezereon.springtest.dao.CustomerMapper.selectByPrimaryKey">
         </association>
-
         <association property="goods" javaType="com.mezereon.springtest.bean.Goods"
                      column="f_goods_id"
                      select="com.mezereon.springtest.dao.GoodsMapper.selectByPrimaryKey">
@@ -110,7 +108,7 @@
     <insert id="insert" parameterType="com.mezereon.springtest.bean.Favorite">
     insert into favorite (f_id, f_customer_id, f_goods_id, 
       f_status)
-    values (#{fId,jdbcType=INTEGER}, #{customer.cId,jdbcType=INTEGER}, #{goods.gId,jdbcType=INTEGER},
+    values (#{fId,jdbcType=INTEGER}, #{customer.cId,jdbcType=INTEGER}, #{fGoodsId,jdbcType=INTEGER},
       #{fStatus,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Favorite">
@@ -119,10 +117,10 @@
             <if test="fId != null">
                 f_id,
             </if>
-            <if test="fCustomerId != null">
+            <if test="customer.cId != null">
                 f_customer_id,
             </if>
-            <if test="fGoodsId != null">
+            <if test="goods.gId != null">
                 f_goods_id,
             </if>
             <if test="fStatus != null">
@@ -197,7 +195,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Favorite">
     update favorite
-    set f_customer_id = #{customer.cId,jdbcType=INTEGER},
+    set f_customer_id = #{customer.cIdjdbcType=INTEGER},
       f_goods_id = #{goods.gId,jdbcType=INTEGER},
       f_status = #{fStatus,jdbcType=INTEGER}
     where f_id = #{fId,jdbcType=INTEGER}

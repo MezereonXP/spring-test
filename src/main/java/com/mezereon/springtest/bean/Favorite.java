@@ -17,15 +17,6 @@ public class Favorite {
         this.fId = fId;
     }
 
-
-    public Integer getfStatus() {
-        return fStatus;
-    }
-
-    public void setfStatus(Integer fStatus) {
-        this.fStatus = fStatus;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
@@ -38,7 +29,15 @@ public class Favorite {
         return goods;
     }
 
-    public void setGoods(Goods goods) {
+    public void Goods(Goods goods) {
         this.goods = goods;
+    }
+
+    public Integer getfStatus() {
+        return fStatus;
+    }
+
+    public void setfStatus(Integer fStatus) {
+        this.fStatus = fStatus;
     }
 }
