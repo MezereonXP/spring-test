@@ -3,11 +3,19 @@
 <mapper namespace="com.mezereon.springtest.dao.OrderGoodsMapper">
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.OrderGoods">
         <id column="og_id" jdbcType="INTEGER" property="ogId"/>
-        <result column="og_order_id" jdbcType="INTEGER" property="ogOrderId"/>
-        <result column="og_goods_id" jdbcType="INTEGER" property="ogGoodsId"/>
+
         <result column="og_price" jdbcType="DOUBLE" property="ogPrice"/>
         <result column="og_quantity" jdbcType="INTEGER" property="ogQuantity"/>
-        <result column="og_status" jdbcType="INTEGER" property="ogStatus"/>
+        <association property="order" column="og_order_id"
+                     javaType="com.mezereon.springtest.bean.Order"
+                     select="com.mezereon.springtest.dao.OrderMapper.selectByPrimaryKey">
+
+        </association>
+        <association property="goods" column="og_goods_id"
+                     javaType="com.mezereon.springtest.bean.Goods"
+                     select="com.mezereon.springtest.dao.GoodsMapper.selectByPrimaryKey">
+
+        </association>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -105,7 +113,7 @@
     insert into order-goods (og_id, og_order_id, og_goods_id, 
       og_price, og_quantity, og_status
       )
-    values (#{ogId,jdbcType=INTEGER}, #{ogOrderId,jdbcType=INTEGER}, #{ogGoodsId,jdbcType=INTEGER}, 
+    values (#{ogId,jdbcType=INTEGER}, #{order.oId,jdbcType=INTEGER}, #{goods.gId,jdbcType=INTEGER},
       #{ogPrice,jdbcType=DOUBLE}, #{ogQuantity,jdbcType=INTEGER}, #{ogStatus,jdbcType=INTEGER}
       )
   </insert>
@@ -136,10 +144,10 @@
                 #{ogId,jdbcType=INTEGER},
             </if>
             <if test="ogOrderId != null">
-                #{ogOrderId,jdbcType=INTEGER},
+                #{order.oId,jdbcType=INTEGER},
             </if>
             <if test="ogGoodsId != null">
-                #{ogGoodsId,jdbcType=INTEGER},
+                #{goods.gId,jdbcType=INTEGER},
             </if>
             <if test="ogPrice != null">
                 #{ogPrice,jdbcType=DOUBLE},
@@ -165,10 +173,10 @@
                 og_id = #{record.ogId,jdbcType=INTEGER},
             </if>
             <if test="record.ogOrderId != null">
-                og_order_id = #{record.ogOrderId,jdbcType=INTEGER},
+                og_order_id = #{record.order.oId,jdbcType=INTEGER},
             </if>
             <if test="record.ogGoodsId != null">
-                og_goods_id = #{record.ogGoodsId,jdbcType=INTEGER},
+                og_goods_id = #{record.goods.gId,jdbcType=INTEGER},
             </if>
             <if test="record.ogPrice != null">
                 og_price = #{record.ogPrice,jdbcType=DOUBLE},
@@ -187,8 +195,8 @@
     <update id="updateByExample" parameterType="map">
         update order-goods
         set og_id = #{record.ogId,jdbcType=INTEGER},
-        og_order_id = #{record.ogOrderId,jdbcType=INTEGER},
-        og_goods_id = #{record.ogGoodsId,jdbcType=INTEGER},
+        og_order_id = #{record.order.oId,jdbcType=INTEGER},
+        og_goods_id = #{record.goods.gId,jdbcType=INTEGER},
         og_price = #{record.ogPrice,jdbcType=DOUBLE},
         og_quantity = #{record.ogQuantity,jdbcType=INTEGER},
         og_status = #{record.ogStatus,jdbcType=INTEGER}
@@ -200,10 +208,10 @@
         update order-goods
         <set>
             <if test="ogOrderId != null">
-                og_order_id = #{ogOrderId,jdbcType=INTEGER},
+                og_order_id = #{order.oId,jdbcType=INTEGER},
             </if>
             <if test="ogGoodsId != null">
-                og_goods_id = #{ogGoodsId,jdbcType=INTEGER},
+                og_goods_id = #{goods.gId,jdbcType=INTEGER},
             </if>
             <if test="ogPrice != null">
                 og_price = #{ogPrice,jdbcType=DOUBLE},
@@ -219,8 +227,8 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.OrderGoods">
     update order-goods
-    set og_order_id = #{ogOrderId,jdbcType=INTEGER},
-      og_goods_id = #{ogGoodsId,jdbcType=INTEGER},
+    set og_order_id = #{order.oId,jdbcType=INTEGER},
+      og_goods_id = #{goods.gId,jdbcType=INTEGER},
       og_price = #{ogPrice,jdbcType=DOUBLE},
       og_quantity = #{ogQuantity,jdbcType=INTEGER},
       og_status = #{ogStatus,jdbcType=INTEGER}
