@@ -43,7 +43,7 @@
         </javaClientGenerator>
 
         <!-- 数据表进行生成操作 schema:相当于库名; tableName:表名; domainObjectName:对应的DO -->
-        <table schema="dami" tableName="config" domainObjectName="Config"
+        <table schema="dami" tableName="team-customer" domainObjectName="TeamCustomer"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
