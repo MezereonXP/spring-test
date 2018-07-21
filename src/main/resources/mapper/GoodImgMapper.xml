@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mezereon.springtest.dao.ConfigMapper">
-    <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Config">
-        <id column="cfg_id" jdbcType="INTEGER" property="cfgId"/>
-        <result column="cfg_goods_id" jdbcType="INTEGER" property="cfgGoodsId"/>
-        <result column="cfg_type" jdbcType="INTEGER" property="cfgType"/>
-        <result column="cfg_pricedata" jdbcType="INTEGER" property="cfgPricedata"/>
-        <result column="cfg_description" jdbcType="VARCHAR" property="cfgDescription"/>
+<mapper namespace="com.mezereon.springtest.dao.GoodImgMapper">
+    <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.GoodImg">
+        <id column="gi_id" jdbcType="INTEGER" property="giId"/>
+        <result column="gi_cfg_id" jdbcType="INTEGER" property="giCfgId"/>
+        <result column="gi_img" jdbcType="VARCHAR" property="giImg"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -67,16 +65,16 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    cfg_id, cfg_goods_id, cfg_type, cfg_pricedata, cfg_description
+    gi_id, gi_cfg_id, gi_img
   </sql>
-    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.ConfigExample" resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.GoodImgExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
         </if>
         'true' as QUERYID,
         <include refid="Base_Column_List"/>
-        from config
+        from goodimg
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -87,85 +85,67 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from config
-        where cfg_id = #{cfgId,jdbcType=INTEGER}
+        from goodimg
+        where gi_id = #{giId,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from config
-    where cfg_id = #{cfgId,jdbcType=INTEGER}
+    delete from goodimg
+    where gi_id = #{giId,jdbcType=INTEGER}
   </delete>
-    <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.ConfigExample">
-        delete from config
+    <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.GoodImgExample">
+        delete from goodimg
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="com.mezereon.springtest.bean.Config">
-    insert into config (cfg_id, cfg_goods_id, cfg_type, 
-      cfg_pricedata, cfg_description)
-    values (#{cfgId,jdbcType=INTEGER}, #{cfgGoodsId,jdbcType=INTEGER}, #{cfgType,jdbcType=INTEGER}, 
-      #{cfgPricedata,jdbcType=INTEGER}, #{cfgDescription,jdbcType=VARCHAR})
+    <insert id="insert" parameterType="com.mezereon.springtest.bean.GoodImg">
+    insert into goodimg (gi_id, gi_cfg_id, gi_img
+      )
+    values (#{giId,jdbcType=INTEGER}, #{giCfgId,jdbcType=INTEGER}, #{giImg,jdbcType=VARCHAR}
+      )
   </insert>
-    <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Config">
-        insert into config
+    <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.GoodImg">
+        insert into goodimg
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="cfgId != null">
-                cfg_id,
+            <if test="giId != null">
+                gi_id,
             </if>
-            <if test="cfgGoodsId != null">
-                cfg_goods_id,
+            <if test="giCfgId != null">
+                gi_cfg_id,
             </if>
-            <if test="cfgType != null">
-                cfg_type,
-            </if>
-            <if test="cfgPricedata != null">
-                cfg_pricedata,
-            </if>
-            <if test="cfgDescription != null">
-                cfg_description,
+            <if test="giImg != null">
+                gi_img,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="cfgId != null">
-                #{cfgId,jdbcType=INTEGER},
+            <if test="giId != null">
+                #{giId,jdbcType=INTEGER},
             </if>
-            <if test="cfgGoodsId != null">
-                #{cfgGoodsId,jdbcType=INTEGER},
+            <if test="giCfgId != null">
+                #{giCfgId,jdbcType=INTEGER},
             </if>
-            <if test="cfgType != null">
-                #{cfgType,jdbcType=INTEGER},
-            </if>
-            <if test="cfgPricedata != null">
-                #{cfgPricedata,jdbcType=INTEGER},
-            </if>
-            <if test="cfgDescription != null">
-                #{cfgDescription,jdbcType=VARCHAR},
+            <if test="giImg != null">
+                #{giImg,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="com.mezereon.springtest.bean.ConfigExample" resultType="java.lang.Long">
-        select count(*) from config
+    <select id="countByExample" parameterType="com.mezereon.springtest.bean.GoodImgExample" resultType="java.lang.Long">
+        select count(*) from goodimg
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </select>
     <update id="updateByExampleSelective" parameterType="map">
-        update config
+        update goodimg
         <set>
-            <if test="record.cfgId != null">
-                cfg_id = #{record.cfgId,jdbcType=INTEGER},
+            <if test="record.giId != null">
+                gi_id = #{record.giId,jdbcType=INTEGER},
             </if>
-            <if test="record.cfgGoodsId != null">
-                cfg_goods_id = #{record.cfgGoodsId,jdbcType=INTEGER},
+            <if test="record.giCfgId != null">
+                gi_cfg_id = #{record.giCfgId,jdbcType=INTEGER},
             </if>
-            <if test="record.cfgType != null">
-                cfg_type = #{record.cfgType,jdbcType=INTEGER},
-            </if>
-            <if test="record.cfgPricedata != null">
-                cfg_pricedata = #{record.cfgPricedata,jdbcType=INTEGER},
-            </if>
-            <if test="record.cfgDescription != null">
-                cfg_description = #{record.cfgDescription,jdbcType=VARCHAR},
+            <if test="record.giImg != null">
+                gi_img = #{record.giImg,jdbcType=VARCHAR},
             </if>
         </set>
         <if test="_parameter != null">
@@ -173,40 +153,30 @@
         </if>
     </update>
     <update id="updateByExample" parameterType="map">
-        update config
-        set cfg_id = #{record.cfgId,jdbcType=INTEGER},
-        cfg_goods_id = #{record.cfgGoodsId,jdbcType=INTEGER},
-        cfg_type = #{record.cfgType,jdbcType=INTEGER},
-        cfg_pricedata = #{record.cfgPricedata,jdbcType=INTEGER},
-        cfg_description = #{record.cfgDescription,jdbcType=VARCHAR}
+        update goodimg
+        set gi_id = #{record.giId,jdbcType=INTEGER},
+        gi_cfg_id = #{record.giCfgId,jdbcType=INTEGER},
+        gi_img = #{record.giImg,jdbcType=VARCHAR}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.mezereon.springtest.bean.Config">
-        update config
+    <update id="updateByPrimaryKeySelective" parameterType="com.mezereon.springtest.bean.GoodImg">
+        update goodimg
         <set>
-            <if test="cfgGoodsId != null">
-                cfg_goods_id = #{cfgGoodsId,jdbcType=INTEGER},
+            <if test="giCfgId != null">
+                gi_cfg_id = #{giCfgId,jdbcType=INTEGER},
             </if>
-            <if test="cfgType != null">
-                cfg_type = #{cfgType,jdbcType=INTEGER},
-            </if>
-            <if test="cfgPricedata != null">
-                cfg_pricedata = #{cfgPricedata,jdbcType=INTEGER},
-            </if>
-            <if test="cfgDescription != null">
-                cfg_description = #{cfgDescription,jdbcType=VARCHAR},
+            <if test="giImg != null">
+                gi_img = #{giImg,jdbcType=VARCHAR},
             </if>
         </set>
-        where cfg_id = #{cfgId,jdbcType=INTEGER}
+        where gi_id = #{giId,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Config">
-    update config
-    set cfg_goods_id = #{cfgGoodsId,jdbcType=INTEGER},
-      cfg_type = #{cfgType,jdbcType=INTEGER},
-      cfg_pricedata = #{cfgPricedata,jdbcType=INTEGER},
-      cfg_description = #{cfgDescription,jdbcType=VARCHAR}
-    where cfg_id = #{cfgId,jdbcType=INTEGER}
+    <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.GoodImg">
+    update goodimg
+    set gi_cfg_id = #{giCfgId,jdbcType=INTEGER},
+      gi_img = #{giImg,jdbcType=VARCHAR}
+    where gi_id = #{giId,jdbcType=INTEGER}
   </update>
 </mapper>

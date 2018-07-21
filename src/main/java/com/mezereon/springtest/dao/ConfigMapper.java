@@ -2,9 +2,7 @@ package com.mezereon.springtest.dao;
 
 import com.mezereon.springtest.bean.Config;
 import com.mezereon.springtest.bean.ConfigExample;
-
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface ConfigMapper {

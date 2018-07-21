@@ -283,6 +283,136 @@ public class ConfigExample {
             addCriterion("cfg_type not between", value1, value2, "cfgType");
             return (Criteria) this;
         }
+
+        public Criteria andCfgPricedataIsNull() {
+            addCriterion("cfg_pricedata is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgPricedataIsNotNull() {
+            addCriterion("cfg_pricedata is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgPricedataEqualTo(Integer value) {
+            addCriterion("cfg_pricedata =", value, "cfgPricedata");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgPricedataNotEqualTo(Integer value) {
+            addCriterion("cfg_pricedata <>", value, "cfgPricedata");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgPricedataGreaterThan(Integer value) {
+            addCriterion("cfg_pricedata >", value, "cfgPricedata");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgPricedataGreaterThanOrEqualTo(Integer value) {
+            addCriterion("cfg_pricedata >=", value, "cfgPricedata");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgPricedataLessThan(Integer value) {
+            addCriterion("cfg_pricedata <", value, "cfgPricedata");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgPricedataLessThanOrEqualTo(Integer value) {
+            addCriterion("cfg_pricedata <=", value, "cfgPricedata");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgPricedataIn(List<Integer> values) {
+            addCriterion("cfg_pricedata in", values, "cfgPricedata");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgPricedataNotIn(List<Integer> values) {
+            addCriterion("cfg_pricedata not in", values, "cfgPricedata");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgPricedataBetween(Integer value1, Integer value2) {
+            addCriterion("cfg_pricedata between", value1, value2, "cfgPricedata");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgPricedataNotBetween(Integer value1, Integer value2) {
+            addCriterion("cfg_pricedata not between", value1, value2, "cfgPricedata");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgDescriptionIsNull() {
+            addCriterion("cfg_description is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgDescriptionIsNotNull() {
+            addCriterion("cfg_description is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgDescriptionEqualTo(String value) {
+            addCriterion("cfg_description =", value, "cfgDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgDescriptionNotEqualTo(String value) {
+            addCriterion("cfg_description <>", value, "cfgDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgDescriptionGreaterThan(String value) {
+            addCriterion("cfg_description >", value, "cfgDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("cfg_description >=", value, "cfgDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgDescriptionLessThan(String value) {
+            addCriterion("cfg_description <", value, "cfgDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("cfg_description <=", value, "cfgDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgDescriptionLike(String value) {
+            addCriterion("cfg_description like", value, "cfgDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgDescriptionNotLike(String value) {
+            addCriterion("cfg_description not like", value, "cfgDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgDescriptionIn(List<String> values) {
+            addCriterion("cfg_description in", values, "cfgDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgDescriptionNotIn(List<String> values) {
+            addCriterion("cfg_description not in", values, "cfgDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgDescriptionBetween(String value1, String value2) {
+            addCriterion("cfg_description between", value1, value2, "cfgDescription");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfgDescriptionNotBetween(String value1, String value2) {
+            addCriterion("cfg_description not between", value1, value2, "cfgDescription");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -3,9 +3,13 @@ package com.mezereon.springtest.bean;
 public class Config {
     private Integer cfgId;
 
-    private Goods goods;
+    private Integer cfgGoodsId;
 
     private Integer cfgType;
+
+    private Integer cfgPricedata;
+
+    private String cfgDescription;
 
     public Integer getCfgId() {
         return cfgId;
@@ -13,6 +17,14 @@ public class Config {
 
     public void setCfgId(Integer cfgId) {
         this.cfgId = cfgId;
+    }
+
+    public Integer getCfgGoodsId() {
+        return cfgGoodsId;
+    }
+
+    public void setCfgGoodsId(Integer cfgGoodsId) {
+        this.cfgGoodsId = cfgGoodsId;
     }
 
     public Integer getCfgType() {
@@ -23,11 +35,19 @@ public class Config {
         this.cfgType = cfgType;
     }
 
-    public Goods getGoods() {
-        return goods;
+    public Integer getCfgPricedata() {
+        return cfgPricedata;
     }
 
-    public void setGoods(Goods goods) {
-        this.goods = goods;
+    public void setCfgPricedata(Integer cfgPricedata) {
+        this.cfgPricedata = cfgPricedata;
+    }
+
+    public String getCfgDescription() {
+        return cfgDescription;
+    }
+
+    public void setCfgDescription(String cfgDescription) {
+        this.cfgDescription = cfgDescription == null ? null : cfgDescription.trim();
     }
 }
