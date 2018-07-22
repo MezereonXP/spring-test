@@ -3,10 +3,13 @@
 <mapper namespace="com.mezereon.springtest.dao.ConfigMapper">
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Config">
         <id column="cfg_id" jdbcType="INTEGER" property="cfgId"/>
-        <result column="cfg_goods_id" jdbcType="INTEGER" property="cfgGoodsId"/>
         <result column="cfg_type" jdbcType="INTEGER" property="cfgType"/>
         <result column="cfg_pricedata" jdbcType="INTEGER" property="cfgPricedata"/>
         <result column="cfg_description" jdbcType="VARCHAR" property="cfgDescription"/>
+        <association property="goods" javaType="com.mezereon.springtest.bean.Goods"
+                     column="cfg_goods_id"
+                     select="com.mezereon.springtest.dao.GoodsMapper.selectByPrimaryKey">
+        </association>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -103,7 +106,7 @@
     <insert id="insert" parameterType="com.mezereon.springtest.bean.Config">
     insert into config (cfg_id, cfg_goods_id, cfg_type, 
       cfg_pricedata, cfg_description)
-    values (#{cfgId,jdbcType=INTEGER}, #{cfgGoodsId,jdbcType=INTEGER}, #{cfgType,jdbcType=INTEGER}, 
+    values (#{cfgId,jdbcType=INTEGER}, #{goods.gId,jdbcType=INTEGER}, #{cfgType,jdbcType=INTEGER},
       #{cfgPricedata,jdbcType=INTEGER}, #{cfgDescription,jdbcType=VARCHAR})
   </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Config">
@@ -130,7 +133,7 @@
                 #{cfgId,jdbcType=INTEGER},
             </if>
             <if test="cfgGoodsId != null">
-                #{cfgGoodsId,jdbcType=INTEGER},
+                #{goods.gId,jdbcType=INTEGER},
             </if>
             <if test="cfgType != null">
                 #{cfgType,jdbcType=INTEGER},
@@ -156,7 +159,7 @@
                 cfg_id = #{record.cfgId,jdbcType=INTEGER},
             </if>
             <if test="record.cfgGoodsId != null">
-                cfg_goods_id = #{record.cfgGoodsId,jdbcType=INTEGER},
+                cfg_goods_id = #{record.goods.gId,jdbcType=INTEGER},
             </if>
             <if test="record.cfgType != null">
                 cfg_type = #{record.cfgType,jdbcType=INTEGER},
@@ -175,7 +178,7 @@
     <update id="updateByExample" parameterType="map">
         update config
         set cfg_id = #{record.cfgId,jdbcType=INTEGER},
-        cfg_goods_id = #{record.cfgGoodsId,jdbcType=INTEGER},
+        cfg_goods_id = #{record.goods.gId,jdbcType=INTEGER},
         cfg_type = #{record.cfgType,jdbcType=INTEGER},
         cfg_pricedata = #{record.cfgPricedata,jdbcType=INTEGER},
         cfg_description = #{record.cfgDescription,jdbcType=VARCHAR}
@@ -187,7 +190,7 @@
         update config
         <set>
             <if test="cfgGoodsId != null">
-                cfg_goods_id = #{cfgGoodsId,jdbcType=INTEGER},
+                cfg_goods_id = #{goods.gId,jdbcType=INTEGER},
             </if>
             <if test="cfgType != null">
                 cfg_type = #{cfgType,jdbcType=INTEGER},
@@ -203,7 +206,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Config">
     update config
-    set cfg_goods_id = #{cfgGoodsId,jdbcType=INTEGER},
+    set cfg_goods_id = #{goods.gId,jdbcType=INTEGER},
       cfg_type = #{cfgType,jdbcType=INTEGER},
       cfg_pricedata = #{cfgPricedata,jdbcType=INTEGER},
       cfg_description = #{cfgDescription,jdbcType=VARCHAR}

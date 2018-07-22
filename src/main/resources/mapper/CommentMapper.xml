@@ -3,11 +3,19 @@
 <mapper namespace="com.mezereon.springtest.dao.CommentMapper">
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Comment">
         <id column="cm_id" jdbcType="INTEGER" property="cmId"/>
-        <result column="cm_goods_id" jdbcType="INTEGER" property="cmGoodsId"/>
-        <result column="cm_customer_id" jdbcType="INTEGER" property="cmCustomerId"/>
         <result column="cm_info" jdbcType="VARCHAR" property="cmInfo"/>
         <result column="cm_date" jdbcType="VARCHAR" property="cmDate"/>
         <result column="cm_status" jdbcType="INTEGER" property="cmStatus"/>
+
+        <association property="customer" javaType="com.mezereon.springtest.bean.Customer"
+                     column="cm_customer_id"
+                     select="com.mezereon.springtest.dao.CustomerMapper.selectByPrimaryKey">
+        </association>
+        <association property="goods" javaType="com.mezereon.springtest.bean.Goods"
+                     column="cm_goods_id"
+                     select="com.mezereon.springtest.dao.GoodsMapper.selectByPrimaryKey">
+        </association>
+
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -102,10 +110,10 @@
         </if>
     </delete>
     <insert id="insert" parameterType="com.mezereon.springtest.bean.Comment">
-    insert into comment (cm_id, cm_goods_id, cm_customer_id, 
+    insert into comment (cm_id, cm_goods_id, cm_customer_id,
       cm_info, cm_date, cm_status
       )
-    values (#{cmId,jdbcType=INTEGER}, #{cmGoodsId,jdbcType=INTEGER}, #{cmCustomerId,jdbcType=INTEGER}, 
+    values (#{cmId,jdbcType=INTEGER}, #{goods.gId,jdbcType=INTEGER}, #{customer.cId,jdbcType=INTEGER},
       #{cmInfo,jdbcType=VARCHAR}, #{cmDate,jdbcType=VARCHAR}, #{cmStatus,jdbcType=INTEGER}
       )
   </insert>
@@ -136,10 +144,10 @@
                 #{cmId,jdbcType=INTEGER},
             </if>
             <if test="cmGoodsId != null">
-                #{cmGoodsId,jdbcType=INTEGER},
+                #{goods.gId,jdbcType=INTEGER},
             </if>
             <if test="cmCustomerId != null">
-                #{cmCustomerId,jdbcType=INTEGER},
+                #{customer.cId,jdbcType=INTEGER},
             </if>
             <if test="cmInfo != null">
                 #{cmInfo,jdbcType=VARCHAR},
@@ -165,10 +173,10 @@
                 cm_id = #{record.cmId,jdbcType=INTEGER},
             </if>
             <if test="record.cmGoodsId != null">
-                cm_goods_id = #{record.cmGoodsId,jdbcType=INTEGER},
+                cm_goods_id = #{record.goods.gId,jdbcType=INTEGER},
             </if>
             <if test="record.cmCustomerId != null">
-                cm_customer_id = #{record.cmCustomerId,jdbcType=INTEGER},
+                cm_customer_id = #{record.customer.cId,jdbcType=INTEGER},
             </if>
             <if test="record.cmInfo != null">
                 cm_info = #{record.cmInfo,jdbcType=VARCHAR},
@@ -187,8 +195,8 @@
     <update id="updateByExample" parameterType="map">
         update comment
         set cm_id = #{record.cmId,jdbcType=INTEGER},
-        cm_goods_id = #{record.cmGoodsId,jdbcType=INTEGER},
-        cm_customer_id = #{record.cmCustomerId,jdbcType=INTEGER},
+        cm_goods_id = #{record.goods.gId,jdbcType=INTEGER},
+        cm_customer_id = #{record.customer.cId,jdbcType=INTEGER},
         cm_info = #{record.cmInfo,jdbcType=VARCHAR},
         cm_date = #{record.cmDate,jdbcType=VARCHAR},
         cm_status = #{record.cmStatus,jdbcType=INTEGER}
@@ -200,10 +208,10 @@
         update comment
         <set>
             <if test="cmGoodsId != null">
-                cm_goods_id = #{cmGoodsId,jdbcType=INTEGER},
+                cm_goods_id = #{goods.gId,jdbcType=INTEGER},
             </if>
             <if test="cmCustomerId != null">
-                cm_customer_id = #{cmCustomerId,jdbcType=INTEGER},
+                cm_customer_id = #{customer.cId,jdbcType=INTEGER},
             </if>
             <if test="cmInfo != null">
                 cm_info = #{cmInfo,jdbcType=VARCHAR},
@@ -219,8 +227,8 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Comment">
     update comment
-    set cm_goods_id = #{cmGoodsId,jdbcType=INTEGER},
-      cm_customer_id = #{cmCustomerId,jdbcType=INTEGER},
+    set cm_goods_id = #{goods.gId,jdbcType=INTEGER},
+      cm_customer_id = #{customer.cId,jdbcType=INTEGER},
       cm_info = #{cmInfo,jdbcType=VARCHAR},
       cm_date = #{cmDate,jdbcType=VARCHAR},
       cm_status = #{cmStatus,jdbcType=INTEGER}

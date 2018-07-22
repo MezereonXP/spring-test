@@ -3,7 +3,7 @@ package com.mezereon.springtest.bean;
 public class GoodImg {
     private Integer giId;
 
-    private Integer giCfgId;
+    private Config config;
 
     private String giImg;
 
@@ -15,19 +15,19 @@ public class GoodImg {
         this.giId = giId;
     }
 
-    public Integer getGiCfgId() {
-        return giCfgId;
-    }
-
-    public void setGiCfgId(Integer giCfgId) {
-        this.giCfgId = giCfgId;
-    }
-
     public String getGiImg() {
         return giImg;
     }
 
     public void setGiImg(String giImg) {
         this.giImg = giImg == null ? null : giImg.trim();
+    }
+
+    public Config getConfig() {
+        return config;
+    }
+
+    public void setConfig(Config config) {
+        this.config = config;
     }
 }

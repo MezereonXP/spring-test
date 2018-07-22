@@ -111,7 +111,7 @@
     insert into address (a_id, a_customer_id, a_receiver, 
       a_telephone, a_zipcode, a_detail, 
       a_status)
-    values (#{aId,jdbcType=INTEGER}, #{aCustomerId,jdbcType=INTEGER}, #{aReceiver,jdbcType=VARCHAR}, 
+    values (#{aId,jdbcType=INTEGER}, #{customer.cId,jdbcType=INTEGER}, #{aReceiver,jdbcType=VARCHAR},
       #{aTelephone,jdbcType=VARCHAR}, #{aZipcode,jdbcType=VARCHAR}, #{aDetail,jdbcType=VARCHAR}, 
       #{aStatus,jdbcType=INTEGER})
   </insert>

@@ -5,6 +5,12 @@
         <id column="gi_id" jdbcType="INTEGER" property="giId"/>
         <result column="gi_cfg_id" jdbcType="INTEGER" property="giCfgId"/>
         <result column="gi_img" jdbcType="VARCHAR" property="giImg"/>
+
+        <association property="config" javaType="com.mezereon.springtest.bean.Config"
+                     column="gi_cfg_id"
+                     select="com.mezereon.springtest.dao.ConfigMapper.selectByPrimaryKey">
+        </association>
+
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -101,7 +107,7 @@
     <insert id="insert" parameterType="com.mezereon.springtest.bean.GoodImg">
     insert into goodimg (gi_id, gi_cfg_id, gi_img
       )
-    values (#{giId,jdbcType=INTEGER}, #{giCfgId,jdbcType=INTEGER}, #{giImg,jdbcType=VARCHAR}
+    values (#{giId,jdbcType=INTEGER}, #{config.cfgId,jdbcType=INTEGER}, #{giImg,jdbcType=VARCHAR}
       )
   </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.GoodImg">
@@ -122,7 +128,7 @@
                 #{giId,jdbcType=INTEGER},
             </if>
             <if test="giCfgId != null">
-                #{giCfgId,jdbcType=INTEGER},
+                #{config.cfgId,,jdbcType=INTEGER},
             </if>
             <if test="giImg != null">
                 #{giImg,jdbcType=VARCHAR},
@@ -142,7 +148,7 @@
                 gi_id = #{record.giId,jdbcType=INTEGER},
             </if>
             <if test="record.giCfgId != null">
-                gi_cfg_id = #{record.giCfgId,jdbcType=INTEGER},
+                gi_cfg_id = #{record.config.cfgId,,jdbcType=INTEGER},
             </if>
             <if test="record.giImg != null">
                 gi_img = #{record.giImg,jdbcType=VARCHAR},
@@ -155,7 +161,7 @@
     <update id="updateByExample" parameterType="map">
         update goodimg
         set gi_id = #{record.giId,jdbcType=INTEGER},
-        gi_cfg_id = #{record.giCfgId,jdbcType=INTEGER},
+        gi_cfg_id = #{record.config.cfgId,,jdbcType=INTEGER},
         gi_img = #{record.giImg,jdbcType=VARCHAR}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
@@ -165,7 +171,7 @@
         update goodimg
         <set>
             <if test="giCfgId != null">
-                gi_cfg_id = #{giCfgId,jdbcType=INTEGER},
+                gi_cfg_id = #{config.cfgId,,jdbcType=INTEGER},
             </if>
             <if test="giImg != null">
                 gi_img = #{giImg,jdbcType=VARCHAR},
@@ -175,7 +181,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.GoodImg">
     update goodimg
-    set gi_cfg_id = #{giCfgId,jdbcType=INTEGER},
+    set gi_cfg_id = #{config.cfgId,,jdbcType=INTEGER},
       gi_img = #{giImg,jdbcType=VARCHAR}
     where gi_id = #{giId,jdbcType=INTEGER}
   </update>

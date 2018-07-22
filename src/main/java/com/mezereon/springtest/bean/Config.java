@@ -3,7 +3,7 @@ package com.mezereon.springtest.bean;
 public class Config {
     private Integer cfgId;
 
-    private Integer cfgGoodsId;
+    private Goods goods;
 
     private Integer cfgType;
 
@@ -17,14 +17,6 @@ public class Config {
 
     public void setCfgId(Integer cfgId) {
         this.cfgId = cfgId;
-    }
-
-    public Integer getCfgGoodsId() {
-        return cfgGoodsId;
-    }
-
-    public void setCfgGoodsId(Integer cfgGoodsId) {
-        this.cfgGoodsId = cfgGoodsId;
     }
 
     public Integer getCfgType() {
@@ -49,5 +41,13 @@ public class Config {
 
     public void setCfgDescription(String cfgDescription) {
         this.cfgDescription = cfgDescription == null ? null : cfgDescription.trim();
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 }
