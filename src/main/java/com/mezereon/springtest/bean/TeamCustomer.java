@@ -3,9 +3,9 @@ package com.mezereon.springtest.bean;
 public class TeamCustomer {
     private Integer tcId;
 
-    private Integer tcTeamId;
+    private Team team;
 
-    private Integer tcCustomerId;
+    private Customer customer;
 
     public Integer getTcId() {
         return tcId;
@@ -15,19 +15,19 @@ public class TeamCustomer {
         this.tcId = tcId;
     }
 
-    public Integer getTcTeamId() {
-        return tcTeamId;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTcTeamId(Integer tcTeamId) {
-        this.tcTeamId = tcTeamId;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
-    public Integer getTcCustomerId() {
-        return tcCustomerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setTcCustomerId(Integer tcCustomerId) {
-        this.tcCustomerId = tcCustomerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

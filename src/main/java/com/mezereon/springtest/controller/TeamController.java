@@ -19,14 +19,14 @@ public class TeamController {
 
     @Autowired
     private TeamService teamService;
-/*
+
     //查询顾客数量
     @RequestMapping(value="/api/selectNofCustomer",method= RequestMethod.GET)
     @CrossOrigin
     public Response selectNofCustomer(@RequestParam(value = "id", required = true) Integer t_id){
         return teamService.selectNofCustomer(t_id);
     }
-    //获得团购详细数据
+ /*   //获得团购详细数据
     @RequestMapping(value = "/api/selectTeamById",method = RequestMethod.GET)
     @CrossOrigin
     public Response selectTeamById(@RequestParam(value = "id", required = true) Integer t_id){

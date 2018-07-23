@@ -230,8 +230,9 @@
     </update>
     <!-- 查询所有团购商品 -->
     <select id="selectAllTSGMapper" resultType="com.mezereon.springtest.bean.TeamShopGoods">
-        SELECT *
-        FROM teamshop_goods
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM `teamshop_goods`
     </select>
 
 </mapper>

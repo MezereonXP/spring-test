@@ -3,8 +3,12 @@
 <mapper namespace="com.mezereon.springtest.dao.TeamCustomerMapper">
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.TeamCustomer">
         <id column="tc_id" jdbcType="INTEGER" property="tcId"/>
-        <result column="tc_team_id" jdbcType="INTEGER" property="tcTeamId"/>
-        <result column="tc_customer_id" jdbcType="INTEGER" property="tcCustomerId"/>
+        <association property="teams" javaType="com.mezereon.springtest.bean.Team"
+                     select="com.mezereon.springtest.dao.TeamMapper.selectByPrimaryKey"
+                     column="tc_team_id"/>
+        <association property="customer" javaType="com.mezereon.springtest.bean.Customer"
+                     select="com.mezereon.springtest.dao.CustomerMapper.selectByPrimaryKey"
+                     column="tc_customer_id"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -101,7 +105,7 @@
     <insert id="insert" parameterType="com.mezereon.springtest.bean.TeamCustomer">
     insert into team-customer (tc_id, tc_team_id, tc_customer_id
       )
-    values (#{tcId,jdbcType=INTEGER}, #{tcTeamId,jdbcType=INTEGER}, #{tcCustomerId,jdbcType=INTEGER}
+        values (#{tcId,jdbcType=INTEGER}, #{team.tId,jdbcType=INTEGER}, #{customer.cId,jdbcType=INTEGER}
       )
   </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.TeamCustomer">

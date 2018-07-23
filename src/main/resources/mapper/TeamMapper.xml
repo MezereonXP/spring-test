@@ -187,12 +187,12 @@
     <!-- 查询该团的人数  -->
     <select id="selectNofCustomer" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT COUNT(*)
-        FROM team-customer
-        WHERE team-customer.tc_team_id =#{t_id,jdbcType=INTEGER}
+        FROM `team-customer`
+        WHERE `team-customer`.tc_team_id = #{tId,jdbcType=INTEGER}
     </select>
     <!-- 更新team-customer表 -->
     <insert id="updateTeam" parameterType="map">
-        INSERT INTO team-customer(tc_team_id,tc_customer_id)
+        INSERT INTO `team-customer`(tc_team_id,tc_customer_id)
         VALUES (#{tc_team_id,jdbcType=INTEGER},#{tc_customer_id,jdbcType=INTEGER})
     </insert>
 </mapper>

@@ -22,7 +22,7 @@ import java.util.*;
 @Service
 public class TeamService {
 
-/*    @Autowired
+    @Autowired
     private TeamMapper teamMapper;
     @Autowired
     private OrderMapper orderMapper;
@@ -30,21 +30,22 @@ public class TeamService {
     private NoteMapper noteMapper;
     @Autowired
     private CustomerMapper customerMapper;
+
     //根据team id获得所有参与团购的人数
-    public Response selectNofCustomer(int t_id){
-        Response response =new Response();
-        try{
+    public Response selectNofCustomer(int tId) {
+        Response response = new Response();
+        try {
             response.setStatus(true);
-            int data=teamMapper.selectNofCustomer(t_id);
+            int data = teamMapper.selectNofCustomer(tId);
             response.setData(data);
             return response;
-        }catch (Exception e){
+        } catch (Exception e) {
             response.setMsg(e.getMessage());
             response.setStatus(false);
             return response;
         }
     }
-    //根据id获得团购属性
+ /*   //根据id获得团购属性
     public Response selectTeamById(int id){
         Response response = new Response();
         try{

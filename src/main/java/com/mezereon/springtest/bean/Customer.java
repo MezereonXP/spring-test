@@ -25,8 +25,6 @@ public class Customer {
 
     private Integer cStatus;
 
-    private List<Team> teams;
-
     public Integer getcId() {
         return cId;
     }
@@ -115,11 +113,4 @@ public class Customer {
         this.cStatus = cStatus;
     }
 
-    public List<Team> getTeams() {
-        return teams;
-    }
-
-    public void setTeams(List<Team> teams) {
-        this.teams = teams;
-    }
 }

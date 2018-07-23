@@ -37,7 +37,7 @@ public interface TeamMapper {
     int updateByPrimaryKey(Team record);
 
     //查询该团下的所有参与团购人数
-    int selectNofCustomer(int t_id);
+    int selectNofCustomer(int tId);
 
     //更新团购与顾客连接表数据
     void updateTeam(Map<String, Object> map);
