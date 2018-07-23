@@ -15,8 +15,6 @@ public class TeamShopGoods {
 
     private Integer tgMaxpeople;
 
-    private List<Team> teams;
-
     public Integer getTgId() {
         return tgId;
     }
@@ -35,14 +33,6 @@ public class TeamShopGoods {
 
     public String getTgDate() {
         return tgDate;
-    }
-
-    public List<Team> getTeams() {
-        return teams;
-    }
-
-    public void setTeams(List<Team> teams) {
-        this.teams = teams;
     }
 
     public void setTgDate(String tgDate) {

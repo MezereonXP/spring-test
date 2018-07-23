@@ -229,7 +229,7 @@
     where tg_id = #{tgId,jdbcType=INTEGER}
     </update>
     <!-- 查询所有团购商品 -->
-    <select id="selectAllTSGMapper" resultType="com.mezereon.springtest.bean.TeamShopGoods">
+    <select id="selectAllTSGMapper" resultType="com.mezereon.springtest.bean.TeamShopGoods" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM `teamshop_goods`
