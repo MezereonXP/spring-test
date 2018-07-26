@@ -241,4 +241,10 @@
       g_status = #{gStatus,jdbcType=INTEGER}
     where g_id = #{gId,jdbcType=INTEGER}
   </update>
+    <select id="selectAllgoods" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from goods
+    </select>
+
 </mapper>
