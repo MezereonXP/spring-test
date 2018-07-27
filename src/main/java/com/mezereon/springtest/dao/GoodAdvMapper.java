@@ -6,8 +6,11 @@ import com.mezereon.springtest.bean.GoodAdvExample;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface GoodAdvMapper {
+
     long countByExample(GoodAdvExample example);
 
     int deleteByExample(GoodAdvExample example);

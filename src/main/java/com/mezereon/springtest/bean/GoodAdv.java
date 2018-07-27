@@ -1,5 +1,7 @@
 package com.mezereon.springtest.bean;
 
+import org.springframework.stereotype.Component;
+
 public class GoodAdv {
     private Integer advId;
 
