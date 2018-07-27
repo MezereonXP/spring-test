@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mezereon.springtest.dao.GoodAdvMapper">
+    <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.GoodAdv">
+        <id column="adv_id" jdbcType="INTEGER" property="advId"/>
+        <result column="adv_g_catagory" jdbcType="VARCHAR" property="advGCatagory"/>
+        <result column="adv_pic" jdbcType="VARCHAR" property="advPic"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    adv_id, adv_g_catagory, adv_pic
+  </sql>
+    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.GoodAdvExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from goodadv
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from goodadv
+        where adv_id = #{advId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from goodadv
+    where adv_id = #{advId,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.GoodAdvExample">
+        delete from goodadv
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.mezereon.springtest.bean.GoodAdv">
+    insert into goodadv (adv_id, adv_g_catagory, adv_pic
+      )
+    values (#{advId,jdbcType=INTEGER}, #{advGCatagory,jdbcType=VARCHAR}, #{advPic,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.GoodAdv">
+        insert into goodadv
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="advId != null">
+                adv_id,
+            </if>
+            <if test="advGCatagory != null">
+                adv_g_catagory,
+            </if>
+            <if test="advPic != null">
+                adv_pic,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="advId != null">
+                #{advId,jdbcType=INTEGER},
+            </if>
+            <if test="advGCatagory != null">
+                #{advGCatagory,jdbcType=VARCHAR},
+            </if>
+            <if test="advPic != null">
+                #{advPic,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.mezereon.springtest.bean.GoodAdvExample" resultType="java.lang.Long">
+        select count(*) from goodadv
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update goodadv
+        <set>
+            <if test="record.advId != null">
+                adv_id = #{record.advId,jdbcType=INTEGER},
+            </if>
+            <if test="record.advGCatagory != null">
+                adv_g_catagory = #{record.advGCatagory,jdbcType=VARCHAR},
+            </if>
+            <if test="record.advPic != null">
+                adv_pic = #{record.advPic,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update goodadv
+        set adv_id = #{record.advId,jdbcType=INTEGER},
+        adv_g_catagory = #{record.advGCatagory,jdbcType=VARCHAR},
+        adv_pic = #{record.advPic,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mezereon.springtest.bean.GoodAdv">
+        update goodadv
+        <set>
+            <if test="advGCatagory != null">
+                adv_g_catagory = #{advGCatagory,jdbcType=VARCHAR},
+            </if>
+            <if test="advPic != null">
+                adv_pic = #{advPic,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where adv_id = #{advId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.GoodAdv">
+    update goodadv
+    set adv_g_catagory = #{advGCatagory,jdbcType=VARCHAR},
+      adv_pic = #{advPic,jdbcType=VARCHAR}
+    where adv_id = #{advId,jdbcType=INTEGER}
+  </update>
+</mapper>
