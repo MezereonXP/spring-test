@@ -212,4 +212,10 @@
       cfg_description = #{cfgDescription,jdbcType=VARCHAR}
     where cfg_id = #{cfgId,jdbcType=INTEGER}
   </update>
+    <select id="selectAllconfig" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from config
+    </select>
+
 </mapper>

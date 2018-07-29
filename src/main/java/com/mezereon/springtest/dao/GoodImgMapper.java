@@ -29,4 +29,6 @@ public interface GoodImgMapper {
     int updateByPrimaryKeySelective(GoodImg record);
 
     int updateByPrimaryKey(GoodImg record);
+
+    List<GoodImg> selectAllgoodimg();
 }

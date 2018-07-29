@@ -27,4 +27,6 @@ public interface ConfigMapper {
     int updateByPrimaryKeySelective(Config record);
 
     int updateByPrimaryKey(Config record);
+
+    List<Config> selectAllconfig();
 }

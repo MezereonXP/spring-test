@@ -34,4 +34,5 @@ public interface GoodsMapper {
 
     List<Goods> selectAllgoods();
 
+
 }
