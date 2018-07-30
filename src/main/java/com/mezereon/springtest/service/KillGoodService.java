@@ -35,16 +35,22 @@ public class KillGoodService {
     private static Integer maxNum;
     public static Map<Integer, Integer> FLAG = new HashMap<>();
     public static Map<Integer, Integer> isRuning = new HashMap<>();
+    public static Map<Integer,Integer>  kgQuantity=new HashMap<>();
+
+    public static void  AddKillGood(int kgId){
+
+        if(kgQuantity.get(kgId).equals("null")){
+            KillGood killGood = killGoodMapper.selectByPrimaryKey(kgId);
+            maxNum = killGood.getKgQuantity();
+            kgQuantity.put(kgId,maxNum);
+        }
+    }
 
     public static void startKill(Integer kgId, Integer cId) {
         isRuning.put(kgId, 1);
         //       isRuning = true;
         FLAG.put(kgId, 1);
         //       flag = true;
-        Customer customer = CustomerService.selectByPrimaryKey(cId);
-        String cName = customer.getcName();
-        KillGood killGood = killGoodMapper.selectByPrimaryKey(kgId);
-        maxNum = killGood.getKgQuantity();
 
         new Thread(new Runnable() {
             public void run() {
@@ -53,7 +59,7 @@ public class KillGoodService {
                 String kill = S_KILL + kgId;
                 String success = S_SUCCESS + kgId;
                 String fail = S_FAIL + kgId;
-                //判断该客户知否已经在抢购队列中，如果不在加入
+                //判断该商品是否已经有队列没有则建立相应的
                 if (!KILL.get(kgId).equals(kill)) {
                     KILL.put(kgId, kill);
                     SUCCESS.put(kgId, success);
@@ -62,44 +68,20 @@ public class KillGoodService {
 
                 try {
                     jedis = pool.getResource();
-//                    jedis.del(SUCCESS);
-//                    jedis.del(FAIL);
-                    while (jedis.scard(SUCCESS.get(kgId)) < maxNum) {
+                    while (jedis.scard(SUCCESS.get(kgId)) < kgQuantity.get(kgId)) {
                         if (jedis.llen(KILL.get(kgId)) != 0) {
                             //加入成功队列
                             String temp = jedis.rpop(KILL.get(kgId));
-                            jedis.sadd(SUCCESS.get(kgId), cName);
+                            jedis.sadd(SUCCESS.get(kgId), String.valueOf(cId));
 
-/*                           //成功后生成相应的订单(暂时缺少生成订单号的方法)
-                               //生成订单并插入
-                            String oCode;
-                            Order order=new Order();
-                            order.setCustomer(customer);
-                            order.setoState(1);
-                            order.setoType(3);
-                            OrderService.insertSelective(order);
-                           //得到订单号并生成相应的OrderGoods插入数据库
-                            Order order1=OrderService.selectByOCode(oCode);
-                            OrderGoods orderGoods=new OrderGoods();
-                            orderGoods.setOrder(order1);
-                            Goods goods=GoodsService.selectByPrimatyKey(kgId);
-                            orderGoods.setGoods(goods);
-                            KillGood killGood=KillGoodService.selectByPrimaryKey(kgId);
-                            double kgPrice=killGood.getKgPrice();
-                            orderGoods.setOgPrice(kgPrice);
-                            orderGoods.setOgQuantity(1);
-                            orderGoods.setOgStatus(1);
-                            OrderGoodsService.insertSelective(orderGoods);*/
                             //将相应的商品数量减少
-                            KillGood killgood = killGoodMapper.selectByPrimaryKey(kgId);
-                            killgood.setKgQuantity(killgood.getKgQuantity() - 1);
-                            killGoodMapper.updateByPrimaryKey(killgood);
+                             kgQuantity.put(kgId,kgQuantity.get(kgId)-1);
                         }
                     }
                     while (FLAG.get(kgId) == 1) {
                         if (jedis.llen(KILL.get(kgId)) != 0) {
                             String temp = jedis.rpop(KILL.get(kgId));
-                            jedis.sadd(FAIL.get(kgId), cName);
+                            jedis.sadd(FAIL.get(kgId), String.valueOf(cId));
                         }
                     }
                 } finally {
@@ -124,9 +106,7 @@ public class KillGoodService {
                 }
                 System.out.printf("stop");
                 FLAG.put(kgId, 0);
-                //               flag = false;
                 isRuning.put(kgId, 0);
-//                isRuning = false;
             }
         }).start();
     }

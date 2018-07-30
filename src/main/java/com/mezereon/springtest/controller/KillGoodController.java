@@ -60,6 +60,8 @@ public class KillGoodController {
         if (KillGoodService.isRuning.get(kgId) == 0) {
             KillGoodService.startKill(kgId, cId);
         }
+
+        KillGoodService.AddKillGood(kgId);
         if (run(kgId, cId)) {
             response.setMsg("抢购成功");
         } else {
