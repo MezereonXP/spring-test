@@ -37,6 +37,14 @@ public class KillGoodService {
     public static Map<Integer, Integer> isRuning = new HashMap<>();
     public static Map<Integer,Integer>  kgQuantity=new HashMap<>();
 
+    public static  int  ifRunning(int kgId){
+        if(isRuning.get(kgId)==1){
+            return  1;
+        }else{
+            return 0;
+        }
+    }
+
     public static void  AddKillGood(int kgId){
 
         if(kgQuantity.get(kgId).equals("null")){
