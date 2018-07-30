@@ -1,8 +1,6 @@
 package com.mezereon.springtest.service;
 
-import com.mezereon.springtest.bean.Config;
-import com.mezereon.springtest.bean.GoodImg;
-import com.mezereon.springtest.bean.Goods;
+import com.mezereon.springtest.bean.*;
 import com.mezereon.springtest.dao.ConfigMapper;
 import com.mezereon.springtest.dao.GoodImgMapper;
 import com.mezereon.springtest.dao.GoodsMapper;
@@ -15,22 +13,25 @@ import java.util.List;
 public class ShoppingService {
     @Autowired
     GoodsMapper goodsMapper;
+    @Autowired
     ConfigMapper configMapper;
+    @Autowired
     GoodImgMapper goodImgMapper;
 
-    public List<Goods> selectAllgoods() {
-        List<Goods> list = goodsMapper.selectAllgoods();
-        return list;
+    public Goods selectByPrimaryKey(int gId) {
+        Goods goods = goodsMapper.selectByPrimaryKey(gId);
+        return goods;
     }
 
-    public List<Config> selectAllconfig() {
-        List<Config> list1 = configMapper.selectAllconfig();
-        return list1;
+    public List<GoodImg> selectByExample(GoodImgExample goodImgExample) {
+        List<GoodImg> goodImgList = goodImgMapper.selectByExample(goodImgExample);
+        return goodImgList;
     }
 
-    public List<GoodImg> selectAllgoodImg() {
-        List<GoodImg> list2 = goodImgMapper.selectAllgoodimg();
-        return list2;
+    public List<Config> selectByExample(ConfigExample configExample) {
+        List<Config> configList = configMapper.selectByExample(configExample);
+        return configList;
     }
+
 
 }

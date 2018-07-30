@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,21 +46,35 @@ public class ShoppingController {
         Response response1 = new Response();
         try {
             //获取Good
-            Goods goods = goodsMapper.selectByPrimaryKey(gId);
-
-            //设置条件, 获取图片List
-            GoodImgExample goodImgExample = new GoodImgExample();
-            goodImgExample.createCriteria().andGiCfgIdEqualTo(gId);
-            List<GoodImg> goodImgList = goodImgMapper.selectByExample(goodImgExample);
+            Goods goods = shoppingService.selectByPrimaryKey(gId);
+//                    goodsMapper.selectByPrimaryKey(gId);
 
             //获取Config list
             ConfigExample configExample = new ConfigExample();
             configExample.createCriteria().andCfgGoodsIdEqualTo(gId);
-            List<Config> configList = configMapper.selectByExample(configExample);
+            List<Config> configList = shoppingService.selectByExample(configExample);
+//                    configMapper.selectByExample(configExample);
+
+            List<Config> configList1 = new ArrayList<>();
+            for (Config config : configList) {
+                if (config.getGoods().getgId() == gId) {
+                    configList1.add(config);
+                }
+            }
+
+            //设置条件, 获取图片List
+            GoodImgExample goodImgExample = new GoodImgExample();
+            for (Config config : configList1) {
+                goodImgExample.createCriteria().andGiCfgIdEqualTo(config.getCfgId());
+            }
+            List<GoodImg> goodImgList = shoppingService.selectByExample(goodImgExample);
+
+//                    goodImgMapper.selectByExample(goodImgExample);
 
             Shopping shopping = new Shopping(goods, configList, goodImgList);
 
             response1.setMsg("success");
+            System.out.println(goods.getgName());
             response1.setData(shopping);
             response1.setStatus(true);
             return response1;

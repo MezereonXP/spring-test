@@ -19,12 +19,6 @@ public class Shopping {
         return config;
     }
 
-    public Shopping(Goods goods, List<Config> config, List<GoodImg> goodimg) {
-        this.goods = goods;
-        this.config = config;
-        this.goodimg = goodimg;
-    }
-
     public void setConfig(List<Config> config) {
         this.config = config;
     }
@@ -34,6 +28,12 @@ public class Shopping {
     }
 
     public void setGoodimg(List<GoodImg> goodimg) {
+        this.goodimg = goodimg;
+    }
+
+    public Shopping(Goods goods, List<Config> config, List<GoodImg> goodimg) {
+        this.goods = goods;
+        this.config = config;
         this.goodimg = goodimg;
     }
 }
