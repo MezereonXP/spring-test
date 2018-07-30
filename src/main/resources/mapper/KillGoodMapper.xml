@@ -212,4 +212,15 @@
       kg_price = #{kgPrice,jdbcType=INTEGER}
     where kg_id = #{kgId,jdbcType=INTEGER}
   </update>
+
+    <select id="selectAll" resultType="java.lang.Integer">
+        select count( * )
+        from kill_good
+    </select>
+
+    <select id="selectKillGoods" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from  kill_good
+    </select>
+
 </mapper>

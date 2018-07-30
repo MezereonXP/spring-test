@@ -1,3 +1,4 @@
+/*
 package com.mezereon.springtest.util;
 
 import redis.clients.jedis.Jedis;
@@ -64,4 +65,4 @@ public class Util {
         }).start();
     }
 
-}
+}*/

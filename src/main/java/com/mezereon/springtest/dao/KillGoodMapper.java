@@ -10,13 +10,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface KillGoodMapper {
+
     long countByExample(KillGoodExample example);
 
     int deleteByExample(KillGoodExample example);
 
     int deleteByPrimaryKey(Integer kgId);
 
-    int insert(KillGood record);
+    int  insert(KillGood record);
 
     int insertSelective(KillGood record);
 
@@ -31,4 +32,7 @@ public interface KillGoodMapper {
     int updateByPrimaryKeySelective(KillGood record);
 
     int updateByPrimaryKey(KillGood record);
+
+    List<KillGood> selectKillGoods();
+
 }

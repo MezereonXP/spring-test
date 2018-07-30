@@ -1,7 +1,5 @@
 package com.mezereon.springtest.bean;
 
-import java.util.List;
-
 public class Order {
     private Integer oId;
 
@@ -35,6 +33,14 @@ public class Order {
 
     public void setoCode(String oCode) {
         this.oCode = oCode == null ? null : oCode.trim();
+    }
+
+    public Customer getoCustomer() {
+        return customer;
+    }
+
+    public void setoCustomer(Customer customer) {
+        this.customer=customer;
     }
 
     public Integer getoState() {

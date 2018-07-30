@@ -21,8 +21,6 @@ public class OrderGoods {
         this.ogId = ogId;
     }
 
-
-
     public Double getOgPrice() {
         return ogPrice;
     }

@@ -1,4 +1,4 @@
-package com.mezereon.springtest.controller;
+/*package com.mezereon.springtest.controller;
 
 import com.mezereon.springtest.bean.TeamShopGoods;
 import com.mezereon.springtest.response.Response;
@@ -12,12 +12,12 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-/**
+*//**
  * @program: KillController
  * @description: Controller to kill goods
  * @author: mezereonxp Email: mezereonxp@gmail.com
  * @create: 2018/7/18
- **/
+ **//*
 @RestController
 public class KillController {
     private static final String KILL = "kill";
@@ -29,7 +29,7 @@ public class KillController {
     @CrossOrigin
     public Response killGoods(@RequestParam(value = "id", required = true) String id) {
         Response response = new Response();
-        if (!Util.isRuning) {
+        if (!Util.isRuning){
             Util.startKill();
         }
         if (run(id)) {
@@ -70,4 +70,4 @@ public class KillController {
         }
     }
 
-}
+}*/
