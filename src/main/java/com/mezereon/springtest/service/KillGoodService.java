@@ -1,6 +1,5 @@
 package com.mezereon.springtest.service;
 
-import com.mezereon.springtest.bean.Customer;
 import com.mezereon.springtest.bean.KillGood;
 import com.mezereon.springtest.dao.CustomerMapper;
 import com.mezereon.springtest.dao.KillGoodMapper;
@@ -18,11 +17,11 @@ import java.util.Map;
 public class KillGoodService {
 
     @Autowired
-    private static CustomerMapper customerMapper;
+    private CustomerMapper customerMapper;
     @Autowired
-    private static KillGoodMapper killGoodMapper;
+    private KillGoodMapper killGoodMapper;
     @Autowired
-    private static NoteMapper noteMapper;
+    private NoteMapper noteMapper;
 
     private static final String HOST = "119.29.87.112";
     private static final String S_KILL = "kill";
@@ -35,26 +34,25 @@ public class KillGoodService {
     private static Integer maxNum;
     public static Map<Integer, Integer> FLAG = new HashMap<>();
     public static Map<Integer, Integer> isRuning = new HashMap<>();
-    public static Map<Integer,Integer>  kgQuantity=new HashMap<>();
+    public static Map<Integer, Integer> kgQuantity = new HashMap<>();
 
-    public static  int  ifRunning(int kgId){
-        if(isRuning.get(kgId)==1){
-            return  1;
-        }else{
+    public int ifRunning(int kgId) {
+        if (isRuning.containsKey(kgId) && isRuning.get(kgId) == 1) {
+            return 1;
+        } else {
             return 0;
         }
     }
 
-    public static void  AddKillGood(int kgId){
-
-        if(kgQuantity.get(kgId).equals("null")){
+    public void AddKillGood(int kgId) {
+        if (!kgQuantity.containsKey(kgId)) {
             KillGood killGood = killGoodMapper.selectByPrimaryKey(kgId);
             maxNum = killGood.getKgQuantity();
-            kgQuantity.put(kgId,maxNum);
+            kgQuantity.put(kgId, maxNum);
         }
     }
 
-    public static void startKill(Integer kgId, Integer cId) {
+    public void startKill(Integer kgId, Integer cId) {
         isRuning.put(kgId, 1);
         //       isRuning = true;
         FLAG.put(kgId, 1);
@@ -68,7 +66,7 @@ public class KillGoodService {
                 String success = S_SUCCESS + kgId;
                 String fail = S_FAIL + kgId;
                 //判断该商品是否已经有队列没有则建立相应的
-                if (!KILL.get(kgId).equals(kill)) {
+                if (!KILL.containsKey(kgId)) {
                     KILL.put(kgId, kill);
                     SUCCESS.put(kgId, success);
                     FAIL.put(kgId, fail);
@@ -80,16 +78,13 @@ public class KillGoodService {
                         if (jedis.llen(KILL.get(kgId)) != 0) {
                             //加入成功队列
                             String temp = jedis.rpop(KILL.get(kgId));
-                            jedis.sadd(SUCCESS.get(kgId), String.valueOf(cId));
-
-                            //将相应的商品数量减少
-                             kgQuantity.put(kgId,kgQuantity.get(kgId)-1);
+                            jedis.sadd(SUCCESS.get(kgId), String.valueOf(temp));
                         }
                     }
                     while (FLAG.get(kgId) == 1) {
                         if (jedis.llen(KILL.get(kgId)) != 0) {
                             String temp = jedis.rpop(KILL.get(kgId));
-                            jedis.sadd(FAIL.get(kgId), String.valueOf(cId));
+                            jedis.sadd(FAIL.get(kgId), String.valueOf(temp));
                         }
                     }
                 } finally {
@@ -103,18 +98,18 @@ public class KillGoodService {
         stop(kgId);
     }
 
-    public static void stop(Integer kgId) {
+    public void stop(Integer kgId) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Thread.sleep(10000);
+                    System.out.printf("stop");
+                    FLAG.put(kgId, 0);
+                    isRuning.put(kgId, 0);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.printf("stop");
-                FLAG.put(kgId, 0);
-                isRuning.put(kgId, 0);
             }
         }).start();
     }
