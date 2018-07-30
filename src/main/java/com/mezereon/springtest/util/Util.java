@@ -1,5 +1,4 @@
-/*
-package com.mezereon.springtest.util;
+/*package com.mezereon.springtest.util;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;

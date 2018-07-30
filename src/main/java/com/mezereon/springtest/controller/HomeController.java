@@ -7,7 +7,6 @@ import com.mezereon.springtest.bean.HomeBean;
 import com.mezereon.springtest.dao.GoodAdvMapper;
 import com.mezereon.springtest.response.Response;
 import com.mezereon.springtest.service.GoodsService;
-import com.mezereon.springtest.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
