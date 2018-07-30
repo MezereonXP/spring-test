@@ -67,7 +67,6 @@ public class KillGoodController {
         }
 
         killGoodService.AddKillGood(kgId);
-
         if (run(kgId, cId)) {
             response.setMsg("抢购成功");
         } else {
