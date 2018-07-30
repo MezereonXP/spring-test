@@ -5,7 +5,7 @@ import java.util.List;
 public class Shopping {
     private Goods goods;
     private List<Config> config;
-    private List<GoodImg> goodimg;
+    private List<List<GoodImg>> goodimg;
 
     public Goods getGoods() {
         return goods;
@@ -23,15 +23,15 @@ public class Shopping {
         this.config = config;
     }
 
-    public List<GoodImg> getGoodimg() {
+    public List<List<GoodImg>> getGoodimg() {
         return goodimg;
     }
 
-    public void setGoodimg(List<GoodImg> goodimg) {
+    public void setGoodimg(List<List<GoodImg>> goodimg) {
         this.goodimg = goodimg;
     }
 
-    public Shopping(Goods goods, List<Config> config, List<GoodImg> goodimg) {
+    public Shopping(Goods goods, List<Config> config, List<List<GoodImg>> goodimg) {
         this.goods = goods;
         this.config = config;
         this.goodimg = goodimg;

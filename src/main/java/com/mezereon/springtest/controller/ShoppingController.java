@@ -62,13 +62,13 @@ public class ShoppingController {
                 }
             }
 
+            List<List<GoodImg>> goodImgList = new ArrayList<>();
             //设置条件, 获取图片List
-            GoodImgExample goodImgExample = new GoodImgExample();
             for (Config config : configList1) {
+                GoodImgExample goodImgExample = new GoodImgExample();
                 goodImgExample.createCriteria().andGiCfgIdEqualTo(config.getCfgId());
+                goodImgList.add(shoppingService.selectByExample(goodImgExample));
             }
-            List<GoodImg> goodImgList = shoppingService.selectByExample(goodImgExample);
-
 //                    goodImgMapper.selectByExample(goodImgExample);
 
             Shopping shopping = new Shopping(goods, configList, goodImgList);
