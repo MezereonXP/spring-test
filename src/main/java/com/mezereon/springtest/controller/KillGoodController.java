@@ -1,6 +1,5 @@
 package com.mezereon.springtest.controller;
 
-
 import com.mezereon.springtest.bean.KillGood;
 import com.mezereon.springtest.dao.CustomerMapper;
 import com.mezereon.springtest.dao.KillGoodMapper;
@@ -8,14 +7,16 @@ import com.mezereon.springtest.response.Response;
 import com.mezereon.springtest.service.CustomerService;
 import com.mezereon.springtest.service.KillGoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 import java.util.List;
-
 
 /**
  * @program: KillController
@@ -24,12 +25,14 @@ import java.util.List;
  * @create: 2018/7/18
  **/
 
-
 @RestController
 public class KillGoodController {
 
-
     private static final String HOST = "119.29.87.112";
+    private static final String KILL = "kill";
+    private static final String SUCCESS = "success";
+    private static final String FAIL = "fail";
+
     @Autowired
     KillGoodMapper killGoodMapper;
     @Autowired
@@ -41,27 +44,23 @@ public class KillGoodController {
 
     @RequestMapping(value = "/api/selectKillGoods", method = RequestMethod.GET)
     @CrossOrigin
-    public Response selectKillGoods(){
+    public Response selectKillGoods() {
 
-        Response response=new Response();
-        List<KillGood> listKillGood=killGoodMapper.selectKillGoods();
+        Response response = new Response();
+        List<KillGood> listKillGood = killGoodMapper.selectKillGoods();
         response.setStatus(true);
         response.setData(listKillGood);
         return response;
     }
 
-
-
     @RequestMapping(value = "/api/killGoods", method = RequestMethod.GET)
     @CrossOrigin
-    public Response killGoods(@RequestParam(value = "kgId", required = true) Integer kgId,@RequestParam(value = "cId",required = true) Integer cId ) {
+    public Response killGoods(@RequestParam(value = "kgId", required = true) Integer kgId, @RequestParam(value = "cId", required = true) Integer cId) {
         Response response = new Response();
-
-        String cName=customerService.selectByPrimaryKey(cId).getcName();
-        if (KillGoodService.isRuning.get(kgId)==0) {
-            KillGoodService.startKill(kgId,cId);
+        if (KillGoodService.isRuning.get(kgId) == 0) {
+            KillGoodService.startKill(kgId, cId);
         }
-        if (run(kgId,cId)) {
+        if (run(kgId, cId)) {
             response.setMsg("抢购成功");
         } else {
             response.setMsg("抢购失败");
@@ -75,21 +74,21 @@ public class KillGoodController {
             return response;
         }
     }
-    public boolean run(Integer kgId,Integer cId) {
+
+    public boolean run(Integer kgId, Integer cId) {
         JedisPool pool = new JedisPool(new JedisPoolConfig(), HOST);
         Jedis jedis = null;
 
         try {
-            String KILL="kill"+kgId;
-            String SUCCESS="success"+kgId;
-            String FAIL="fail"+kgId;
-            String cName=customerService.selectByPrimaryKey(cId).getcName();
+            String kill = KILL + kgId;
+            String success = SUCCESS + kgId;
+            String fail = FAIL + kgId;
             jedis = pool.getResource();
-            jedis.lpush(KILL,cName);
-            while ((!jedis.sismember(SUCCESS, cName)) && !(jedis.sismember(FAIL, cName))) {
-                System.out.println(cName + "等待中。。。");
+            jedis.lpush(kill, String.valueOf(cId));
+            while ((!jedis.sismember(success, String.valueOf(cId))) && !(jedis.sismember(fail, String.valueOf(cId)))) {
+                System.out.println(String.valueOf(cId) + "等待中。。。");
             }
-            if (jedis.sismember(SUCCESS,cName)) {
+            if (jedis.sismember(success, String.valueOf(cId))) {
                 return true;
             } else {
                 return false;
