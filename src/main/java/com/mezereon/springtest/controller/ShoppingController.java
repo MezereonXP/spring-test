@@ -11,6 +11,8 @@ import com.mezereon.springtest.dao.GoodImgMapper;
 import com.mezereon.springtest.dao.GoodsMapper;
 import com.mezereon.springtest.response.Response;
 import com.mezereon.springtest.service.ShoppingService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class ShoppingController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShoppingController.class.getName());
 
     @Autowired
     private ShoppingService shoppingService;
@@ -74,7 +78,7 @@ public class ShoppingController {
             Shopping shopping = new Shopping(goods, configList, goodImgList);
 
             response1.setMsg("success");
-            System.out.println(goods.getgName());
+            LOGGER.info("NAME", goods.getgName());
             response1.setData(shopping);
             response1.setStatus(true);
             return response1;
