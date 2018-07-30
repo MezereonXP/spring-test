@@ -183,4 +183,9 @@
       gi_img = #{giImg,jdbcType=VARCHAR}
     where gi_id = #{giId,jdbcType=INTEGER}
   </update>
+    <select id="selectAllgoodimg" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from goodimg
+    </select>
 </mapper>

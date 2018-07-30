@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mezereon.springtest.dao.ConfigMapper">
-    <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Config">
-        <id column="cfg_id" jdbcType="INTEGER" property="cfgId"/>
-        <result column="cfg_type" jdbcType="INTEGER" property="cfgType"/>
-        <result column="cfg_pricedata" jdbcType="INTEGER" property="cfgPricedata"/>
-        <result column="cfg_description" jdbcType="VARCHAR" property="cfgDescription"/>
-        <association property="goods" javaType="com.mezereon.springtest.bean.Goods"
-                     column="cfg_goods_id"
-                     select="com.mezereon.springtest.dao.GoodsMapper.selectByPrimaryKey">
-        </association>
+<mapper namespace="com.mezereon.springtest.dao.GoodAdvMapper">
+    <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.GoodAdv">
+        <id column="adv_id" jdbcType="INTEGER" property="advId"/>
+        <result column="adv_g_catagory" jdbcType="VARCHAR" property="advGCatagory"/>
+        <result column="adv_pic" jdbcType="VARCHAR" property="advPic"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -70,16 +65,16 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    cfg_id, cfg_goods_id, cfg_type, cfg_pricedata, cfg_description
+    adv_id, adv_g_catagory, adv_pic
   </sql>
-    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.ConfigExample" resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.GoodAdvExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
         </if>
         'true' as QUERYID,
         <include refid="Base_Column_List"/>
-        from config
+        from goodadv
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -90,85 +85,67 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from config
-        where cfg_id = #{cfgId,jdbcType=INTEGER}
+        from goodadv
+        where adv_id = #{advId,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from config
-    where cfg_id = #{cfgId,jdbcType=INTEGER}
+    delete from goodadv
+    where adv_id = #{advId,jdbcType=INTEGER}
   </delete>
-    <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.ConfigExample">
-        delete from config
+    <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.GoodAdvExample">
+        delete from goodadv
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="com.mezereon.springtest.bean.Config">
-    insert into config (cfg_id, cfg_goods_id, cfg_type, 
-      cfg_pricedata, cfg_description)
-    values (#{cfgId,jdbcType=INTEGER}, #{goods.gId,jdbcType=INTEGER}, #{cfgType,jdbcType=INTEGER},
-      #{cfgPricedata,jdbcType=INTEGER}, #{cfgDescription,jdbcType=VARCHAR})
+    <insert id="insert" parameterType="com.mezereon.springtest.bean.GoodAdv">
+    insert into goodadv (adv_id, adv_g_catagory, adv_pic
+      )
+    values (#{advId,jdbcType=INTEGER}, #{advGCatagory,jdbcType=VARCHAR}, #{advPic,jdbcType=VARCHAR}
+      )
   </insert>
-    <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Config">
-        insert into config
+    <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.GoodAdv">
+        insert into goodadv
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="cfgId != null">
-                cfg_id,
+            <if test="advId != null">
+                adv_id,
             </if>
-            <if test="cfgGoodsId != null">
-                cfg_goods_id,
+            <if test="advGCatagory != null">
+                adv_g_catagory,
             </if>
-            <if test="cfgType != null">
-                cfg_type,
-            </if>
-            <if test="cfgPricedata != null">
-                cfg_pricedata,
-            </if>
-            <if test="cfgDescription != null">
-                cfg_description,
+            <if test="advPic != null">
+                adv_pic,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="cfgId != null">
-                #{cfgId,jdbcType=INTEGER},
+            <if test="advId != null">
+                #{advId,jdbcType=INTEGER},
             </if>
-            <if test="cfgGoodsId != null">
-                #{goods.gId,jdbcType=INTEGER},
+            <if test="advGCatagory != null">
+                #{advGCatagory,jdbcType=VARCHAR},
             </if>
-            <if test="cfgType != null">
-                #{cfgType,jdbcType=INTEGER},
-            </if>
-            <if test="cfgPricedata != null">
-                #{cfgPricedata,jdbcType=INTEGER},
-            </if>
-            <if test="cfgDescription != null">
-                #{cfgDescription,jdbcType=VARCHAR},
+            <if test="advPic != null">
+                #{advPic,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="com.mezereon.springtest.bean.ConfigExample" resultType="java.lang.Long">
-        select count(*) from config
+    <select id="countByExample" parameterType="com.mezereon.springtest.bean.GoodAdvExample" resultType="java.lang.Long">
+        select count(*) from goodadv
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </select>
     <update id="updateByExampleSelective" parameterType="map">
-        update config
+        update goodadv
         <set>
-            <if test="record.cfgId != null">
-                cfg_id = #{record.cfgId,jdbcType=INTEGER},
+            <if test="record.advId != null">
+                adv_id = #{record.advId,jdbcType=INTEGER},
             </if>
-            <if test="record.cfgGoodsId != null">
-                cfg_goods_id = #{record.goods.gId,jdbcType=INTEGER},
+            <if test="record.advGCatagory != null">
+                adv_g_catagory = #{record.advGCatagory,jdbcType=VARCHAR},
             </if>
-            <if test="record.cfgType != null">
-                cfg_type = #{record.cfgType,jdbcType=INTEGER},
-            </if>
-            <if test="record.cfgPricedata != null">
-                cfg_pricedata = #{record.cfgPricedata,jdbcType=INTEGER},
-            </if>
-            <if test="record.cfgDescription != null">
-                cfg_description = #{record.cfgDescription,jdbcType=VARCHAR},
+            <if test="record.advPic != null">
+                adv_pic = #{record.advPic,jdbcType=VARCHAR},
             </if>
         </set>
         <if test="_parameter != null">
@@ -176,46 +153,30 @@
         </if>
     </update>
     <update id="updateByExample" parameterType="map">
-        update config
-        set cfg_id = #{record.cfgId,jdbcType=INTEGER},
-        cfg_goods_id = #{record.goods.gId,jdbcType=INTEGER},
-        cfg_type = #{record.cfgType,jdbcType=INTEGER},
-        cfg_pricedata = #{record.cfgPricedata,jdbcType=INTEGER},
-        cfg_description = #{record.cfgDescription,jdbcType=VARCHAR}
+        update goodadv
+        set adv_id = #{record.advId,jdbcType=INTEGER},
+        adv_g_catagory = #{record.advGCatagory,jdbcType=VARCHAR},
+        adv_pic = #{record.advPic,jdbcType=VARCHAR}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
     </update>
-    <update id="updateByPrimaryKeySelective" parameterType="com.mezereon.springtest.bean.Config">
-        update config
+    <update id="updateByPrimaryKeySelective" parameterType="com.mezereon.springtest.bean.GoodAdv">
+        update goodadv
         <set>
-            <if test="cfgGoodsId != null">
-                cfg_goods_id = #{goods.gId,jdbcType=INTEGER},
+            <if test="advGCatagory != null">
+                adv_g_catagory = #{advGCatagory,jdbcType=VARCHAR},
             </if>
-            <if test="cfgType != null">
-                cfg_type = #{cfgType,jdbcType=INTEGER},
-            </if>
-            <if test="cfgPricedata != null">
-                cfg_pricedata = #{cfgPricedata,jdbcType=INTEGER},
-            </if>
-            <if test="cfgDescription != null">
-                cfg_description = #{cfgDescription,jdbcType=VARCHAR},
+            <if test="advPic != null">
+                adv_pic = #{advPic,jdbcType=VARCHAR},
             </if>
         </set>
-        where cfg_id = #{cfgId,jdbcType=INTEGER}
+        where adv_id = #{advId,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Config">
-    update config
-    set cfg_goods_id = #{goods.gId,jdbcType=INTEGER},
-      cfg_type = #{cfgType,jdbcType=INTEGER},
-      cfg_pricedata = #{cfgPricedata,jdbcType=INTEGER},
-      cfg_description = #{cfgDescription,jdbcType=VARCHAR}
-    where cfg_id = #{cfgId,jdbcType=INTEGER}
+    <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.GoodAdv">
+    update goodadv
+    set adv_g_catagory = #{advGCatagory,jdbcType=VARCHAR},
+      adv_pic = #{advPic,jdbcType=VARCHAR}
+    where adv_id = #{advId,jdbcType=INTEGER}
   </update>
-    <select id="selectAllconfig" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"></include>
-        from config
-    </select>
-
 </mapper>

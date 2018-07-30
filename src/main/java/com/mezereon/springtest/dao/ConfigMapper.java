@@ -4,7 +4,9 @@ import com.mezereon.springtest.bean.Config;
 import com.mezereon.springtest.bean.ConfigExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface ConfigMapper {
     long countByExample(ConfigExample example);
 
@@ -27,4 +29,6 @@ public interface ConfigMapper {
     int updateByPrimaryKeySelective(Config record);
 
     int updateByPrimaryKey(Config record);
+
+    List<Config> selectAllconfig();
 }

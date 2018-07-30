@@ -6,7 +6,9 @@ import com.mezereon.springtest.bean.GoodImgExample;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface GoodImgMapper {
     long countByExample(GoodImgExample example);
 
@@ -29,4 +31,6 @@ public interface GoodImgMapper {
     int updateByPrimaryKeySelective(GoodImg record);
 
     int updateByPrimaryKey(GoodImg record);
+
+    List<GoodImg> selectAllgoodimg();
 }
