@@ -3,20 +3,26 @@ package com.mezereon.springtest.bean;
 import java.util.List;
 
 public class Shopping {
-    private List<Goods> goods;
+    private Goods goods;
     private List<Config> config;
     private List<GoodImg> goodimg;
 
-    public List<Goods> getGoods() {
+    public Goods getGoods() {
         return goods;
     }
 
-    public void setGoods(List<Goods> goods) {
+    public void setGoods(Goods goods) {
         this.goods = goods;
     }
 
     public List<Config> getConfig() {
         return config;
+    }
+
+    public Shopping(Goods goods, List<Config> config, List<GoodImg> goodimg) {
+        this.goods = goods;
+        this.config = config;
+        this.goodimg = goodimg;
     }
 
     public void setConfig(List<Config> config) {
