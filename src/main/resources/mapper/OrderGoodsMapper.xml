@@ -85,7 +85,7 @@
         </if>
         'true' as QUERYID,
         <include refid="Base_Column_List"/>
-        from order-goods
+        from `order-goods`
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -96,21 +96,21 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from order-goods
+        from `order-goods`
         where og_id = #{ogId,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order-goods
+    delete from `order-goods`
     where og_id = #{ogId,jdbcType=INTEGER}
   </delete>
     <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.OrderGoodsExample">
-        delete from order-goods
+        delete from `order-goods`
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
     <insert id="insert" parameterType="com.mezereon.springtest.bean.OrderGoods">
-    insert into order-goods (og_id, og_order_id, og_goods_id, 
+    insert into `order-goods` (og_id, og_order_id, og_goods_id,
       og_price, og_quantity, og_status
       )
     values (#{ogId,jdbcType=INTEGER}, #{order.oId,jdbcType=INTEGER}, #{goods.gId,jdbcType=INTEGER},
@@ -118,7 +118,7 @@
       )
   </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.OrderGoods">
-        insert into order-goods
+        insert into `order-goods`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="ogId != null">
                 og_id,
@@ -161,13 +161,13 @@
         </trim>
     </insert>
     <select id="countByExample" parameterType="com.mezereon.springtest.bean.OrderGoodsExample" resultType="java.lang.Long">
-        select count(*) from order-goods
+        select count(*) from `order-goods`
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </select>
     <update id="updateByExampleSelective" parameterType="map">
-        update order-goods
+        update `order-goods`
         <set>
             <if test="record.ogId != null">
                 og_id = #{record.ogId,jdbcType=INTEGER},
@@ -193,7 +193,7 @@
         </if>
     </update>
     <update id="updateByExample" parameterType="map">
-        update order-goods
+        update `order-goods`
         set og_id = #{record.ogId,jdbcType=INTEGER},
         og_order_id = #{record.order.oId,jdbcType=INTEGER},
         og_goods_id = #{record.goods.gId,jdbcType=INTEGER},
@@ -205,7 +205,7 @@
         </if>
     </update>
     <update id="updateByPrimaryKeySelective" parameterType="com.mezereon.springtest.bean.OrderGoods">
-        update order-goods
+        update `order-goods`
         <set>
             <if test="ogOrderId != null">
                 og_order_id = #{order.oId,jdbcType=INTEGER},
@@ -226,7 +226,7 @@
         where og_id = #{ogId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.OrderGoods">
-    update order-goods
+    update `order-goods`
     set og_order_id = #{order.oId,jdbcType=INTEGER},
       og_goods_id = #{goods.gId,jdbcType=INTEGER},
       og_price = #{ogPrice,jdbcType=DOUBLE},
@@ -234,4 +234,16 @@
       og_status = #{ogStatus,jdbcType=INTEGER}
     where og_id = #{ogId,jdbcType=INTEGER}
   </update>
+    <select id="selectByOrderId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `order-goods`
+        where og_order_id = #{oId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByGoodsId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `order-goods`
+        where og_goods_id = #{gId,jdbcType=INTEGER}
+    </select>
 </mapper>

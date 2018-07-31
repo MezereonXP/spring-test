@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Order">
         <id column="o_id" jdbcType="INTEGER" property="oId"/>
         <result column="o_code" jdbcType="VARCHAR" property="oCode"/>
-        <result column="o_address_id" jdbcType="INTEGER" property="oAddressId"/>
+
         <result column="o_state" jdbcType="INTEGER" property="oState"/>
         <result column="o_type" jdbcType="INTEGER" property="oType"/>
         <result column="o_setDate" jdbcType="VARCHAR" property="oSetdate"/>
@@ -90,7 +90,7 @@
         </if>
         'true' as QUERYID,
         <include refid="Base_Column_List"/>
-        from order
+        from `order`
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -101,21 +101,21 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from order
+        from `order`
         where o_id = #{oId,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order
+    delete from `order`
     where o_id = #{oId,jdbcType=INTEGER}
   </delete>
     <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.OrderExample">
-        delete from order
+        delete from `order`
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
     <insert id="insert" parameterType="com.mezereon.springtest.bean.Order">
-    insert into order (o_id, o_code, o_customer_id, 
+    insert into `order` (o_id, o_code, o_customer_id,
       o_address_id, o_state, o_type, 
       o_setDate, o_remark, o_status
       )
@@ -125,7 +125,7 @@
       )
   </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Order">
-        insert into order
+        insert into `order`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="oId != null">
                 o_id,
@@ -186,13 +186,13 @@
         </trim>
     </insert>
     <select id="countByExample" parameterType="com.mezereon.springtest.bean.OrderExample" resultType="java.lang.Long">
-        select count(*) from order
+        select count(*) from `order`
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </select>
     <update id="updateByExampleSelective" parameterType="map">
-        update order
+        update `order`
         <set>
             <if test="record.oId != null">
                 o_id = #{record.oId,jdbcType=INTEGER},
@@ -227,7 +227,7 @@
         </if>
     </update>
     <update id="updateByExample" parameterType="map">
-        update order
+        update `order`
         set o_id = #{record.oId,jdbcType=INTEGER},
         o_code = #{record.oCode,jdbcType=VARCHAR},
         o_customer_id = #{record.customer.cId,jdbcType=INTEGER},
@@ -242,7 +242,7 @@
         </if>
     </update>
     <update id="updateByPrimaryKeySelective" parameterType="com.mezereon.springtest.bean.Order">
-        update order
+        update `order`
         <set>
             <if test="oCode != null">
                 o_code = #{oCode,jdbcType=VARCHAR},
@@ -272,7 +272,7 @@
         where o_id = #{oId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Order">
-    update order
+    update `order`
     set o_code = #{oCode,jdbcType=VARCHAR},
       o_customer_id = #{customer.cId,jdbcType=INTEGER},
       o_address_id = #{address.aId,jdbcType=INTEGER},
@@ -283,4 +283,16 @@
       o_status = #{oStatus,jdbcType=INTEGER}
     where o_id = #{oId,jdbcType=INTEGER}
   </update>
+    <select id="selectByOrderCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `order`
+        where o_code = #{oCode,jdbcType=VARCHAR}
+    </select>
+    <select id="selectAllOrderByCustomerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `order`
+        where o_customer_id = #{customerId,jdbcType=INTEGER}
+    </select>
 </mapper>

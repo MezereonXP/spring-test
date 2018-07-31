@@ -218,4 +218,9 @@
       s_status = #{sStatus,jdbcType=INTEGER}
     where s_id = #{sId,jdbcType=INTEGER}
   </update>
+    <select id="selectByCustomerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select  <include refid="Base_Column_List"/>
+        from shopcar
+        where s_customer_id = #{customerId,jdbcType=INTEGER} and s_status = 1;
+    </select>
 </mapper>

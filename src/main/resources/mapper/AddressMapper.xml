@@ -33,7 +33,8 @@
                                 </when>
                                 <when test="criterion.listValue">
                                     and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -62,7 +63,8 @@
                                 </when>
                                 <when test="criterion.listValue">
                                     and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -74,8 +76,8 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    a_id, a_customer_id, a_receiver, a_telephone, a_zipcode, a_detail, a_status
-  </sql>
+        a_id, a_customer_id, a_receiver, a_telephone, a_zipcode, a_detail, a_status
+    </sql>
     <select id="selectByExample" parameterType="com.mezereon.springtest.bean.AddressExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
@@ -98,9 +100,9 @@
         where a_id = #{aId,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from address
-    where a_id = #{aId,jdbcType=INTEGER}
-  </delete>
+        delete from address
+        where a_id = #{aId,jdbcType=INTEGER}
+    </delete>
     <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.AddressExample">
         delete from address
         <if test="_parameter != null">
@@ -108,13 +110,13 @@
         </if>
     </delete>
     <insert id="insert" parameterType="com.mezereon.springtest.bean.Address">
-    insert into address (a_id, a_customer_id, a_receiver, 
-      a_telephone, a_zipcode, a_detail, 
-      a_status)
-    values (#{aId,jdbcType=INTEGER}, #{customer.cId,jdbcType=INTEGER}, #{aReceiver,jdbcType=VARCHAR},
-      #{aTelephone,jdbcType=VARCHAR}, #{aZipcode,jdbcType=VARCHAR}, #{aDetail,jdbcType=VARCHAR}, 
-      #{aStatus,jdbcType=INTEGER})
-  </insert>
+        insert into address (a_id, a_customer_id, a_receiver,
+        a_telephone, a_zipcode, a_detail,
+        a_status)
+        values (#{aId,jdbcType=INTEGER}, #{customer.cId,jdbcType=INTEGER}, #{aReceiver,jdbcType=VARCHAR},
+        #{aTelephone,jdbcType=VARCHAR}, #{aZipcode,jdbcType=VARCHAR}, #{aDetail,jdbcType=VARCHAR},
+        #{aStatus,jdbcType=INTEGER})
+    </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Address">
         insert into address
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -237,13 +239,20 @@
         where a_id = #{aId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Address">
-    update address
-    set a_customer_id = #{customer.cId,jdbcType=INTEGER},
-      a_receiver = #{aReceiver,jdbcType=VARCHAR},
-      a_telephone = #{aTelephone,jdbcType=VARCHAR},
-      a_zipcode = #{aZipcode,jdbcType=VARCHAR},
-      a_detail = #{aDetail,jdbcType=VARCHAR},
-      a_status = #{aStatus,jdbcType=INTEGER}
-    where a_id = #{aId,jdbcType=INTEGER}
-  </update>
+        update address
+        set a_customer_id = #{customer.cId,jdbcType=INTEGER},
+        a_receiver = #{aReceiver,jdbcType=VARCHAR},
+        a_telephone = #{aTelephone,jdbcType=VARCHAR},
+        a_zipcode = #{aZipcode,jdbcType=VARCHAR},
+        a_detail = #{aDetail,jdbcType=VARCHAR},
+        a_status = #{aStatus,jdbcType=INTEGER}
+        where a_id = #{aId,jdbcType=INTEGER}
+    </update>
+    <select id="selectAllAddressByCustomerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from address
+
+        where a_customer_id = #{customerId,jdbcType=INTEGER} and a_status = 1;
+    </select>
 </mapper>
