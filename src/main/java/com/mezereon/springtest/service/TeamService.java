@@ -139,7 +139,7 @@ public class TeamService {
         List<OrderGoods> orderGoods = new ArrayList<>();
         for (Order order1 : orders) {
             //团购中一个订单只有一个商品，所以返回值应该只有一条
-            orderGoods.add(orderGoodsMapper.selectByoId(order1.getoId()).get(0));
+            orderGoods.add(orderGoodsMapper.selectByOrderId(order1.getoId()).get(0));
         }
         //查找到期的团购
         for (OrderGoods orderGood : orderGoods) {
