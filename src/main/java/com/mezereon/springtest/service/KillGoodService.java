@@ -74,7 +74,7 @@ public class KillGoodService {
 
                 try {
                     jedis = pool.getResource();
-                    while (jedis.scard(SUCCESS.get(kgId)) < kgQuantity.get(kgId)) {
+                    while (jedis.scard(SUCCESS.get(kgId)) <= kgQuantity.get(kgId)) {
                         if (jedis.llen(KILL.get(kgId)) != 0) {
                             //加入成功队列
                             String temp = jedis.rpop(KILL.get(kgId));
@@ -103,7 +103,8 @@ public class KillGoodService {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(10000);
+                    //四个小时后结束
+                    Thread.sleep(4*60*60*1000);
                     System.out.printf("stop");
                     FLAG.put(kgId, 0);
                     isRuning.put(kgId, 0);

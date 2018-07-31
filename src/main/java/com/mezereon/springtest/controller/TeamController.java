@@ -25,8 +25,6 @@ public class TeamController {
     private TeamService teamService;
     @Autowired
     TeamMapper teamMapper;
-    @Autowired
-    TeamCustomerMapper teamCustomerMapper;
 
    /* //查询顾客数量
     @RequestMapping(value = "/api/selectNofCustomer", method = RequestMethod.GET)
