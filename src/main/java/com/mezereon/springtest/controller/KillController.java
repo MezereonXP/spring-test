@@ -43,6 +43,7 @@ public class KillController {
         } catch (Exception e) {
             response.setStatus(false);
             response.setMsg(e.getMessage());
+
             return response;
         }
     }

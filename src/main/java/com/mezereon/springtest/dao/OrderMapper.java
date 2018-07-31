@@ -5,6 +5,7 @@ import com.mezereon.springtest.bean.OrderExample;
 
 import java.util.List;
 
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -31,4 +32,8 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+
+    Order selectByOrderCode(String oCode);
+
+    List<Order> selectAllOrderByCustomerId(int customerId);
 }

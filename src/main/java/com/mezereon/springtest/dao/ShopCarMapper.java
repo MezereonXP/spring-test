@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface ShopCarMapper {
+
+
     long countByExample(ShopCarExample example);
 
     int deleteByExample(ShopCarExample example);
@@ -31,4 +33,6 @@ public interface ShopCarMapper {
     int updateByPrimaryKeySelective(ShopCar record);
 
     int updateByPrimaryKey(ShopCar record);
+
+    List<ShopCar> selectByCustomerId(int customerId);
 }
