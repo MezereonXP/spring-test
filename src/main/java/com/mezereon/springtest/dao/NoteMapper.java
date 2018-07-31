@@ -31,4 +31,6 @@ public interface NoteMapper {
     int updateByPrimaryKeySelective(Note record);
 
     int updateByPrimaryKey(Note record);
+
+    List<Note> selectAllNote();
 }

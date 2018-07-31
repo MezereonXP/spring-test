@@ -5,7 +5,6 @@ import com.mezereon.springtest.bean.OrderExample;
 
 import java.util.List;
 
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -36,4 +35,7 @@ public interface OrderMapper {
     Order selectByOrderCode(String oCode);
 
     List<Order> selectAllOrderByCustomerId(int customerId);
+
+    //根据类型查询某个客户当前类型的所有订单订单
+    List<Order> selectByType(Order order);
 }

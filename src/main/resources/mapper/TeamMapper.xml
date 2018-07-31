@@ -5,7 +5,7 @@
         <id column="t_id" jdbcType="INTEGER" property="tId"/>
         <!--<result column="t_teamshop_goods_id" jdbcType="INTEGER" property="tTeamshopGoodsId"/>-->
         <result column="t_status" jdbcType="INTEGER" property="tStatus"/>
-        <association property="TeamShopGoods" javaType="com.mezereon.springtest.bean.TeamShopGoods"
+        <association property="teamShopGoods" javaType="com.mezereon.springtest.bean.TeamShopGoods"
                      select="com.mezereon.springtest.dao.TeamShopGoodsMapper.selectByPrimaryKey"
                      column="t_teamshop_goods_id"
         />
@@ -28,7 +28,8 @@
                                 </when>
                                 <when test="criterion.listValue">
                                     and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -57,7 +58,8 @@
                                 </when>
                                 <when test="criterion.listValue">
                                     and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -69,8 +71,8 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    t_id, t_teamshop_goods_id, t_status
-  </sql>
+        t_id, t_teamshop_goods_id, t_status
+    </sql>
     <select id="selectByExample" parameterType="com.mezereon.springtest.bean.TeamExample" resultMap="BaseResultMap">
         select
         <if test="distinct">
@@ -93,9 +95,9 @@
         where t_id = #{tId,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from team
-    where t_id = #{tId,jdbcType=INTEGER}
-  </delete>
+        delete from team
+        where t_id = #{tId,jdbcType=INTEGER}
+    </delete>
     <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.TeamExample">
         delete from team
         <if test="_parameter != null">
@@ -104,11 +106,11 @@
     </delete>
     <!-- 建立团购  -->
     <insert id="insert" parameterType="com.mezereon.springtest.bean.Team">
-    insert into team (t_id, t_teamshop_goods_id, t_status
-      )
+        insert into team (t_id, t_teamshop_goods_id, t_status
+        )
         values (#{tId,jdbcType=INTEGER}, #{teamShopGoods.tgId,jdbcType=INTEGER}, #{tStatus,jdbcType=INTEGER}
-      )
-  </insert>
+        )
+    </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Team">
         insert into team
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -179,10 +181,10 @@
         where t_id = #{tId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Team">
-    update team
-    set t_teamshop_goods_id = #{tTeamshopGoodsId,jdbcType=INTEGER},
-      t_status = #{tStatus,jdbcType=INTEGER}
-    where t_id = #{tId,jdbcType=INTEGER}
+        update team
+        set t_teamshop_goods_id = #{tTeamshopGoodsId,jdbcType=INTEGER},
+        t_status = #{tStatus,jdbcType=INTEGER}
+        where t_id = #{tId,jdbcType=INTEGER}
     </update>
     <!-- 查询该团的人数  -->
     <select id="selectNofCustomer" parameterType="java.lang.Integer" resultType="java.lang.Integer">
@@ -190,9 +192,4 @@
         FROM `team-customer`
         WHERE `team-customer`.tc_team_id = #{tId,jdbcType=INTEGER}
     </select>
-    <!-- 更新team-customer表 -->
-    <insert id="updateTeam" parameterType="map">
-        INSERT INTO `team-customer`(tc_team_id,tc_customer_id)
-        VALUES (#{tc_team_id,jdbcType=INTEGER},#{tc_customer_id,jdbcType=INTEGER})
-    </insert>
 </mapper>

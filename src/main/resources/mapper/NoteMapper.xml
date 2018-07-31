@@ -197,4 +197,10 @@
       n_note = #{nNote,jdbcType=VARCHAR}
     where n_id = #{nId,jdbcType=INTEGER}
   </update>
+
+    <select id="selectAllNote" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from  note
+    </select>
+
 </mapper>

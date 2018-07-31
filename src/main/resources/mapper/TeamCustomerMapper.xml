@@ -3,7 +3,7 @@
 <mapper namespace="com.mezereon.springtest.dao.TeamCustomerMapper">
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.TeamCustomer">
         <id column="tc_id" jdbcType="INTEGER" property="tcId"/>
-        <association property="teams" javaType="com.mezereon.springtest.bean.Team"
+        <association property="team" javaType="com.mezereon.springtest.bean.Team"
                      select="com.mezereon.springtest.dao.TeamMapper.selectByPrimaryKey"
                      column="tc_team_id"/>
         <association property="customer" javaType="com.mezereon.springtest.bean.Customer"
@@ -28,7 +28,8 @@
                                 </when>
                                 <when test="criterion.listValue">
                                     and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -57,7 +58,8 @@
                                 </when>
                                 <when test="criterion.listValue">
                                     and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -69,9 +71,10 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    tc_id, tc_team_id, tc_customer_id
-  </sql>
-    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.TeamCustomerExample" resultMap="BaseResultMap">
+        tc_id, tc_team_id, tc_customer_id
+    </sql>
+    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.TeamCustomerExample"
+            resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
@@ -93,21 +96,22 @@
         where tc_id = #{tcId,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from team-customer
-    where tc_id = #{tcId,jdbcType=INTEGER}
-  </delete>
+        delete from team-customer
+        where tc_id = #{tcId,jdbcType=INTEGER}
+    </delete>
     <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.TeamCustomerExample">
         delete from team-customer
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
+    <!-- 更新team-customer表 -->
     <insert id="insert" parameterType="com.mezereon.springtest.bean.TeamCustomer">
-    insert into team-customer (tc_id, tc_team_id, tc_customer_id
-      )
+        insert into `team-customer` (tc_id, tc_team_id, tc_customer_id
+        )
         values (#{tcId,jdbcType=INTEGER}, #{team.tId,jdbcType=INTEGER}, #{customer.cId,jdbcType=INTEGER}
-      )
-  </insert>
+        )
+    </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.TeamCustomer">
         insert into team-customer
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -133,7 +137,8 @@
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="com.mezereon.springtest.bean.TeamCustomerExample" resultType="java.lang.Long">
+    <select id="countByExample" parameterType="com.mezereon.springtest.bean.TeamCustomerExample"
+            resultType="java.lang.Long">
         select count(*) from team-customer
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
@@ -178,9 +183,17 @@
         where tc_id = #{tcId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.TeamCustomer">
-    update team-customer
-    set tc_team_id = #{tcTeamId,jdbcType=INTEGER},
-      tc_customer_id = #{tcCustomerId,jdbcType=INTEGER}
-    where tc_id = #{tcId,jdbcType=INTEGER}
-  </update>
+        update team-customer
+        set tc_team_id = #{tcTeamId,jdbcType=INTEGER},
+        tc_customer_id = #{tcCustomerId,jdbcType=INTEGER}
+        where tc_id = #{tcId,jdbcType=INTEGER}
+    </update>
+    <!--  根据顾客id查询到所有该客户团 -->
+    <select id="selectTeamByCustomer" parameterType="com.mezereon.springtest.bean.TeamCustomer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `team-customer`
+        where tc_customer_id = #{customer.cId}
+    </select>
 </mapper>

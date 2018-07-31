@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @MapperScan("com.mezereon.springtest")
+@ComponentScan("com.mezereon.springtest")
 public class SpringTestApplication {
 
     public static void main(String[] args) {
