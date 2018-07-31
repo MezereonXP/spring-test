@@ -23,6 +23,6 @@ public class TeamShopGoodsMapperTest {
 
     @Test
     public void selectAllTSGMapper() {
-        LOGGER.info("SIZE", teamShopGoodsMapper.selectAllTSGMapper().size());
+        LOGGER.info("SIZE", teamShopGoodsMapper.selectAllTSG().size());
     }
 }

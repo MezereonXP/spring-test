@@ -1,5 +1,7 @@
 package com.mezereon.springtest.dao;
 
+import com.mezereon.springtest.bean.Customer;
+import com.mezereon.springtest.bean.Team;
 import com.mezereon.springtest.bean.TeamCustomer;
 import com.mezereon.springtest.bean.TeamCustomerExample;
 
@@ -29,4 +31,7 @@ public interface TeamCustomerMapper {
     int updateByPrimaryKeySelective(TeamCustomer record);
 
     int updateByPrimaryKey(TeamCustomer record);
+
+    //根据客户id查询该客户参加的所有团
+    List<TeamCustomer> selectTeamByCustomer(TeamCustomer teamCustomer);
 }

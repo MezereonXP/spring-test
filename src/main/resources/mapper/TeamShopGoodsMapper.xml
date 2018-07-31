@@ -29,7 +29,8 @@
                                 </when>
                                 <when test="criterion.listValue">
                                     and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -58,7 +59,8 @@
                                 </when>
                                 <when test="criterion.listValue">
                                     and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -70,9 +72,10 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    tg_id, tg_goods_id, tg_discount, tg_date, tg_quantity, tg_maxpeople
-  </sql>
-    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.TeamShopGoodsExample" resultMap="BaseResultMap">
+        tg_id, tg_goods_id, tg_discount, tg_date, tg_quantity, tg_maxpeople
+    </sql>
+    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.TeamShopGoodsExample"
+            resultMap="BaseResultMap">
         select
         <if test="distinct">
             distinct
@@ -94,9 +97,9 @@
         where tg_id = #{tgId,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from teamshop_goods
-    where tg_id = #{tgId,jdbcType=INTEGER}
-  </delete>
+        delete from teamshop_goods
+        where tg_id = #{tgId,jdbcType=INTEGER}
+    </delete>
     <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.TeamShopGoodsExample">
         delete from teamshop_goods
         <if test="_parameter != null">
@@ -104,13 +107,13 @@
         </if>
     </delete>
     <insert id="insert" parameterType="com.mezereon.springtest.bean.TeamShopGoods">
-    insert into teamshop_goods (tg_id, tg_goods_id, tg_discount, 
-      tg_date, tg_quantity, tg_maxpeople
-      )
-    values (#{tgId,jdbcType=INTEGER}, #{goods.gId,jdbcType=INTEGER}, #{tgDiscount,jdbcType=DOUBLE},
-      #{tgDate,jdbcType=VARCHAR}, #{tgQuantity,jdbcType=INTEGER}, #{tgMaxpeople,jdbcType=INTEGER}
-      )
-  </insert>
+        insert into teamshop_goods (tg_id, tg_goods_id, tg_discount,
+        tg_date, tg_quantity, tg_maxpeople
+        )
+        values (#{tgId,jdbcType=INTEGER}, #{goods.gId,jdbcType=INTEGER}, #{tgDiscount,jdbcType=DOUBLE},
+        #{tgDate,jdbcType=VARCHAR}, #{tgQuantity,jdbcType=INTEGER}, #{tgMaxpeople,jdbcType=INTEGER}
+        )
+    </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.TeamShopGoods">
         insert into teamshop_goods
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -154,7 +157,8 @@
             </if>
         </trim>
     </insert>
-    <select id="countByExample" parameterType="com.mezereon.springtest.bean.TeamShopGoodsExample" resultType="java.lang.Long">
+    <select id="countByExample" parameterType="com.mezereon.springtest.bean.TeamShopGoodsExample"
+            resultType="java.lang.Long">
         select count(*) from teamshop_goods
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
@@ -220,19 +224,24 @@
         where tg_id = #{tgId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.TeamShopGoods">
-    update teamshop_goods
-    set tg_goods_id = #{goods.gId,jdbcType=INTEGER},
-      tg_discount = #{tgDiscount,jdbcType=DOUBLE},
-      tg_date = #{tgDate,jdbcType=VARCHAR},
-      tg_quantity = #{tgQuantity,jdbcType=INTEGER},
-      tg_maxpeople = #{tgMaxpeople,jdbcType=INTEGER}
-    where tg_id = #{tgId,jdbcType=INTEGER}
+        update teamshop_goods
+        set tg_goods_id = #{goods.gId,jdbcType=INTEGER},
+        tg_discount = #{tgDiscount,jdbcType=DOUBLE},
+        tg_date = #{tgDate,jdbcType=VARCHAR},
+        tg_quantity = #{tgQuantity,jdbcType=INTEGER},
+        tg_maxpeople = #{tgMaxpeople,jdbcType=INTEGER}
+        where tg_id = #{tgId,jdbcType=INTEGER}
     </update>
     <!-- 查询所有团购商品 -->
-    <select id="selectAllTSGMapper" resultType="com.mezereon.springtest.bean.TeamShopGoods" resultMap="BaseResultMap">
+    <select id="selectAllTSG" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM `teamshop_goods`
     </select>
-
+    <!-- 查询该团购商品的所有团的数量 -->
+    <select id="selectNofTeam" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(*)
+        from team
+        where t_teamshop_goods_id = #{tgId,jdbcType=INTEGER}
+    </select>
 </mapper>

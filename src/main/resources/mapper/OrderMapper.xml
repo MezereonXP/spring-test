@@ -4,7 +4,6 @@
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Order">
         <id column="o_id" jdbcType="INTEGER" property="oId"/>
         <result column="o_code" jdbcType="VARCHAR" property="oCode"/>
-
         <result column="o_state" jdbcType="INTEGER" property="oState"/>
         <result column="o_type" jdbcType="INTEGER" property="oType"/>
         <result column="o_setDate" jdbcType="VARCHAR" property="oSetdate"/>
@@ -186,13 +185,13 @@
         </trim>
     </insert>
     <select id="countByExample" parameterType="com.mezereon.springtest.bean.OrderExample" resultType="java.lang.Long">
-        select count(*) from `order`
+        select count(*) from order
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </select>
     <update id="updateByExampleSelective" parameterType="map">
-        update `order`
+        update order
         <set>
             <if test="record.oId != null">
                 o_id = #{record.oId,jdbcType=INTEGER},
@@ -294,5 +293,12 @@
         <include refid="Base_Column_List"/>
         from `order`
         where o_customer_id = #{customerId,jdbcType=INTEGER}
+    </select>
+    <!-- 根据客户id和订单类型查询相应的订单 -->
+    <select id="selectByType" parameterType="com.mezereon.springtest.bean.Order" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `order`
+        where o_customer_id = #{customer.cId} and o_type = #{oType,jdbcType=INTEGER}
     </select>
 </mapper>

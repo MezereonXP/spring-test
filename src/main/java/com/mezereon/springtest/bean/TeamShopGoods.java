@@ -11,8 +11,10 @@ public class TeamShopGoods {
 
     private String tgDate;
 
+    //一个团多少人
     private Integer tgQuantity;
 
+    //购买商品所允许的最大数量
     private Integer tgMaxpeople;
 
     public Integer getTgId() {

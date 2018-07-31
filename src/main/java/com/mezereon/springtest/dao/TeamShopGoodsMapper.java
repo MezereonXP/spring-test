@@ -33,5 +33,11 @@ public interface TeamShopGoodsMapper {
     int updateByPrimaryKey(TeamShopGoods record);
 
     //查询所有团购商品
-    List<TeamShopGoods> selectAllTSGMapper();
+    List<TeamShopGoods> selectAllTSG();
+
+    //查询该团购商品下的所有团的个数
+    int selectNofTeam(Integer tgId);
+
+    //查询某类型所有商品数据
+    List<TeamShopGoods> selectAllTSGById();
 }
