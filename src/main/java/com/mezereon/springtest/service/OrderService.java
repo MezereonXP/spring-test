@@ -26,11 +26,12 @@ public class OrderService {
     @Autowired
     ShopCarMapper shopCarMapper;
 
-    public void addNewOrder(List<OrderGoods> list) {
+    public  Order addNewOrder(List<OrderGoods> list) {
 
         Order order;
         String timeNow = System.currentTimeMillis() + "";
         list.get(0).getOrder().setoCode(timeNow + list.get(0).getOrder().getAddress().getCustomer().getcId() + list.get(0).getOrder().getoType());
+
         list.get(0).getOrder().setoSetdate(timeNow);
         list.get(0).getOrder().setCustomer(list.get(0).getOrder().getAddress().getCustomer());
         orderMapper.insert(list.get(0).getOrder());
@@ -53,7 +54,7 @@ public class OrderService {
             }
         }
 
-
+        return order;
     }
 
     public List<OrderGoods> selectAllOrderGoodsByCustomerId(int customerId) {

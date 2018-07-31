@@ -47,11 +47,12 @@ public class OrderController {
     //
     @RequestMapping(value = "/api/addNewOrder", method = RequestMethod.POST)
     @CrossOrigin
-    public void addNewOrder(@RequestBody List<OrderGoods> list) {
+    public Response addNewOrder(@RequestBody List<OrderGoods> list) {
 
-            orderService.addNewOrder(list);
-
-
+            Response response = new Response();
+            Order order =  orderService.addNewOrder(list);
+            response.setData(order);
+        return response;
     }
     @RequestMapping(value = "/api/updateOrder", method = RequestMethod.POST)
     @CrossOrigin
