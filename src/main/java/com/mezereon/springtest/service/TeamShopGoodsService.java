@@ -87,6 +87,42 @@ public class TeamShopGoodsService {
     }
 
     //获得该种类商品的所有属性
+    public Response selectTeamShopGoodsByTypeId(String catagory) {
+        Response response = new Response();
+        try {
+            response.setStatus(true);
+            List<TeamShopGoods> teamShopGoodsexample = teamShopGoodsMapper.selectAllTSG();
+            List<TeamShopGoods> teamShopGoods = new ArrayList<>();
+            for (TeamShopGoods teamShopGoods1 : teamShopGoodsexample) {
+                if (teamShopGoods1.getGoods().getgCatagory().equals(catagory)) {
+                    teamShopGoods.add(teamShopGoods1);
+                }
+            }
+            List<TeamShopGoodsDisplay> teamShopGoodsDisplays = new ArrayList<>();
+            for (TeamShopGoods teamShopGood : teamShopGoods) {
+                int tgId = teamShopGood.getTgId();
+                Goods goods = goodsMapper.selectByPrimaryKey(tgId);
+                int nowTeam = teamShopGoodsMapper.selectNofTeam(tgId);
+                TeamShopGoodsDisplay teamShopGoodsDisplay = new TeamShopGoodsDisplay();
+                teamShopGoodsDisplay.setTeamGoodsId(tgId);
+                teamShopGoodsDisplay.setName(goods.getgName());
+                teamShopGoodsDisplay.setDate(teamShopGood.getTgDate());
+                teamShopGoodsDisplay.setNowTeam(nowTeam);
+                int leftTeam = teamShopGood.getTgMaxpeople() / teamShopGood.getTgQuantity() - nowTeam;
+                teamShopGoodsDisplay.setLeftTeam(leftTeam);
+                teamShopGoodsDisplay.setOriginPrice(goods.getgPrice());
+                teamShopGoodsDisplay.setNowPrice(teamShopGood.getTgDiscount() * goods.getgPrice());
+                teamShopGoodsDisplay.setPic(goods.getgPictureurl());
+                teamShopGoodsDisplays.add(teamShopGoodsDisplay);
+            }
+            response.setData(teamShopGoodsDisplays);
+            return response;
+        } catch (Exception e) {
+            response.setMsg(e.getMessage());
+            response.setStatus(false);
+            return response;
+        }
+    }
    /*
     public Response insertGoods(TeamShopGoods teamShopGoods) {
         Response response = new Response();

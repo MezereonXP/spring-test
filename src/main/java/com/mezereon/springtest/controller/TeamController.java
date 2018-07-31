@@ -34,7 +34,7 @@ public class TeamController {
     }*/
 
     //获得团购详细数据
-    @RequestMapping(value = "/api/selectTeamById", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getTeamByTgId", method = RequestMethod.GET)
     @CrossOrigin
     public Response getTeamById(@RequestParam(value = "tId", required = true) Integer tId, @RequestParam(value = "cId", required = true) Integer cId) {
         return teamService.selectTeamById(tId, cId);
@@ -56,7 +56,7 @@ public class TeamController {
     }
 
     //发送消息
-    @RequestMapping(value = "/api/sendNote", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/sendTeamNote", method = RequestMethod.POST)
     @CrossOrigin
     public Response sendNote(@RequestParam(value = "cId", required = true) Integer cId) {
         return teamService.sendNote(cId);

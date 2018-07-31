@@ -22,14 +22,14 @@ public class TeamShopGoodsController {
     private TeamShopGoodsService teamShopGoodsService;
 
     //获得团购商品详细数据
-    @RequestMapping(value = "/api/selectTeamShopGoodsById", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getTeamGoodById", method = RequestMethod.GET)
     @CrossOrigin
-    public Response selectTeamShopGoodsById(@RequestParam(value = "id", required = true) Integer id) {
-        return teamShopGoodsService.selectTeamShopGoodsById(id);
+    public Response selectTeamShopGoodsById(@RequestParam(value = "tgId", required = true) Integer tgId) {
+        return teamShopGoodsService.selectTeamShopGoodsById(tgId);
     }
 
     //获得全部商品数据
-    @RequestMapping(value = "/api/selectTeamShopGoods", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/getAllTeamGoods", method = RequestMethod.GET)
     @CrossOrigin
     public Response selectAllTeamShopGoods() {
         return teamShopGoodsService.selectAllTeamShopGoods();
@@ -44,4 +44,11 @@ public class TeamShopGoodsController {
     public Response insertGoods(@RequestBody TeamShopGoods teamShopGoods) {
         return teamShopGoodsService.insertGoods(teamShopGoods);
     }*/
+//获得某种类型的商品数据
+@RequestMapping(value = "/api/getTeamGoods", method = RequestMethod.GET)
+@CrossOrigin
+public Response selectTeamGoodsByTypeId(@RequestParam(value = "catagory", required = true) String catagory) {
+    System.out.println(catagory);
+    return teamShopGoodsService.selectTeamShopGoodsByTypeId(catagory);
+}
 }
