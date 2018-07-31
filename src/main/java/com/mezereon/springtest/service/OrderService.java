@@ -28,28 +28,29 @@ public class OrderService {
 
     public void addNewOrder(List<OrderGoods> list) {
 
-            Order order ;
-            String timeNow=System.currentTimeMillis()+"";
+        Order order;
+        String timeNow = System.currentTimeMillis() + "";
         list.get(0).getOrder().setoCode(timeNow + list.get(0).getOrder().getAddress().getCustomer().getcId() + list.get(0).getOrder().getoType());
         list.get(0).getOrder().setoSetdate(timeNow);
         list.get(0).getOrder().setCustomer(list.get(0).getOrder().getAddress().getCustomer());
-            orderMapper.insert(list.get(0).getOrder());
-            System.out.println("新增订单" + list.get(0).getGoods().getgName() + ":" + list.get(0).getOgQuantity());
-            //找到最新插入的订单
-            order = orderMapper.selectByOrderCode(list.get(0).getOrder().getoCode());
-            for (OrderGoods ordergoods : list) {
-                ordergoods.setOrder(order);
-                orderGoodsMapper.insert(ordergoods);
-
+        orderMapper.insert(list.get(0).getOrder());
+        System.out.println("新增订单" + list.get(0).getGoods().getgName() + ":" + list.get(0).getOgQuantity());
+        //找到最新插入的订单
+        order = orderMapper.selectByOrderCode(list.get(0).getOrder().getoCode());
+        for (OrderGoods ordergoods : list) {
+            ordergoods.setOrder(order);
+            orderGoodsMapper.insert(ordergoods);
+            if (order.getoType()==1) {
                 List<ShopCar> shopCarList = shopCarMapper.selectByCustomerId(ordergoods.getOrder().getAddress().getCustomer().getcId());
 
                 for (ShopCar shopcar : shopCarList) {
-                    if (shopcar.getGoods().getgId()==ordergoods.getGoods().getgId()) {
+                    if (shopcar.getGoods().getgId() == ordergoods.getGoods().getgId()) {
                         shopcar.setsStatus(0);
                         shopCarMapper.updateByPrimaryKey(shopcar);
                     }
                 }
             }
+        }
 
 
     }
