@@ -108,7 +108,7 @@
     <insert id="insert" parameterType="com.mezereon.springtest.bean.Favorite">
     insert into favorite (f_id, f_customer_id, f_goods_id, 
       f_status)
-    values (#{fId,jdbcType=INTEGER}, #{customer.cId,jdbcType=INTEGER}, #{fGoodsId,jdbcType=INTEGER},
+    values (#{fId,jdbcType=INTEGER}, #{customer.cId,jdbcType=INTEGER}, #{goods.gId,jdbcType=INTEGER},
       #{fStatus,jdbcType=INTEGER})
   </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Favorite">
