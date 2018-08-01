@@ -62,12 +62,13 @@ public class KillGoodController {
     public Response killGoods(@RequestParam(value = "kgId", required = true) Integer kgId, @RequestParam(value = "cId", required = true) Integer cId) {
         Response response = new Response();
 
+        killGoodService.AddKillGood(kgId);
+
         if (killGoodService.ifRunning(kgId) == 0) {
             killGoodService.startKill(kgId, cId);
         }
 
-        killGoodService.AddKillGood(kgId);
-        if (run(kgId, cId)) {
+        if (killGoodService.run(kgId, cId)) {
             response.setMsg("抢购成功");
             KillGood killGood = killGoodMapper.selectByPrimaryKey(kgId);
             killGood.setKgQuantity(killGood.getKgQuantity() - 1);
@@ -85,30 +86,6 @@ public class KillGoodController {
         }
     }
 
-    public boolean run(Integer kgId, Integer cId) {
-        JedisPool pool = new JedisPool(new JedisPoolConfig(), HOST);
-        Jedis jedis = null;
 
-        try {
-            String kill = KILL + kgId;
-            String success = SUCCESS + kgId;
-            String fail = FAIL + kgId;
-            jedis = pool.getResource();
-            jedis.lpush(kill, String.valueOf(cId));
-            while ((!jedis.sismember(success, String.valueOf(cId))) && !(jedis.sismember(fail, String.valueOf(cId)))) {
-                System.out.println(String.valueOf(cId) + "等待中。。。");
-            }
-            if (jedis.sismember(success, String.valueOf(cId))) {
-                return true;
-            } else {
-                return false;
-            }
-        } finally {
-            if (jedis != null) {
-                jedis.close();
-            }
-            pool.close();
-        }
-    }
 }
 

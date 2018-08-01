@@ -74,6 +74,9 @@ public class KillGoodService {
 
                 try {
                     jedis = pool.getResource();
+                    jedis.del(SUCCESS.get(kgId));
+                    jedis.del(FAIL.get(kgId));
+
                     while (jedis.scard(SUCCESS.get(kgId)) <= kgQuantity.get(kgId)) {
                         if (jedis.llen(KILL.get(kgId)) != 0) {
                             //加入成功队列
@@ -113,6 +116,32 @@ public class KillGoodService {
                 }
             }
         }).start();
+    }
+
+    public boolean run(Integer kgId, Integer cId) {
+        JedisPool pool = new JedisPool(new JedisPoolConfig(), HOST);
+        Jedis jedis = null;
+
+        try {
+            String kill = S_KILL + kgId;
+            String success = S_SUCCESS + kgId;
+            String fail = S_FAIL + kgId;
+            jedis = pool.getResource();
+            jedis.lpush(kill, String.valueOf(cId));
+            while ((!jedis.sismember(success, String.valueOf(cId))) && !(jedis.sismember(fail, String.valueOf(cId)))) {
+                System.out.println(String.valueOf(cId) + "等待中。。。");
+            }
+            if (jedis.sismember(success, String.valueOf(cId))) {
+                return true;
+            } else {
+                return false;
+            }
+        } finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+            pool.close();
+        }
     }
 
 }
