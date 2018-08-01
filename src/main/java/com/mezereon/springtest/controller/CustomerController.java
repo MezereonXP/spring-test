@@ -91,44 +91,46 @@ public class CustomerController {
 
         Cookie[] cookies = req.getCookies();
         Response response = new Response();
-//        try {
-        String damiPhone = "";
-        String damiToken = "";
-        boolean flag = false;
+        try {
+            String damiPhone = "";
+            String damiToken = "";
+            boolean flag = false;
 
-        for (int i = 0; i < cookies.length; i++) {
-            if ("damiPhone".equals(cookies[i].getName())) {
-                damiPhone = cookies[i].getValue();
-                System.out.println("damiPhone" + damiPhone);
-                Date date = new Date(System.currentTimeMillis());
-                DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            for (int i = 0; i < cookies.length; i++) {
+                if ("damiPhone".equals(cookies[i].getName())) {
+                    damiPhone = cookies[i].getValue();
+                    System.out.println("damiPhone" + damiPhone);
+                    Date date = new Date(System.currentTimeMillis());
+                    DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
-                CustomerExample customerExample = new CustomerExample();
-                customerExample.createCriteria().andCTelephoneEqualTo(damiPhone);
-                Customer customer = customerMapper.selectByExample(customerExample).get(0);
+                    CustomerExample customerExample = new CustomerExample();
+                    customerExample.createCriteria().andCTelephoneEqualTo(damiPhone);
 
-                damiToken = Util.getSha1(damiPhone + customer.getcPassword() + dateFormat.format(date));
+                    Customer customer = customerMapper.selectByExample(customerExample).get(0);
 
-            }
-        }
-        for (int i = 0; i < cookies.length; i++) {
-            if ("damiToken".equals(cookies[i].getName())) {
-                System.out.println("damiToken" + cookies[i].getValue());
-                if (cookies[i].getValue().equals(damiToken)) {
-                    flag = true;
+                    damiToken = Util.getSha1(damiPhone + customer.getcPassword() + dateFormat.format(date));
+
+
                 }
             }
-        }
+            for (int i = 0; i < cookies.length; i++) {
+                if ("damiToken".equals(cookies[i].getName())) {
+                    System.out.println("damiToken" + cookies[i].getValue());
+                    if (cookies[i].getValue().equals(damiToken)) {
+                        flag = true;
+                    }
+                }
+            }
 
-        response.setData(damiPhone);
-        response.setStatus(flag);
-        return response;
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//            response.setStatus(false);
-//            response.setMsg(e.getMessage());
-//            return response;
-//        }
+            response.setData(damiPhone);
+            response.setStatus(flag);
+            return response;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            response.setStatus(false);
+            response.setMsg(e.getMessage());
+            return response;
+        }
 
     }
 
