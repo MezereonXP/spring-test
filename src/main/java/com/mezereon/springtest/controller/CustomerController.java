@@ -64,13 +64,13 @@ public class CustomerController {
                 Cookie cookie1 = new Cookie("damiPhone", phone);
                 Cookie cookie2 = new Cookie("damiToken",
                         Util.getSha1(phone + pwd + dateFormat.format(date)));
-                System.out.println(cookie1.getName()+":"+cookie1.getValue());
-                System.out.println(cookie2.getName()+":"+cookie2.getValue());
+                System.out.println(cookie1.getName() + ":" + cookie1.getValue());
+                System.out.println(cookie2.getName() + ":" + cookie2.getValue());
                 cookie1.setPath("/");
-                cookie1.setMaxAge(60*60*24);
+                cookie1.setMaxAge(60 * 60 * 24);
                 cookie1.setDomain("localhost");
                 cookie2.setPath("/");
-                cookie2.setMaxAge(60*60*24);
+                cookie2.setMaxAge(60 * 60 * 24);
                 cookie2.setDomain("localhost");
                 resq.addCookie(cookie1);
                 resq.addCookie(cookie2);
@@ -92,37 +92,37 @@ public class CustomerController {
         Cookie[] cookies = req.getCookies();
         Response response = new Response();
 //        try {
-            String damiPhone = "";
-            String damiToken = "";
-            boolean flag = false;
+        String damiPhone = "";
+        String damiToken = "";
+        boolean flag = false;
 
-            for (int i = 0;i<cookies.length;i++) {
-                if ("damiPhone".equals(cookies[i].getName())) {
-                    damiPhone = cookies[i].getValue();
-                    System.out.println("damiPhone"+damiPhone);
-                    Date date = new Date(System.currentTimeMillis());
-                    DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        for (int i = 0; i < cookies.length; i++) {
+            if ("damiPhone".equals(cookies[i].getName())) {
+                damiPhone = cookies[i].getValue();
+                System.out.println("damiPhone" + damiPhone);
+                Date date = new Date(System.currentTimeMillis());
+                DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
-                    CustomerExample customerExample = new CustomerExample();
-                    customerExample.createCriteria().andCTelephoneEqualTo(damiPhone);
-                    Customer customer = customerMapper.selectByExample(customerExample).get(0);
+                CustomerExample customerExample = new CustomerExample();
+                customerExample.createCriteria().andCTelephoneEqualTo(damiPhone);
+                Customer customer = customerMapper.selectByExample(customerExample).get(0);
 
-                    damiToken = Util.getSha1(damiPhone + customer.getcPassword() + dateFormat.format(date));
+                damiToken = Util.getSha1(damiPhone + customer.getcPassword() + dateFormat.format(date));
 
+            }
+        }
+        for (int i = 0; i < cookies.length; i++) {
+            if ("damiToken".equals(cookies[i].getName())) {
+                System.out.println("damiToken" + cookies[i].getValue());
+                if (cookies[i].getValue().equals(damiToken)) {
+                    flag = true;
                 }
             }
-            for (int i = 0;i<cookies.length;i++) {
-                if ("damiToken".equals(cookies[i].getName())) {
-                    System.out.println("damiToken"+cookies[i].getValue());
-                    if (cookies[i].getValue().equals(damiToken)) {
-                        flag = true;
-                    }
-                }
-            }
+        }
 
-            response.setData(damiPhone);
-            response.setStatus(flag);
-            return response;
+        response.setData(damiPhone);
+        response.setStatus(flag);
+        return response;
 //        } catch (Exception e) {
 //            System.out.println(e.getMessage());
 //            response.setStatus(false);
@@ -141,5 +141,20 @@ public class CustomerController {
         Customer customer = customerMapper.selectByExample(customerExample).get(0);
         response.setData(customer);
         return response;
+    }
+
+    @RequestMapping(value = "/api/logout", method = RequestMethod.GET)
+    @CrossOrigin
+    public void logout(HttpServletRequest req, HttpServletResponse resq) {
+        Cookie cookie1 = new Cookie("damiPhone", "");
+        Cookie cookie2 = new Cookie("damiToken", "");
+        cookie1.setPath("/");
+        cookie1.setMaxAge(60 * 60 * 24);
+        cookie1.setDomain("localhost");
+        cookie2.setPath("/");
+        cookie2.setMaxAge(60 * 60 * 24);
+        cookie2.setDomain("localhost");
+        resq.addCookie(cookie1);
+        resq.addCookie(cookie2);
     }
 }
