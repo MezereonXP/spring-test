@@ -71,8 +71,10 @@ public class KillGoodController {
         if (killGoodService.run(kgId, cId)) {
             response.setMsg("抢购成功");
             KillGood killGood = killGoodMapper.selectByPrimaryKey(kgId);
-            killGood.setKgQuantity(killGood.getKgQuantity() - 1);
-            killGoodMapper.updateByPrimaryKey(killGood);
+            if (killGood.getKgQuantity() > 0) {
+                killGood.setKgQuantity(killGood.getKgQuantity() - 1);
+                killGoodMapper.updateByPrimaryKey(killGood);
+            }
         } else {
             response.setMsg("抢购失败");
         }
