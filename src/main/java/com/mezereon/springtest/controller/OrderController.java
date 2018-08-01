@@ -24,12 +24,17 @@ public class OrderController {
     @RequestMapping(value = "/api/selectAllOrderGoods", method = RequestMethod.GET)
     @CrossOrigin
     public Response selectAllOrderGoods(@RequestParam(value = "userId", required = true) int customerId) {
-
-        List<OrderGoods> list = orderService.selectAllOrderGoodsByCustomerId(customerId);
         Response response = new Response();
-        response.setData(list);
-
-        return response;
+        try {
+            List<OrderGoods> list = orderService.selectAllOrderGoodsByCustomerId(customerId);
+            response.setData(list);
+            response.setStatus(true);
+            return response;
+        } catch (Exception e) {
+            response.setStatus(false);
+            response.setMsg(e.getMessage());
+            return response;
+        }
     }
 
     //通过客户id查找订单
@@ -37,11 +42,17 @@ public class OrderController {
     @CrossOrigin
     public Response selectAllOrder(@RequestParam(value = "userId", required = true) int customerId) {
 
-        List<Order> list = orderService.selectAllOrder(customerId);
         Response response = new Response();
-        response.setData(list);
-
-        return response;
+        try {
+            List<Order> list = orderService.selectAllOrder(customerId);
+            response.setData(list);
+            response.setStatus(true);
+            return response;
+        } catch (Exception e) {
+            response.setStatus(false);
+            response.setMsg(e.getMessage());
+            return response;
+        }
     }
 
     //
@@ -50,15 +61,31 @@ public class OrderController {
     public Response addNewOrder(@RequestBody List<OrderGoods> list) {
 
         Response response = new Response();
-        Order order = orderService.addNewOrder(list);
-        response.setData(order);
-        return response;
+        try {
+            Order order = orderService.addNewOrder(list);
+            response.setData(order);
+            response.setStatus(true);
+            return response;
+        } catch (Exception e) {
+            response.setStatus(false);
+            response.setMsg(e.getMessage());
+            return response;
+        }
+
     }
 
     @RequestMapping(value = "/api/updateOrder", method = RequestMethod.POST)
     @CrossOrigin
-    public void updateOrder(@RequestBody Order order) {
-        orderService.updateOrder(order);
-
+    public Response updateOrder(@RequestBody Order order) {
+        Response response = new Response();
+        try {
+            orderService.updateOrder(order);
+            response.setStatus(true);
+            return response;
+        } catch (Exception e) {
+            response.setMsg(e.getMessage());
+            response.setStatus(false);
+            return response;
+        }
     }
 }
