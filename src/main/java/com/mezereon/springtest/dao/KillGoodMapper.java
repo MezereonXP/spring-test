@@ -2,11 +2,10 @@ package com.mezereon.springtest.dao;
 
 import com.mezereon.springtest.bean.KillGood;
 import com.mezereon.springtest.bean.KillGoodExample;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public interface KillGoodMapper {
@@ -17,7 +16,7 @@ public interface KillGoodMapper {
 
     int deleteByPrimaryKey(Integer kgId);
 
-    int  insert(KillGood record);
+    int insert(KillGood record);
 
     int insertSelective(KillGood record);
 

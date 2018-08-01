@@ -1,17 +1,14 @@
 package com.mezereon.springtest.controller;
 
-import com.mezereon.springtest.bean.Customer;
-import com.mezereon.springtest.bean.Team;
-import com.mezereon.springtest.bean.TeamCustomer;
-import com.mezereon.springtest.bean.TeamShopGoods;
-import com.mezereon.springtest.dao.TeamCustomerMapper;
 import com.mezereon.springtest.dao.TeamMapper;
 import com.mezereon.springtest.response.Response;
 import com.mezereon.springtest.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by Administrator on 2018/07/19.

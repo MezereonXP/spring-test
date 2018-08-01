@@ -1,6 +1,5 @@
 package com.mezereon.springtest.service;
 
-
 import com.mezereon.springtest.bean.Order;
 import com.mezereon.springtest.bean.OrderGoods;
 import com.mezereon.springtest.bean.ShopCar;
@@ -9,7 +8,6 @@ import com.mezereon.springtest.dao.OrderMapper;
 import com.mezereon.springtest.dao.ShopCarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +24,7 @@ public class OrderService {
     @Autowired
     ShopCarMapper shopCarMapper;
 
-    public  Order addNewOrder(List<OrderGoods> list) {
+    public Order addNewOrder(List<OrderGoods> list) {
 
         Order order;
         String timeNow = System.currentTimeMillis() + "";
@@ -41,7 +39,7 @@ public class OrderService {
         for (OrderGoods ordergoods : list) {
             ordergoods.setOrder(order);
             orderGoodsMapper.insert(ordergoods);
-            if (order.getoType()==1) {
+            if (order.getoType() == 1) {
                 List<ShopCar> shopCarList = shopCarMapper.selectByCustomerId(ordergoods.getOrder().getAddress().getCustomer().getcId());
 
                 for (ShopCar shopcar : shopCarList) {

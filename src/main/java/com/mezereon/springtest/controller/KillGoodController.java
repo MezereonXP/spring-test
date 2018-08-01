@@ -6,20 +6,14 @@ import com.mezereon.springtest.dao.KillGoodMapper;
 import com.mezereon.springtest.response.Response;
 import com.mezereon.springtest.service.CustomerService;
 import com.mezereon.springtest.service.KillGoodService;
-import com.sun.javafx.collections.MappingChange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @program: KillController
@@ -35,7 +29,6 @@ public class KillGoodController {
     private static final String KILL = "kill";
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
-
 
     @Autowired
     KillGoodMapper killGoodMapper;
@@ -87,7 +80,6 @@ public class KillGoodController {
             return response;
         }
     }
-
 
 }
 

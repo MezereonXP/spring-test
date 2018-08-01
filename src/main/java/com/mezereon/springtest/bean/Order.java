@@ -40,7 +40,7 @@ public class Order {
     }
 
     public void setoCustomer(Customer customer) {
-        this.customer=customer;
+        this.customer = customer;
     }
 
     public Integer getoState() {

@@ -23,7 +23,6 @@ public class Address {
         this.aId = aId;
     }
 
-
     public String getaReceiver() {
         return aReceiver;
     }

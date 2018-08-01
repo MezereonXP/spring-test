@@ -7,15 +7,19 @@ import com.mezereon.springtest.response.Response;
 import com.mezereon.springtest.service.CustomerService;
 import com.mezereon.springtest.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class CustomerController {
@@ -109,7 +113,6 @@ public class CustomerController {
                     Customer customer = customerMapper.selectByExample(customerExample).get(0);
 
                     damiToken = Util.getSha1(damiPhone + customer.getcPassword() + dateFormat.format(date));
-
 
                 }
             }

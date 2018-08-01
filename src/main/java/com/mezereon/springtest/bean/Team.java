@@ -1,7 +1,5 @@
 package com.mezereon.springtest.bean;
 
-import java.util.List;
-
 public class Team {
     private Integer tId;
 

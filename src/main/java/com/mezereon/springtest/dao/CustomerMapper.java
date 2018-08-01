@@ -2,11 +2,10 @@ package com.mezereon.springtest.dao;
 
 import com.mezereon.springtest.bean.Customer;
 import com.mezereon.springtest.bean.CustomerExample;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public interface CustomerMapper {
@@ -33,6 +32,5 @@ public interface CustomerMapper {
     int updateByPrimaryKey(Customer record);
 
     void updateByTelephone(Customer customer);
-
 
 }

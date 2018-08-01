@@ -1,6 +1,5 @@
 package com.mezereon.springtest.service;
 
-
 import com.mezereon.springtest.bean.Address;
 import com.mezereon.springtest.dao.AddressMapper;
 import org.springframework.beans.factory.annotation.Autowired;

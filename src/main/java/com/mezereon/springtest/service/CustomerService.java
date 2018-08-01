@@ -11,13 +11,13 @@ public class CustomerService {
     @Autowired
     CustomerMapper customerMapper;
 
-    public  Customer selectByPrimaryKey(int cId){
+    public Customer selectByPrimaryKey(int cId) {
         return customerMapper.selectByPrimaryKey(cId);
     }
+
     public void regist(Customer customer) {
         customerMapper.insert(customer);
     }
-
 
     public Customer selectCustomerById(int customerId) {
         Customer customer = customerMapper.selectByPrimaryKey(customerId);
@@ -27,7 +27,6 @@ public class CustomerService {
     public void reset(Customer customer) {
         customerMapper.updateByTelephone(customer);
     }
-
 
 }
 

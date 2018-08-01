@@ -71,7 +71,6 @@ public class ShopcarService {
             }
         }
 
-
         return goodsList;
     }
 }

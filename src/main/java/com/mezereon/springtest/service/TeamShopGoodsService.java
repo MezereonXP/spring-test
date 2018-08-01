@@ -7,13 +7,10 @@ import com.mezereon.springtest.dao.GoodsMapper;
 import com.mezereon.springtest.dao.TeamShopGoodsMapper;
 import com.mezereon.springtest.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.integration.json.JsonPathUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2018/07/19.

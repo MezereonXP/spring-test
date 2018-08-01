@@ -11,7 +11,6 @@ public class KillGood {
 
     private Integer kgPrice;
 
-
     public Integer getKgId() {
         return kgId;
     }

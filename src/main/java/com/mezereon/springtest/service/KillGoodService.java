@@ -107,7 +107,7 @@ public class KillGoodService {
             public void run() {
                 try {
                     //四个小时后结束
-                    Thread.sleep(4*60*60*1000);
+                    Thread.sleep(4 * 60 * 60 * 1000);
                     System.out.printf("stop");
                     FLAG.put(kgId, 0);
                     isRuning.put(kgId, 0);

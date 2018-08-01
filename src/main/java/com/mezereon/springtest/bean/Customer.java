@@ -1,7 +1,5 @@
 package com.mezereon.springtest.bean;
 
-import java.util.List;
-
 public class Customer {
     private Integer cId;
 

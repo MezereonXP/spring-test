@@ -1,18 +1,18 @@
 package com.mezereon.springtest.controller;
 
-
 import com.mezereon.springtest.bean.Order;
 import com.mezereon.springtest.bean.OrderGoods;
-
 import com.mezereon.springtest.response.Response;
 import com.mezereon.springtest.service.OrderService;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
 
 @RestController
 public class OrderController {
@@ -49,11 +49,12 @@ public class OrderController {
     @CrossOrigin
     public Response addNewOrder(@RequestBody List<OrderGoods> list) {
 
-            Response response = new Response();
-            Order order =  orderService.addNewOrder(list);
-            response.setData(order);
+        Response response = new Response();
+        Order order = orderService.addNewOrder(list);
+        response.setData(order);
         return response;
     }
+
     @RequestMapping(value = "/api/updateOrder", method = RequestMethod.POST)
     @CrossOrigin
     public void updateOrder(@RequestBody Order order) {

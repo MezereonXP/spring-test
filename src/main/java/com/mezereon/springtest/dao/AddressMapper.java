@@ -2,11 +2,10 @@ package com.mezereon.springtest.dao;
 
 import com.mezereon.springtest.bean.Address;
 import com.mezereon.springtest.bean.AddressExample;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public interface AddressMapper {

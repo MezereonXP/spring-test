@@ -1,6 +1,10 @@
 package com.mezereon.springtest.service;
 
-import com.mezereon.springtest.bean.*;
+import com.mezereon.springtest.bean.Config;
+import com.mezereon.springtest.bean.ConfigExample;
+import com.mezereon.springtest.bean.GoodImg;
+import com.mezereon.springtest.bean.GoodImgExample;
+import com.mezereon.springtest.bean.Goods;
 import com.mezereon.springtest.dao.ConfigMapper;
 import com.mezereon.springtest.dao.GoodImgMapper;
 import com.mezereon.springtest.dao.GoodsMapper;
@@ -32,6 +36,5 @@ public class ShoppingService {
         List<Config> configList = configMapper.selectByExample(configExample);
         return configList;
     }
-
 
 }

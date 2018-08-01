@@ -2,15 +2,13 @@ package com.mezereon.springtest.dao;
 
 import com.mezereon.springtest.bean.ShopCar;
 import com.mezereon.springtest.bean.ShopCarExample;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public interface ShopCarMapper {
-
 
     long countByExample(ShopCarExample example);
 

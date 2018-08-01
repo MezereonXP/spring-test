@@ -1,6 +1,5 @@
 package com.mezereon.springtest.interceptor;
 
-import org.apache.logging.log4j.LogManager;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

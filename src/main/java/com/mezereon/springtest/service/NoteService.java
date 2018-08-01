@@ -12,9 +12,9 @@ import java.util.List;
 public class NoteService {
 
     @Autowired
-    private  NoteMapper noteMapper;
+    private NoteMapper noteMapper;
 
-    public  Response insert(Note note) {
+    public Response insert(Note note) {
 
         Response response = new Response();
         try {

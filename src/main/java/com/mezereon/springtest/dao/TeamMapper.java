@@ -1,14 +1,12 @@
 package com.mezereon.springtest.dao;
 
-import com.mezereon.springtest.bean.Goods;
 import com.mezereon.springtest.bean.Team;
 import com.mezereon.springtest.bean.TeamExample;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
 @Component
 public interface TeamMapper {

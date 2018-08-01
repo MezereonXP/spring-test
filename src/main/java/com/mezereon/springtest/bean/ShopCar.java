@@ -19,7 +19,6 @@ public class ShopCar {
         this.sId = sId;
     }
 
-
     public Integer getsQuantity() {
         return sQuantity;
     }

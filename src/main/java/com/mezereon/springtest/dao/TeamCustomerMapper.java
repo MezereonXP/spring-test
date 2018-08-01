@@ -1,13 +1,10 @@
 package com.mezereon.springtest.dao;
 
-import com.mezereon.springtest.bean.Customer;
-import com.mezereon.springtest.bean.Team;
 import com.mezereon.springtest.bean.TeamCustomer;
 import com.mezereon.springtest.bean.TeamCustomerExample;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
 
 public interface TeamCustomerMapper {
     long countByExample(TeamCustomerExample example);

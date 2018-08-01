@@ -2,11 +2,10 @@ package com.mezereon.springtest.dao;
 
 import com.mezereon.springtest.bean.Goods;
 import com.mezereon.springtest.bean.GoodsExample;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public interface GoodsMapper {
@@ -33,6 +32,5 @@ public interface GoodsMapper {
     int updateByPrimaryKey(Goods record);
 
     List<Goods> selectAllgoods();
-
 
 }
