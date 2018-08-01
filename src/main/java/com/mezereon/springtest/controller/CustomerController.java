@@ -46,10 +46,11 @@ public class CustomerController {
         return response;
     }
 
-    @RequestMapping(value = "/api/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/login", method = RequestMethod.GET)
     @CrossOrigin
-    public Response login(@RequestParam(value = "phone", required = true) String phone,
-                          @RequestParam(value = "pwd", required = true) String pwd, HttpServletRequest req, HttpServletResponse resq) {
+    public Response login(HttpServletRequest req, HttpServletResponse resq,
+                          @RequestParam(value = "phone", required = true) String phone,
+                          @RequestParam(value = "pwd", required = true) String pwd) {
         Response response = new Response();
         try {
             CustomerExample customerExample = new CustomerExample();
@@ -61,11 +62,20 @@ public class CustomerController {
                 Date date = new Date(System.currentTimeMillis());
                 DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
                 Cookie cookie1 = new Cookie("damiPhone", phone);
-                Cookie cookie2 = new Cookie("damiToken", Util.getSha1(phone + pwd + dateFormat.format(date)));
+                Cookie cookie2 = new Cookie("damiToken",
+                        Util.getSha1(phone + pwd + dateFormat.format(date)));
+                System.out.println(cookie1.getName()+":"+cookie1.getValue());
+                System.out.println(cookie2.getName()+":"+cookie2.getValue());
+                cookie1.setPath("/");
+                cookie1.setMaxAge(60*60*24);
+                cookie1.setDomain("localhost");
+                cookie2.setPath("/");
+                cookie2.setMaxAge(60*60*24);
+                cookie2.setDomain("localhost");
                 resq.addCookie(cookie1);
                 resq.addCookie(cookie2);
             }
-
+            System.out.println(response.isStatus());
             return response;
         } catch (Exception e) {
             response.setStatus(false);
@@ -78,35 +88,48 @@ public class CustomerController {
     @RequestMapping(value = "/api/checklogin", method = RequestMethod.GET)
     @CrossOrigin
     public Response checklogin(HttpServletRequest req, HttpServletResponse resq) {
+
         Cookie[] cookies = req.getCookies();
-        String damiPhone = null;
-        String damiToken = null;
-        boolean flag = false;
         Response response = new Response();
-        for (Cookie cookie : cookies) {
-            if ("damiPhone".equals(cookie.getName())) {
-                damiPhone = cookie.getValue();
-                Date date = new Date(System.currentTimeMillis());
-                DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+//        try {
+            String damiPhone = "";
+            String damiToken = "";
+            boolean flag = false;
 
-                CustomerExample customerExample = new CustomerExample();
-                customerExample.createCriteria().andCTelephoneEqualTo(damiPhone);
-                Customer customer = customerMapper.selectByExample(customerExample).get(0);
+            for (int i = 0;i<cookies.length;i++) {
+                if ("damiPhone".equals(cookies[i].getName())) {
+                    damiPhone = cookies[i].getValue();
+                    System.out.println("damiPhone"+damiPhone);
+                    Date date = new Date(System.currentTimeMillis());
+                    DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 
-                damiToken = Util.getSha1(damiPhone + customer.getcPassword() + dateFormat.format(date));
-            }
-        }
+                    CustomerExample customerExample = new CustomerExample();
+                    customerExample.createCriteria().andCTelephoneEqualTo(damiPhone);
+                    Customer customer = customerMapper.selectByExample(customerExample).get(0);
 
-        for (Cookie cookie : cookies) {
-            if ("damiToken".equals(cookie.getName())) {
-                if (cookie.getValue().equals(damiToken)) {
-                    flag = true;
+                    damiToken = Util.getSha1(damiPhone + customer.getcPassword() + dateFormat.format(date));
+
                 }
             }
-        }
-        response.setData(damiPhone);
-        response.setStatus(flag);
-        return response;
+            for (int i = 0;i<cookies.length;i++) {
+                if ("damiToken".equals(cookies[i].getName())) {
+                    System.out.println("damiToken"+cookies[i].getValue());
+                    if (cookies[i].getValue().equals(damiToken)) {
+                        flag = true;
+                    }
+                }
+            }
+
+            response.setData(damiPhone);
+            response.setStatus(flag);
+            return response;
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            response.setStatus(false);
+//            response.setMsg(e.getMessage());
+//            return response;
+//        }
+
     }
 
     @RequestMapping(value = "/api/getCustomerByPhone", method = RequestMethod.GET)
