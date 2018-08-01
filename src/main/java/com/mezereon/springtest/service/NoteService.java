@@ -6,13 +6,15 @@ import com.mezereon.springtest.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NoteService {
 
     @Autowired
-    private  static NoteMapper noteMapper;
+    private  NoteMapper noteMapper;
 
-    public  static Response insert(Note note) {
+    public  Response insert(Note note) {
 
         Response response = new Response();
         try {
@@ -23,5 +25,9 @@ public class NoteService {
             response.setStatus(false);
             return response;
         }
+    }
+
+    public List<Note> selectNoteByCustomerId(int customerId) {
+        return noteMapper.selectNoteByCustomerId(customerId);
     }
 }

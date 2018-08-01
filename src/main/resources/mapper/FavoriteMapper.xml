@@ -195,9 +195,15 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Favorite">
     update favorite
-    set f_customer_id = #{customer.cIdjdbcType=INTEGER},
+    set f_customer_id = #{customer.cId,jdbcType=INTEGER},
       f_goods_id = #{goods.gId,jdbcType=INTEGER},
       f_status = #{fStatus,jdbcType=INTEGER}
     where f_id = #{fId,jdbcType=INTEGER}
   </update>
+    <select id="selectFavoriteByCustomerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from favorite
+        where f_customer_id = #{customerId,jdbcType=INTEGER} and f_status = 1
+    </select>
 </mapper>

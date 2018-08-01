@@ -31,4 +31,6 @@ public interface CustomerMapper {
     int updateByPrimaryKeySelective(Customer record);
 
     int updateByPrimaryKey(Customer record);
+
+    void updateByTelephone(Customer customer);
 }

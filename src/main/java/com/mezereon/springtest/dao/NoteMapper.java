@@ -33,4 +33,7 @@ public interface NoteMapper {
     int updateByPrimaryKey(Note record);
 
     List<Note> selectAllNote();
+
+    List<Note> selectNoteByCustomerId(int customerId);
+
 }

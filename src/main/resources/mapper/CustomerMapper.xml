@@ -304,4 +304,17 @@
       c_status = #{cStatus,jdbcType=INTEGER}
     where c_id = #{cId,jdbcType=INTEGER}
   </update>
+    <update id="updateByTelephone" parameterType="com.mezereon.springtest.bean.Customer">
+        update customer
+        set c_password = #{cPassword,jdbcType=VARCHAR},
+        c_name = #{cName,jdbcType=VARCHAR},
+        c_sex = #{cSex,jdbcType=INTEGER},
+        c_birthday = #{cBirthday,jdbcType=VARCHAR},
+        c_area = #{cArea,jdbcType=VARCHAR},
+        c_bankcard = #{cBankcard,jdbcType=VARCHAR},
+        c_email = #{cEmail,jdbcType=VARCHAR},
+        c_pictureurl = #{cPictureurl,jdbcType=VARCHAR},
+        c_status = #{cStatus,jdbcType=INTEGER}
+        where c_telephone = #{cTelephone,jdbcType=VARCHAR}
+    </update>
 </mapper>
