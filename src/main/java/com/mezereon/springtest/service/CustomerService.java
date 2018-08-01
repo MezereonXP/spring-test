@@ -9,10 +9,25 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
 
     @Autowired
-    static
     CustomerMapper customerMapper;
 
-    public static Customer selectByPrimaryKey(int cId){
+    public  Customer selectByPrimaryKey(int cId){
         return customerMapper.selectByPrimaryKey(cId);
     }
+    public void regist(Customer customer) {
+        customerMapper.insert(customer);
+    }
+
+
+    public Customer selectCustomerById(int customerId) {
+        Customer customer = customerMapper.selectByPrimaryKey(customerId);
+        return customer;
+    }
+
+    public void reset(Customer customer) {
+        customerMapper.updateByTelephone(customer);
+    }
+
+
 }
+

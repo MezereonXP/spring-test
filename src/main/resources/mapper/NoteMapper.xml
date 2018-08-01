@@ -203,4 +203,11 @@
         from  note
     </select>
 
+    <select id="selectNoteByCustomerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from note
+        where n_customer_id = #{customerId,jdbcType=INTEGER}
+    </select>
+
 </mapper>

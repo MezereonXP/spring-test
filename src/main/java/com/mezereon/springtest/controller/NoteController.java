@@ -48,8 +48,15 @@ public class NoteController {
             response.setMsg("fail");
             response.setStatus(false);
         }
+ return response;
+    }
 
-
+    @RequestMapping(value = "/api/selectNoteByCustomerId",method = RequestMethod.GET)
+    @CrossOrigin
+    public Response selectNoteByCustomerId(int customerId) {
+        List<Note> list = noteService.selectNoteByCustomerId(customerId);
+        Response response = new Response();
+        response.setData(list);
         return response;
     }
 }

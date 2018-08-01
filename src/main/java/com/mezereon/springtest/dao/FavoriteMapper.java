@@ -31,4 +31,6 @@ public interface FavoriteMapper {
     int updateByPrimaryKeySelective(Favorite record);
 
     int updateByPrimaryKey(Favorite record);
+
+    List<Favorite> selectFavoriteByCustomerId(int customerId);
 }
