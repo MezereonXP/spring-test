@@ -32,22 +32,40 @@ public class CustomerController {
     @RequestMapping(value = "/api/regist", method = RequestMethod.POST)
     @CrossOrigin
     public void regist(@RequestBody Customer customer) {
-        customerService.regist(customer);
+        try {
+            customerService.regist(customer);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
     }
 
     @RequestMapping(value = "/api/reset", method = RequestMethod.POST)
     @CrossOrigin
     public void reset(@RequestBody Customer customer) {
-        customerService.reset(customer);
+        try {
+            customerService.reset(customer);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
     }
 
     @RequestMapping(value = "/api/selectCustomerById", method = RequestMethod.GET)
     @CrossOrigin
     public Response selectCustomerById(int customerId) {
-        Customer customer = customerService.selectCustomerById(customerId);
         Response response = new Response();
-        response.setData(customer);
-        return response;
+        try {
+            Customer customer = customerService.selectCustomerById(customerId);
+
+            response.setData(customer);
+            return response;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            response.setStatus(false);
+            response.setMsg(e.getMessage());
+            return response;
+        }
     }
 
     @RequestMapping(value = "/api/login", method = RequestMethod.GET)
@@ -140,17 +158,26 @@ public class CustomerController {
     @RequestMapping(value = "/api/getCustomerByPhone", method = RequestMethod.GET)
     @CrossOrigin
     public Response getCustomerByPhone(@RequestParam(value = "phone", required = true) String phone) {
+
         Response response = new Response();
-        CustomerExample customerExample = new CustomerExample();
-        customerExample.createCriteria().andCTelephoneEqualTo(phone);
-        Customer customer = customerMapper.selectByExample(customerExample).get(0);
-        response.setData(customer);
-        return response;
+        try {
+            CustomerExample customerExample = new CustomerExample();
+            customerExample.createCriteria().andCTelephoneEqualTo(phone);
+            Customer customer = customerMapper.selectByExample(customerExample).get(0);
+            response.setData(customer);
+            return response;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            response.setStatus(false);
+            response.setMsg(e.getMessage());
+            return response;
+        }
     }
 
     @RequestMapping(value = "/api/logout", method = RequestMethod.GET)
     @CrossOrigin
     public void logout(HttpServletRequest req, HttpServletResponse resq) {
+       try{
         Cookie cookie1 = new Cookie("damiPhone", "");
         Cookie cookie2 = new Cookie("damiToken", "");
         cookie1.setPath("/");
@@ -161,5 +188,9 @@ public class CustomerController {
         cookie2.setDomain("localhost");
         resq.addCookie(cookie1);
         resq.addCookie(cookie2);
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+
+    }
     }
 }

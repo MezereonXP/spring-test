@@ -1,16 +1,13 @@
 package com.mezereon.springtest.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.mezereon.springtest.bean.Customer;
 import com.mezereon.springtest.bean.Note;
 import com.mezereon.springtest.dao.NoteMapper;
 import com.mezereon.springtest.response.Response;
 import com.mezereon.springtest.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,31 +32,46 @@ public class NoteController {
         Response response = new Response();
         Note note = new Note();
         Customer customer = new Customer();
+
         customer.setcId(1);
         note.setnCustomer(customer);
         note.setnTipTime(time);
         String kgNote = "你抢购的商品" + " " + kgName + " " + "将于" + time + "开始抢购，请您做好准备";
         note.setnNote(kgNote);
+        try {
+            if (!kgMsg.equals("success") && !kgMsg.equals("over")) {
 
-        if (!kgMsg.equals("success") && !kgMsg.equals("over")) {
-
-            noteMapper.insert(note);
-            response.setMsg("true");
-            response.setStatus(true);
-        } else {
-            System.out.println(kgMsg);
-            response.setMsg("fail");
+                noteMapper.insert(note);
+                response.setMsg("true");
+                response.setStatus(true);
+            } else {
+                System.out.println(kgMsg);
+                response.setMsg("fail");
+                response.setStatus(false);
+            }
+            return response;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             response.setStatus(false);
+            response.setMsg(e.getMessage());
+            return response;
         }
-        return response;
     }
 
     @RequestMapping(value = "/api/selectNoteByCustomerId", method = RequestMethod.GET)
     @CrossOrigin
     public Response selectNoteByCustomerId(int customerId) {
-        List<Note> list = noteService.selectNoteByCustomerId(customerId);
         Response response = new Response();
-        response.setData(list);
-        return response;
+        try {
+            List<Note> list = noteService.selectNoteByCustomerId(customerId);
+
+            response.setData(list);
+            return response;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            response.setStatus(false);
+            response.setMsg(e.getMessage());
+            return response;
+        }
     }
 }

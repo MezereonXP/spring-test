@@ -1,18 +1,18 @@
 package com.mezereon.springtest.controller;
 
+
 import com.mezereon.springtest.bean.Order;
 import com.mezereon.springtest.bean.OrderGoods;
+
 import com.mezereon.springtest.response.Response;
 import com.mezereon.springtest.service.OrderService;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 
 @RestController
 public class OrderController {
@@ -27,10 +27,13 @@ public class OrderController {
         Response response = new Response();
         try {
             List<OrderGoods> list = orderService.selectAllOrderGoodsByCustomerId(customerId);
+
             response.setData(list);
-            response.setStatus(true);
+
             return response;
+
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             response.setStatus(false);
             response.setMsg(e.getMessage());
             return response;
@@ -41,14 +44,15 @@ public class OrderController {
     @RequestMapping(value = "/api/selectAllOrder", method = RequestMethod.GET)
     @CrossOrigin
     public Response selectAllOrder(@RequestParam(value = "userId", required = true) int customerId) {
-
         Response response = new Response();
         try {
             List<Order> list = orderService.selectAllOrder(customerId);
+
             response.setData(list);
-            response.setStatus(true);
+
             return response;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             response.setStatus(false);
             response.setMsg(e.getMessage());
             return response;
@@ -64,28 +68,24 @@ public class OrderController {
         try {
             Order order = orderService.addNewOrder(list);
             response.setData(order);
-            response.setStatus(true);
             return response;
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             response.setStatus(false);
             response.setMsg(e.getMessage());
             return response;
         }
-
     }
 
     @RequestMapping(value = "/api/updateOrder", method = RequestMethod.POST)
     @CrossOrigin
-    public Response updateOrder(@RequestBody Order order) {
-        Response response = new Response();
+    public void updateOrder(@RequestBody Order order) {
         try {
             orderService.updateOrder(order);
-            response.setStatus(true);
-            return response;
         } catch (Exception e) {
-            response.setMsg(e.getMessage());
-            response.setStatus(false);
-            return response;
+            System.out.println(e.getMessage());
+
         }
+
     }
 }

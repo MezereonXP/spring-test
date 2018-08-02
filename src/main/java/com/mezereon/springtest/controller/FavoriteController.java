@@ -20,22 +20,40 @@ public class FavoriteController {
     @RequestMapping(value = "/api/selectFavoriteByCustomerId", method = RequestMethod.GET)
     @CrossOrigin
     public Response selectFavoriteByCustomerId(int customerId) {
-        List<Favorite> list = favoriteService.selectFavoriteByCustomerId(customerId);
         Response response = new Response();
-        response.setData(list);
-        return response;
+        try {
+            List<Favorite> list = favoriteService.selectFavoriteByCustomerId(customerId);
+
+            response.setData(list);
+            return response;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            response.setStatus(false);
+            response.setMsg(e.getMessage());
+            return response;
+        }
     }
 
     @RequestMapping(value = "/api/delete", method = RequestMethod.POST)
     @CrossOrigin
     public void deleteFavorite(@RequestBody Favorite favorite) {
-        favoriteService.deleteFavorite(favorite);
+        try {
+            favoriteService.deleteFavorite(favorite);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
     }
 
     @RequestMapping(value = "/api/addFavorite", method = RequestMethod.POST)
     @CrossOrigin
     public void addFavorite(@RequestBody Favorite favorite) {
-        favoriteService.addFavorite(favorite);
+        try {
+            favoriteService.addFavorite(favorite);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
     }
 
 }

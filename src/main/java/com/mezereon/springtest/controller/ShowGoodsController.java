@@ -19,10 +19,18 @@ public class ShowGoodsController {
     @RequestMapping(value = "/api/getGoodsList", method = RequestMethod.GET)
     @CrossOrigin
     public Response selectAllGoods() {
-        List<Goods> list = goodsService.selectAllgoods();
         Response response = new Response();
-        response.setData(list);
-        return response;
+        try {
+            List<Goods> list = goodsService.selectAllgoods();
+
+            response.setData(list);
+            return response;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            response.setStatus(false);
+            response.setMsg(e.getMessage());
+            return response;
+        }
     }
 
 }
