@@ -66,8 +66,6 @@ public class KillGoodService {
                 String success = S_SUCCESS + kgId;
                 String fail = S_FAIL + kgId;
 
-
-
                 //判断该商品是否已经有队列没有则建立相应的
                 if (!KILL.containsKey(kgId)) {
                     KILL.put(kgId, kill);
@@ -111,7 +109,7 @@ public class KillGoodService {
             public void run() {
                 try {
                     //四个小时后结束
-                    Thread.sleep(4 * 60 * 60 * 1000);
+                    Thread.sleep(1000);
                     System.out.printf("stop");
                     FLAG.put(kgId, 0);
                     isRuning.put(kgId, 0);
