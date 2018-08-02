@@ -45,8 +45,13 @@ public class KillGoodController {
 
         Response response = new Response();
         List<KillGood> listKillGood = killGoodMapper.selectKillGoods();
-        response.setStatus(true);
-        response.setData(listKillGood);
+        try {
+            response.setStatus(true);
+            response.setData(listKillGood);
+
+        } catch (Exception e) {
+
+        }
         return response;
     }
 
