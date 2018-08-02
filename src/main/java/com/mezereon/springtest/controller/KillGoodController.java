@@ -62,8 +62,8 @@ public class KillGoodController {
 
 
         if (killGoodService.ifRunning(kgId) == 0) {
-            killGoodService.startKill(kgId, cId);
             killGoodService.AddKillGood(kgId);
+            killGoodService.startKill(kgId, cId);
         }
 
         if (killGoodService.run(kgId, cId)) {
