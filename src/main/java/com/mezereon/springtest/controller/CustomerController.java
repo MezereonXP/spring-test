@@ -33,6 +33,7 @@ public class CustomerController {
     @CrossOrigin
     public void regist(@RequestBody Customer customer) {
         try {
+            customer.setcPassword(Util.getSha1(customer.getcPassword()));
             customerService.regist(customer);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -44,6 +45,7 @@ public class CustomerController {
     @CrossOrigin
     public void reset(@RequestBody Customer customer) {
         try {
+            customer.setcPassword(Util.getSha1(customer.getcPassword()));
             customerService.reset(customer);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -79,13 +81,13 @@ public class CustomerController {
             customerExample.createCriteria().andCTelephoneEqualTo(phone);
             Customer customer = customerMapper.selectByExample(customerExample).get(0);
             response.setData(null);
-            response.setStatus(customer.getcPassword().equals(pwd));
-            if (customer.getcPassword().equals(pwd)) {
+            response.setStatus(customer.getcPassword().equals(Util.getSha1(pwd)));
+            if (customer.getcPassword().equals(Util.getSha1(pwd))) {
                 Date date = new Date(System.currentTimeMillis());
                 DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
                 Cookie cookie1 = new Cookie("damiPhone", phone);
                 Cookie cookie2 = new Cookie("damiToken",
-                        Util.getSha1(phone + pwd + dateFormat.format(date)));
+                        Util.getSha1(phone + Util.getSha1(pwd) + dateFormat.format(date)));
                 System.out.println(cookie1.getName() + ":" + cookie1.getValue());
                 System.out.println(cookie2.getName() + ":" + cookie2.getValue());
                 cookie1.setPath("/");
