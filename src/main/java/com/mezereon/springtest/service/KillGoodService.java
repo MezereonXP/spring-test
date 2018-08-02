@@ -79,7 +79,7 @@ public class KillGoodService {
                     jedis.del(SUCCESS.get(kgId));
                     jedis.del(FAIL.get(kgId));
 
-                    while (jedis.scard(SUCCESS.get(kgId)) <= kgQuantity.get(kgId)) {
+                    while (jedis.scard(SUCCESS.get(kgId)) < kgQuantity.get(kgId)) {
                         if (jedis.llen(KILL.get(kgId)) != 0) {
                             //加入成功队列
                             String temp = jedis.rpop(KILL.get(kgId));
