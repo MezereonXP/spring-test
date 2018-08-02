@@ -66,9 +66,7 @@ public class KillGoodService {
                 String success = S_SUCCESS + kgId;
                 String fail = S_FAIL + kgId;
 
-                //先删除上次可能残留的队列
-                jedis.del(SUCCESS.get(kgId));
-                jedis.del(FAIL.get(kgId));
+
 
                 //判断该商品是否已经有队列没有则建立相应的
                 if (!KILL.containsKey(kgId)) {
@@ -79,6 +77,9 @@ public class KillGoodService {
 
                 try {
                     jedis = pool.getResource();
+                    //先删除上次可能残留的队列
+                    jedis.del(SUCCESS.get(kgId));
+                    jedis.del(FAIL.get(kgId));
 
                     while (jedis.scard(SUCCESS.get(kgId)) <= kgQuantity.get(kgId)) {
                         if (jedis.llen(KILL.get(kgId)) != 0) {
