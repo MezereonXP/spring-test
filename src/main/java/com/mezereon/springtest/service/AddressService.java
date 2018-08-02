@@ -26,6 +26,7 @@ public class AddressService {
     }
 
     public void deleteAddress(Address address) {
+        address.setaStatus(0);
         addressMapper.updateByPrimaryKey(address);
     }
 }
