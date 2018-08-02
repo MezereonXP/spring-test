@@ -113,6 +113,7 @@ public class KillGoodService {
                     System.out.printf("stop");
                     FLAG.put(kgId, 0);
                     isRuning.put(kgId, 0);
+                    kgQuantity.put(kgId, 0);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

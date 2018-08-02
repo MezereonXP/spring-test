@@ -59,10 +59,11 @@ public class KillGoodController {
     @CrossOrigin
     public Response killGoods(@RequestParam(value = "kgId", required = true) Integer kgId, @RequestParam(value = "cId", required = true) Integer cId) {
         Response response = new Response();
-        killGoodService.AddKillGood(kgId);
+
 
         if (killGoodService.ifRunning(kgId) == 0) {
             killGoodService.startKill(kgId, cId);
+            killGoodService.AddKillGood(kgId);
         }
 
         if (killGoodService.run(kgId, cId)) {
