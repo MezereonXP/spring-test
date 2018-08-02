@@ -92,10 +92,8 @@ public class CustomerController {
                 System.out.println(cookie2.getName() + ":" + cookie2.getValue());
                 cookie1.setPath("/");
                 cookie1.setMaxAge(60 * 60 * 24);
-                cookie1.setDomain("localhost");
                 cookie2.setPath("/");
                 cookie2.setMaxAge(60 * 60 * 24);
-                cookie2.setDomain("localhost");
                 resq.addCookie(cookie1);
                 resq.addCookie(cookie2);
             }

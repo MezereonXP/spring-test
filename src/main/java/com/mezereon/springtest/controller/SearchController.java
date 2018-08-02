@@ -30,7 +30,7 @@ public class SearchController {
 
     @RequestMapping(value = "/api/search", method = RequestMethod.GET)
     @CrossOrigin
-    public Response addNewOrder(@RequestParam(name = "key", required = true) String key) {
+    public Response search(@RequestParam(name = "key", required = true) String key) {
 
         Response response = new Response();
         try {
