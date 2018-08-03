@@ -182,10 +182,8 @@ public class CustomerController {
            Cookie cookie2 = new Cookie("damiToken", null);
            cookie1.setPath("/");
            cookie1.setMaxAge(60 * 60 * 24);
-           cookie1.setDomain("localhost");
            cookie2.setPath("/");
            cookie2.setMaxAge(60 * 60 * 24);
-           cookie2.setDomain("localhost");
            resq.addCookie(cookie1);
            resq.addCookie(cookie2);
        } catch (Exception e) {
