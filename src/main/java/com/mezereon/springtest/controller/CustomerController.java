@@ -178,19 +178,18 @@ public class CustomerController {
     @CrossOrigin
     public void logout(HttpServletRequest req, HttpServletResponse resq) {
        try{
-        Cookie cookie1 = new Cookie("damiPhone", "");
-        Cookie cookie2 = new Cookie("damiToken", "");
-        cookie1.setPath("/");
-        cookie1.setMaxAge(60 * 60 * 24);
-        cookie1.setDomain("localhost");
-        cookie2.setPath("/");
-        cookie2.setMaxAge(60 * 60 * 24);
-        cookie2.setDomain("localhost");
-        resq.addCookie(cookie1);
-        resq.addCookie(cookie2);
-    } catch (Exception e) {
-        System.out.println(e.getMessage());
-
-    }
+           Cookie cookie1 = new Cookie("damiPhone", null);
+           Cookie cookie2 = new Cookie("damiToken", null);
+           cookie1.setPath("/");
+           cookie1.setMaxAge(60 * 60 * 24);
+           cookie1.setDomain("localhost");
+           cookie2.setPath("/");
+           cookie2.setMaxAge(60 * 60 * 24);
+           cookie2.setDomain("localhost");
+           resq.addCookie(cookie1);
+           resq.addCookie(cookie2);
+       } catch (Exception e) {
+           System.out.println(e.getMessage());
+       }
     }
 }
