@@ -46,7 +46,14 @@ public class TeamShopGoodsController {
     @RequestMapping(value = "/api/getTeamGoods", method = RequestMethod.GET)
     @CrossOrigin
     public Response selectTeamGoodsByTypeId(@RequestParam(value = "catagory", required = true) String catagory) {
-        System.out.println(catagory);
+        ;
         return teamShopGoodsService.selectTeamShopGoodsByTypeId(catagory);
+    }
+
+    // 获得某种团购商品的信息
+    @RequestMapping(value = "/api/getGoodsByTgId", method = RequestMethod.GET)
+    @CrossOrigin
+    public Response selectGoodsByTgId(@RequestParam(value = "tgId", required = true) Integer tgId) {
+        return teamShopGoodsService.selectGoodsByTgId(tgId);
     }
 }

@@ -81,7 +81,7 @@
         </if>
         'true' as QUERYID,
         <include refid="Base_Column_List"/>
-        from team-customer
+        from `team-customer`
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>

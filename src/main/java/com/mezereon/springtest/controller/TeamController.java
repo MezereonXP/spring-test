@@ -30,11 +30,17 @@ public class TeamController {
         return teamService.selectNofCustomer(tId);
     }*/
 
-    //获得团购详细数据
+    //根据团购商品Id获得团购信息
     @RequestMapping(value = "/api/getTeamByTgId", method = RequestMethod.GET)
     @CrossOrigin
-    public Response getTeamById(@RequestParam(value = "tId", required = true) Integer tId, @RequestParam(value = "cId", required = true) Integer cId) {
-        return teamService.selectTeamById(tId, cId);
+    public Response getTeamByTgId(@RequestParam(value = "tgId", required = true) Integer tgId, @RequestParam(value = "cId", required = true) Integer cId) {
+        return teamService.selectTeamByTgId(tgId, cId);
+    }
+    //获得团购详细数据
+    @RequestMapping(value = "/api/getTeamByTId", method = RequestMethod.GET)
+    @CrossOrigin
+    public Response getTeamById(@RequestParam(value = "tId", required = true) Integer tId) {
+        return teamService.selectTeamById(tId);
     }
 
     //新建团购
@@ -52,10 +58,4 @@ public class TeamController {
         return teamService.updateTeam(oId, tId);
     }
 
-    //发送消息
-    @RequestMapping(value = "/api/sendTeamNote", method = RequestMethod.POST)
-    @CrossOrigin
-    public Response sendNote(@RequestParam(value = "cId", required = true) Integer cId) {
-        return teamService.sendNote(cId);
-    }
 }

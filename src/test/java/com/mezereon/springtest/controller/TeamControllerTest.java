@@ -74,10 +74,4 @@ public class TeamControllerTest {
         int tId = 1;
         teamService.updateTeam(oId, tId);
     }
-
-    @Test
-    public void addNote2() {
-        int cId = 1;
-        teamService.sendNote(cId);
-    }
 }

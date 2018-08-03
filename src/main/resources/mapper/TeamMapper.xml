@@ -192,4 +192,11 @@
         FROM `team-customer`
         WHERE `team-customer`.tc_team_id = #{tId,jdbcType=INTEGER}
     </select>
+    <!-- 根据tgId查询所有该商品的团-->
+    <select id="selectTeamByTgId" parameterType="java.lang.Integer" resultType="com.mezereon.springtest.bean.Team">
+        select
+        <include refid="Base_Column_List"/>
+        from team
+        where t_teamshop_goods_id = #{tgId}
+    </select>
 </mapper>

@@ -40,4 +40,6 @@ public interface TeamMapper {
     //更新团购与顾客连接表数据
     void updateTeam(Map<String, Object> map);
 
+    //根据商品Id获得该商品的所有团
+    List<Team> selectTeamByTgId(int tgId);
 }
