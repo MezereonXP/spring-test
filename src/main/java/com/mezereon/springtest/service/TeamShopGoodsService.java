@@ -40,7 +40,7 @@ public class TeamShopGoodsService {
             int leftTeam = teamShopGoods.getTgMaxpeople() / teamShopGoods.getTgQuantity() - nowTeam;
             teamShopGoodsDisplay.setLeftTeam(leftTeam);
             teamShopGoodsDisplay.setOriginPrice(goods.getgPrice());
-            teamShopGoodsDisplay.setNowPrice(teamShopGoods.getTgDiscount() * 0.1 * goods.getgPrice());
+            teamShopGoodsDisplay.setNowPrice(teamShopGoods.getTgDiscount() * goods.getgPrice());
             teamShopGoodsDisplay.setPic(goods.getgPictureurl());
             response.setData(teamShopGoodsDisplay);
             return response;
@@ -120,17 +120,20 @@ public class TeamShopGoodsService {
             return response;
         }
     }
-   /*
-    public Response insertGoods(TeamShopGoods teamShopGoods) {
+
+    //获得团购商品的商品属性
+    public Response selectGoodsByTgId(int tgId) {
         Response response = new Response();
         try {
-            teamShopGoodsMapper.insert(teamShopGoods);
             response.setStatus(true);
+            TeamShopGoods teamShopGoods = teamShopGoodsMapper.selectByPrimaryKey(tgId);
+            Goods goods = teamShopGoods.getGoods();
+            response.setData(goods);
             return response;
         } catch (Exception e) {
             response.setMsg(e.getMessage());
             response.setStatus(false);
             return response;
         }
-    }*/
+    }
 }
