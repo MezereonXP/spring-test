@@ -44,14 +44,14 @@ public class TeamController {
     }
 
     //新建团购
-    @RequestMapping(value = "/api/insertTeam", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/insertTeam", method = RequestMethod.GET)
     @CrossOrigin
     public Response insertTeam(@RequestParam(value = "tgId", required = true) Integer tgId) {
         return teamService.insertTeam(tgId);
     }
 
     //参与团购
-    @RequestMapping(value = "/api/attendTeam", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/attendTeam", method = RequestMethod.GET)
     @CrossOrigin
     public Response updateTeam(@RequestParam(value = "oId", required = true) Integer oId, @RequestParam(value = "tId", required = true) Integer tId) {
 

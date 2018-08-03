@@ -148,7 +148,8 @@ public class TeamService {
             teamCustomer.setTeam(team);
             teamCustomer.setCustomer(customer);
             int nownum = teamMapper.selectNofCustomer(tId);
-            if (nownum == 2) {
+            int maxNum = team.getTeamShopGoods().getTgMaxpeople();
+            if (nownum < maxNum) {
                 teamCustomerMapper.insert(teamCustomer);
                 response.setData("进团成功");
             } else {
