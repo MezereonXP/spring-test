@@ -68,7 +68,8 @@ public class TeamService {
             TeamDisplay teamDisplay = new TeamDisplay();
             teamDisplay.setTeamId(team1.gettId());
             teamDisplay.setNowPeople(nowNum);
-            teamDisplay.setLeftPeople(100 - nowNum);
+            teamDisplay.setLeftPeople(team.getTeamShopGoods().getTgQuantity() - nowNum);
+            teamDisplay.setMaxTeam(team.getTeamShopGoods().getTgMaxpeople());
             teamDisplay.setHide(false);
             TeamCustomer teamCustomer = new TeamCustomer();
             Customer customer = customerMapper.selectByPrimaryKey(cId);
@@ -126,7 +127,8 @@ public class TeamService {
             teamShopGoods.setTgId(tgId);
             team.setTeamShopGoods(teamShopGoods);
             team.settStatus(1);
-            int data = teamMapper.insert(team);
+            teamMapper.insert(team);
+            int data = team.gettId();
             response.setData(data);
             response.setStatus(true);
             return response;

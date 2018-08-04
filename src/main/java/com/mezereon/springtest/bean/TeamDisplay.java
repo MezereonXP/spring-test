@@ -5,7 +5,16 @@ public class TeamDisplay {
     private int teamId;
     private int nowPeople;
     private int leftPeople;
+    private int maxTeam;
     private boolean hide;
+
+    public int getMaxTeam() {
+        return maxTeam;
+    }
+
+    public void setMaxTeam(int maxTeam) {
+        this.maxTeam = maxTeam;
+    }
 
     public int getTeamId() {
         return teamId;
