@@ -44,7 +44,7 @@ public class SimpleScheduleConfig {
         long date = new Date().getTime();
         //查询到期团购
         TeamShopGoodsExample teamShopGoodsExample = new TeamShopGoodsExample();
-        teamShopGoodsExample.createCriteria().andTgDateGreaterThanOrEqualTo(Long.toString(date));
+        teamShopGoodsExample.createCriteria().andTgDateLessThanOrEqualTo(Long.toString(date));
         List<TeamShopGoods> teamShopGoods = teamShopGoodsMapper.selectByExample(teamShopGoodsExample);
         for (TeamShopGoods teamShopGood : teamShopGoods) {
             TeamExample teamExample = new TeamExample();
