@@ -126,8 +126,8 @@ public class TeamService {
             teamShopGoods.setTgId(tgId);
             team.setTeamShopGoods(teamShopGoods);
             team.settStatus(1);
-            teamMapper.insert(team);
-            response.setData("成功");
+            int data = teamMapper.insert(team);
+            response.setData(data);
             response.setStatus(true);
             return response;
         } catch (Exception e) {

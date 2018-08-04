@@ -92,15 +92,15 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from team-customer
+        from `team-customer`
         where tc_id = #{tcId,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete from team-customer
+        delete from `team-customer`
         where tc_id = #{tcId,jdbcType=INTEGER}
     </delete>
     <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.TeamCustomerExample">
-        delete from team-customer
+        delete from `team-customer`
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -113,7 +113,7 @@
         )
     </insert>
     <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.TeamCustomer">
-        insert into team-customer
+        insert into `team-customer`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="tcId != null">
                 tc_id,
@@ -139,13 +139,13 @@
     </insert>
     <select id="countByExample" parameterType="com.mezereon.springtest.bean.TeamCustomerExample"
             resultType="java.lang.Long">
-        select count(*) from team-customer
+        select count(*) from `team-customer`
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
     </select>
     <update id="updateByExampleSelective" parameterType="map">
-        update team-customer
+        update `team-customer`
         <set>
             <if test="record.tcId != null">
                 tc_id = #{record.tcId,jdbcType=INTEGER},
@@ -162,7 +162,7 @@
         </if>
     </update>
     <update id="updateByExample" parameterType="map">
-        update team-customer
+        update `team-customer`
         set tc_id = #{record.tcId,jdbcType=INTEGER},
         tc_team_id = #{record.tcTeamId,jdbcType=INTEGER},
         tc_customer_id = #{record.tcCustomerId,jdbcType=INTEGER}
@@ -171,7 +171,7 @@
         </if>
     </update>
     <update id="updateByPrimaryKeySelective" parameterType="com.mezereon.springtest.bean.TeamCustomer">
-        update team-customer
+        update `team-customer`
         <set>
             <if test="tcTeamId != null">
                 tc_team_id = #{tcTeamId,jdbcType=INTEGER},
@@ -183,7 +183,7 @@
         where tc_id = #{tcId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.TeamCustomer">
-        update team-customer
+        update `team-customer`
         set tc_team_id = #{tcTeamId,jdbcType=INTEGER},
         tc_customer_id = #{tcCustomerId,jdbcType=INTEGER}
         where tc_id = #{tcId,jdbcType=INTEGER}
