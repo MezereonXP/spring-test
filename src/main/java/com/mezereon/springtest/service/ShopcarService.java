@@ -51,21 +51,34 @@ public class ShopcarService {
             List<OrderGoods> oglist = orderGoodsMapper.selectByGoodsId(shopcar.getGoods().getgId());
 
             for (OrderGoods og : oglist) {
-                System.out.println(og.getGoods().getgName());
+
                 //遍历这些订单中的所有商品
                 List<OrderGoods> orderGoodsList = orderGoodsMapper.selectByOrderId(og.getOrder().getoId());
 
                 for (OrderGoods ordergoods : orderGoodsList) {
-                    System.out.println(ordergoods.getGoods().getgName());
-                    //遍历并判断这些商品中与购物车商品不同的商品 加入list
-                    goodsList.add(ordergoods.getGoods());
+
+                    //遍历 加入list
+                    if(shopcar.getGoods().getgId()!=ordergoods.getGoods().getgId()){
+                        System.out.println("推荐：" + ordergoods.getGoods().getgName());
+                        goodsList.add(ordergoods.getGoods());
+                    }
+
                 }
             }
         }
+//        for (int j = 0; j < list.size() - 1; j++) {
+//            for (int i = 0; i < goodsList.size() - 1; i++) {
+//                if (goodsList.get(i).getgId() == list.get(j).getGoods().getgId()) {
+//                    System.out.println("移除购物车已有：" + goodsList.get(i).getgName());
+//                    goodsList.remove(i);
+//                }
+//            }
+//        }
 
         for (int i = 0; i < goodsList.size() - 1; i++) {
             for (int j = goodsList.size() - 1; j > i; j--) {
                 if (goodsList.get(j).equals(goodsList.get(i))) {
+                    System.out.println("移除重复：" + goodsList.get(i).getgName());
                     goodsList.remove(j);
                 }
             }
