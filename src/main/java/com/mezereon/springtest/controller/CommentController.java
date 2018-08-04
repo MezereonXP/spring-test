@@ -68,7 +68,7 @@ public class CommentController {
     @RequestMapping(value = "/api/addForum", method = RequestMethod.POST)
     @CrossOrigin
     public Response addForum(HttpServletRequest req, HttpServletResponse resq,
-                             @RequestBody(required = true) Forum forum) {
+                             @RequestBody Forum forum) {
         Response response = new Response();
         try {
             forumMapper.insert(forum);
