@@ -59,6 +59,7 @@ public class SimpleScheduleConfig {
                     note.setnCustomer(teamCustomer.getCustomer());
                     note.setnTipTime(teamShopGood.getTgDate());
                     note.setnNote("团购超时,失败");
+                    noteMapper.insert(note);
                 }
                 teamCustomerMapper.deleteByExample(teamCustomerExample);
                 teamMapper.deleteByPrimaryKey(team.gettId());
@@ -81,6 +82,7 @@ public class SimpleScheduleConfig {
                     note.setnCustomer(teamCustomer.getCustomer());
                     note.setnTipTime(Long.toString(date));
                     note.setnNote("团购成功，请静候商品到家");
+                    noteMapper.insert(note);
                 }
                 teamCustomerMapper.deleteByExample(teamCustomerExample);
                 teamMapper.deleteByPrimaryKey(team.gettId());

@@ -40,7 +40,9 @@ public class TeamShopGoodsService {
             int leftTeam = teamShopGoods.getTgMaxpeople() / teamShopGoods.getTgQuantity() - nowTeam;
             teamShopGoodsDisplay.setLeftTeam(leftTeam);
             teamShopGoodsDisplay.setOriginPrice(goods.getgPrice());
-            teamShopGoodsDisplay.setNowPrice(teamShopGoods.getTgDiscount() * goods.getgPrice());
+            double price1 = teamShopGoods.getTgDiscount() * goods.getgPrice();
+            double price = (double) Math.round(price1 * 100) / 100;
+            teamShopGoodsDisplay.setNowPrice(price);
             teamShopGoodsDisplay.setPic(goods.getgPictureurl());
             response.setData(teamShopGoodsDisplay);
             return response;
@@ -70,7 +72,9 @@ public class TeamShopGoodsService {
                 int leftTeam = teamShopGood.getTgMaxpeople() / teamShopGood.getTgQuantity() - nowTeam;
                 teamShopGoodsDisplay.setLeftTeam(leftTeam);
                 teamShopGoodsDisplay.setOriginPrice(goods.getgPrice());
-                teamShopGoodsDisplay.setNowPrice(teamShopGood.getTgDiscount() * goods.getgPrice());
+                double price1 = teamShopGood.getTgDiscount() * goods.getgPrice();
+                double price = (double) Math.round(price1 * 100) / 100;
+                teamShopGoodsDisplay.setNowPrice(price);
                 teamShopGoodsDisplay.setPic(goods.getgPictureurl());
                 teamShopGoodsDisplays.add(teamShopGoodsDisplay);
             }
@@ -108,7 +112,9 @@ public class TeamShopGoodsService {
                 int leftTeam = teamShopGood.getTgMaxpeople() / teamShopGood.getTgQuantity() - nowTeam;
                 teamShopGoodsDisplay.setLeftTeam(leftTeam);
                 teamShopGoodsDisplay.setOriginPrice(goods.getgPrice());
-                teamShopGoodsDisplay.setNowPrice(teamShopGood.getTgDiscount() * goods.getgPrice());
+                double price1 = teamShopGood.getTgDiscount() * goods.getgPrice();
+                double price = (double) Math.round(price1 * 100) / 100;
+                teamShopGoodsDisplay.setNowPrice(price);
                 teamShopGoodsDisplay.setPic(goods.getgPictureurl());
                 teamShopGoodsDisplays.add(teamShopGoodsDisplay);
             }
