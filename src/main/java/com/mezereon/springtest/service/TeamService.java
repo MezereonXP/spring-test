@@ -58,32 +58,33 @@ public class TeamService {
     //根据商品id获得该商品的全部数据
     public Response selectTeamByTgId(int tgId, int cId) {
         Response response = new Response();
-        Team team = new Team();
-        List<TeamDisplay> teamDisplays = new ArrayList<>();
-        TeamExample teamExample = new TeamExample();
-        teamExample.createCriteria().andTTeamshopGoodsIdEqualTo(tgId);
-        List<Team> teams = teamMapper.selectByExample(teamExample);
-        for (Team team1 : teams) {
-            int nowNum = teamMapper.selectNofCustomer(team1.gettId());
-            TeamDisplay teamDisplay = new TeamDisplay();
-            teamDisplay.setTeamId(team1.gettId());
-            teamDisplay.setNowPeople(nowNum);
-            teamDisplay.setLeftPeople(team.getTeamShopGoods().getTgQuantity() - nowNum);
-            teamDisplay.setMaxTeam(team.getTeamShopGoods().getTgMaxpeople());
-            teamDisplay.setHide(false);
-            TeamCustomer teamCustomer = new TeamCustomer();
-            Customer customer = customerMapper.selectByPrimaryKey(cId);
-            teamCustomer.setCustomer(customer);
-            List<TeamCustomer> teamCustomers = teamCustomerMapper.selectTeamByCustomer(teamCustomer);
-            for (TeamCustomer teamCustomer1 : teamCustomers) {
-                if (teamCustomer1.getTeam().gettId() == team1.gettId()) {
-                    teamDisplay.setHide(true);
-                    break;
-                }
-            }
-            teamDisplays.add(teamDisplay);
-        }
         try {
+            Team team = new Team();
+            List<TeamDisplay> teamDisplays = new ArrayList<>();
+            TeamExample teamExample = new TeamExample();
+            teamExample.createCriteria().andTTeamshopGoodsIdEqualTo(tgId);
+            TeamShopGoods teamShopGoods1 = teamShopGoodsMapper.selectByPrimaryKey(tgId);
+            List<Team> teams = teamMapper.selectByExample(teamExample);
+            for (Team team1 : teams) {
+                int nowNum = teamMapper.selectNofCustomer(team1.gettId());
+                TeamDisplay teamDisplay = new TeamDisplay();
+                teamDisplay.setTeamId(team1.gettId());
+                teamDisplay.setNowPeople(nowNum);
+                teamDisplay.setLeftPeople(team1.getTeamShopGoods().getTgQuantity() - nowNum);
+                teamDisplay.setMaxTeam(team1.getTeamShopGoods().getTgMaxpeople() / team1.getTeamShopGoods().getTgQuantity());
+                teamDisplay.setHide(false);
+                TeamCustomer teamCustomer = new TeamCustomer();
+                Customer customer = customerMapper.selectByPrimaryKey(cId);
+                teamCustomer.setCustomer(customer);
+                List<TeamCustomer> teamCustomers = teamCustomerMapper.selectTeamByCustomer(teamCustomer);
+                for (TeamCustomer teamCustomer1 : teamCustomers) {
+                    if (teamCustomer1.getTeam().gettId() == team1.gettId()) {
+                        teamDisplay.setHide(true);
+                        break;
+                    }
+                }
+                teamDisplays.add(teamDisplay);
+            }
             response.setData(teamDisplays);
             response.setStatus(true);
             return response;
