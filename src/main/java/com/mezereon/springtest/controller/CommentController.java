@@ -72,6 +72,7 @@ public class CommentController {
         Response response = new Response();
         try {
             forumMapper.insert(forum);
+            commentService.updateCommentStatus(forum.getComment().getCmId());
             response.setStatus(true);
             return response;
         } catch (Exception e) {
