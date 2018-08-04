@@ -40,4 +40,10 @@ public class CommentService {
         forumExample.createCriteria().andFCmidEqualTo(cmId);
         return forumMapper.selectByExampleWithBLOBs(forumExample);
     }
+
+    public void updateCommentStatus(Integer cmId) {
+        Comment comment = commentMapper.selectByPrimaryKey(cmId);
+        comment.setCmStatus(comment.getCmStatus() + 1);
+        commentMapper.updateByPrimaryKey(comment);
+    }
 }
