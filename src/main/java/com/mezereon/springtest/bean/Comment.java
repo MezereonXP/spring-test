@@ -3,9 +3,9 @@ package com.mezereon.springtest.bean;
 public class Comment {
     private Integer cmId;
 
-    private Customer customer;
-
     private Goods goods;
+
+    private Order order;
 
     private String cmInfo;
 
@@ -45,19 +45,19 @@ public class Comment {
         this.cmStatus = cmStatus;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public Goods getGoods() {
         return goods;
     }
 
     public void setGoods(Goods goods) {
         this.goods = goods;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

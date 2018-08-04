@@ -224,63 +224,63 @@ public class CommentExample {
             return (Criteria) this;
         }
 
-        public Criteria andCmCustomerIdIsNull() {
-            addCriterion("cm_customer_id is null");
+        public Criteria andCmOrderIdIsNull() {
+            addCriterion("cm_order_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andCmCustomerIdIsNotNull() {
-            addCriterion("cm_customer_id is not null");
+        public Criteria andCmOrderIdIsNotNull() {
+            addCriterion("cm_order_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCmCustomerIdEqualTo(Integer value) {
-            addCriterion("cm_customer_id =", value, "cmCustomerId");
+        public Criteria andCmOrderIdEqualTo(Integer value) {
+            addCriterion("cm_order_id =", value, "cmOrderId");
             return (Criteria) this;
         }
 
-        public Criteria andCmCustomerIdNotEqualTo(Integer value) {
-            addCriterion("cm_customer_id <>", value, "cmCustomerId");
+        public Criteria andCmOrderIdNotEqualTo(Integer value) {
+            addCriterion("cm_order_id <>", value, "cmOrderId");
             return (Criteria) this;
         }
 
-        public Criteria andCmCustomerIdGreaterThan(Integer value) {
-            addCriterion("cm_customer_id >", value, "cmCustomerId");
+        public Criteria andCmOrderIdGreaterThan(Integer value) {
+            addCriterion("cm_order_id >", value, "cmOrderId");
             return (Criteria) this;
         }
 
-        public Criteria andCmCustomerIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("cm_customer_id >=", value, "cmCustomerId");
+        public Criteria andCmOrderIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("cm_order_id >=", value, "cmOrderId");
             return (Criteria) this;
         }
 
-        public Criteria andCmCustomerIdLessThan(Integer value) {
-            addCriterion("cm_customer_id <", value, "cmCustomerId");
+        public Criteria andCmOrderIdLessThan(Integer value) {
+            addCriterion("cm_order_id <", value, "cmOrderId");
             return (Criteria) this;
         }
 
-        public Criteria andCmCustomerIdLessThanOrEqualTo(Integer value) {
-            addCriterion("cm_customer_id <=", value, "cmCustomerId");
+        public Criteria andCmOrderIdLessThanOrEqualTo(Integer value) {
+            addCriterion("cm_order_id <=", value, "cmOrderId");
             return (Criteria) this;
         }
 
-        public Criteria andCmCustomerIdIn(List<Integer> values) {
-            addCriterion("cm_customer_id in", values, "cmCustomerId");
+        public Criteria andCmOrderIdIn(List<Integer> values) {
+            addCriterion("cm_order_id in", values, "cmOrderId");
             return (Criteria) this;
         }
 
-        public Criteria andCmCustomerIdNotIn(List<Integer> values) {
-            addCriterion("cm_customer_id not in", values, "cmCustomerId");
+        public Criteria andCmOrderIdNotIn(List<Integer> values) {
+            addCriterion("cm_order_id not in", values, "cmOrderId");
             return (Criteria) this;
         }
 
-        public Criteria andCmCustomerIdBetween(Integer value1, Integer value2) {
-            addCriterion("cm_customer_id between", value1, value2, "cmCustomerId");
+        public Criteria andCmOrderIdBetween(Integer value1, Integer value2) {
+            addCriterion("cm_order_id between", value1, value2, "cmOrderId");
             return (Criteria) this;
         }
 
-        public Criteria andCmCustomerIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("cm_customer_id not between", value1, value2, "cmCustomerId");
+        public Criteria andCmOrderIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("cm_order_id not between", value1, value2, "cmOrderId");
             return (Criteria) this;
         }
 

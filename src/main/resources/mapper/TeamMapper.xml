@@ -105,7 +105,7 @@
         </if>
     </delete>
     <!-- 建立团购  -->
-    <insert id="insert" parameterType="com.mezereon.springtest.bean.Team">
+    <insert id="insert" parameterType="com.mezereon.springtest.bean.Team" keyProperty="tId">
         insert into team (t_id, t_teamshop_goods_id, t_status
         )
         values (#{tId,jdbcType=INTEGER}, #{teamShopGoods.tgId,jdbcType=INTEGER}, #{tStatus,jdbcType=INTEGER}
