@@ -31,7 +31,16 @@ public class CommentService {
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria().andCmGoodsIdEqualTo(gId);
         List<Comment> commentList = commentMapper.selectByExample(commentExample);
-        commentList.sort(Comparator.comparing(Comment::getCmDate));
+        commentList.sort((o1, o2) ->
+                o2.getCmDate().compareTo(o1.getCmDate())
+        );
+        return commentList;
+    }
+
+    public List<Comment> getCommentPopularByGId(Integer gId) {
+        List<Comment> commentList = getCommentByGId(gId);
+        commentList.sort((o1, o2) ->
+                o2.getCmStatus().compareTo(o1.getCmStatus()));
         return commentList;
     }
 

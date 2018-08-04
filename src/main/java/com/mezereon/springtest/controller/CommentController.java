@@ -33,6 +33,22 @@ public class CommentController {
     @Autowired
     private ForumMapper forumMapper;
 
+    @RequestMapping(value = "/api/getPopularComment", method = RequestMethod.GET)
+    @CrossOrigin
+    public Response getPopularComment(HttpServletRequest req, HttpServletResponse resq,
+                                      @RequestParam(name = "gId", required = true) Integer gId) {
+        Response response = new Response();
+        try {
+            response.setData(commentService.getCommentPopularByGId(gId));
+            response.setStatus(true);
+            return response;
+        } catch (Exception e) {
+            response.setMsg(e.getMessage());
+            response.setStatus(false);
+            return response;
+        }
+    }
+
     @RequestMapping(value = "/api/getComment", method = RequestMethod.GET)
     @CrossOrigin
     public Response getComment(HttpServletRequest req, HttpServletResponse resq,

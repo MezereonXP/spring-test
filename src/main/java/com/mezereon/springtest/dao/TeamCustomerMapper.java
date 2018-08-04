@@ -3,9 +3,11 @@ package com.mezereon.springtest.dao;
 import com.mezereon.springtest.bean.TeamCustomer;
 import com.mezereon.springtest.bean.TeamCustomerExample;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface TeamCustomerMapper {
     long countByExample(TeamCustomerExample example);
 

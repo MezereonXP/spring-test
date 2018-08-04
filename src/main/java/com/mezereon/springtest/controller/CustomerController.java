@@ -31,25 +31,34 @@ public class CustomerController {
 
     @RequestMapping(value = "/api/regist", method = RequestMethod.POST)
     @CrossOrigin
-    public void regist(@RequestBody Customer customer) {
+    public Response regist(@RequestBody Customer customer) {
+
+        Response response = new Response();
         try {
             customer.setcPassword(Util.getSha1(customer.getcPassword()));
             customerService.regist(customer);
+            response.setStatus(true);
+            return response;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-
+            response.setMsg(e.getMessage());
+            response.setStatus(false);
+            return response;
         }
     }
 
     @RequestMapping(value = "/api/reset", method = RequestMethod.POST)
     @CrossOrigin
-    public void reset(@RequestBody Customer customer) {
+    public Response reset(@RequestBody Customer customer) {
+
+        Response response = new Response();
         try {
             customer.setcPassword(Util.getSha1(customer.getcPassword()));
             customerService.reset(customer);
+            response.setStatus(true);
+            return response;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-
+            response.setMsg(e.getMessage());
+            return response;
         }
     }
 
