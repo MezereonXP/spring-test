@@ -3,7 +3,7 @@
 <mapper namespace="com.mezereon.springtest.dao.OrderGoodsMapper">
     <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.OrderGoods">
         <id column="og_id" jdbcType="INTEGER" property="ogId"/>
-
+        <result column="og_status" jdbcType="INTEGER" property="ogStatus"/>
         <result column="og_price" jdbcType="DOUBLE" property="ogPrice"/>
         <result column="og_quantity" jdbcType="INTEGER" property="ogQuantity"/>
         <association property="order" column="og_order_id"

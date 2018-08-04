@@ -1,5 +1,6 @@
 package com.mezereon.springtest.controller;
 
+import com.mezereon.springtest.bean.Comment;
 import com.mezereon.springtest.bean.Forum;
 import com.mezereon.springtest.dao.CommentMapper;
 import com.mezereon.springtest.dao.ForumMapper;
@@ -32,6 +33,9 @@ public class CommentController {
 
     @Autowired
     private ForumMapper forumMapper;
+
+    @Autowired
+    private CommentMapper commentMapper;
 
     @RequestMapping(value = "/api/getPopularComment", method = RequestMethod.GET)
     @CrossOrigin
@@ -89,6 +93,22 @@ public class CommentController {
         try {
             forumMapper.insert(forum);
             commentService.updateCommentStatus(forum.getComment().getCmId());
+            response.setStatus(true);
+            return response;
+        } catch (Exception e) {
+            response.setMsg(e.getMessage());
+            response.setStatus(false);
+            return response;
+        }
+    }
+
+    @RequestMapping(value = "/api/addComment", method = RequestMethod.POST)
+    @CrossOrigin
+    public Response addComment(HttpServletRequest req, HttpServletResponse resq,
+                               @RequestBody Comment comment) {
+        Response response = new Response();
+        try {
+            commentMapper.insert(comment);
             response.setStatus(true);
             return response;
         } catch (Exception e) {
