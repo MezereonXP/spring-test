@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mezereon.springtest.dao.ForumMapper">
+    <resultMap id="BaseResultMap" type="com.mezereon.springtest.bean.Forum">
+        <id column="f_id" jdbcType="INTEGER" property="fId"/>
+        <result column="f_date" jdbcType="VARCHAR" property="fDate"/>
+        <association property="customer" column="f_cId"
+                     javaType="com.mezereon.springtest.bean.Customer"
+                     select="com.mezereon.springtest.dao.CustomerMapper.selectByPrimaryKey">
+
+        </association>
+        <association property="comment" column="f_cmId"
+                     javaType="com.mezereon.springtest.bean.Comment"
+                     select="com.mezereon.springtest.dao.CommentMapper.selectByPrimaryKey">
+
+        </association>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.mezereon.springtest.bean.Forum">
+        <result column="f_content" jdbcType="LONGVARCHAR" property="fContent"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    f_id, f_cId, f_date, f_cmId
+  </sql>
+    <sql id="Blob_Column_List">
+    f_content
+  </sql>
+    <select id="selectByExampleWithBLOBs" parameterType="com.mezereon.springtest.bean.ForumExample" resultMap="ResultMapWithBLOBs">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from forum
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExample" parameterType="com.mezereon.springtest.bean.ForumExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from forum
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from forum
+        where f_id = #{fId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from forum
+    where f_id = #{fId,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.mezereon.springtest.bean.ForumExample">
+        delete from forum
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.mezereon.springtest.bean.Forum">
+    insert into forum (f_id, f_cId, f_date, 
+      f_cmId, f_content)
+    values (#{fId,jdbcType=INTEGER}, #{customer.cId,jdbcType=INTEGER}, #{fDate,jdbcType=VARCHAR},
+      #{comment.cmId,jdbcType=INTEGER}, #{fContent,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.mezereon.springtest.bean.Forum">
+        insert into forum
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fId != null">
+                f_id,
+            </if>
+            <if test="customer.cId != null">
+                f_cId,
+            </if>
+            <if test="fDate != null">
+                f_date,
+            </if>
+            <if test="comment.cmId != null">
+                f_cmId,
+            </if>
+            <if test="fContent != null">
+                f_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fId != null">
+                #{fId,jdbcType=INTEGER},
+            </if>
+            <if test="fCid != null">
+                #{customer.cId,jdbcType=INTEGER},
+            </if>
+            <if test="fDate != null">
+                #{fDate,jdbcType=VARCHAR},
+            </if>
+            <if test="fCmid != null">
+                #{comment.cmId,jdbcType=INTEGER},
+            </if>
+            <if test="fContent != null">
+                #{fContent,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.mezereon.springtest.bean.ForumExample" resultType="java.lang.Long">
+        select count(*) from forum
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update forum
+        <set>
+            <if test="record.fId != null">
+                f_id = #{record.fId,jdbcType=INTEGER},
+            </if>
+            <if test="record.fCid != null">
+                f_cId = #{record.customer.cId,jdbcType=INTEGER},
+            </if>
+            <if test="record.fDate != null">
+                f_date = #{record.fDate,jdbcType=VARCHAR},
+            </if>
+            <if test="record.fCmid != null">
+                f_cmId = #{record.comment.cmId,jdbcType=INTEGER},
+            </if>
+            <if test="record.fContent != null">
+                f_content = #{record.fContent,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExampleWithBLOBs" parameterType="map">
+        update forum
+        set f_id = #{record.fId,jdbcType=INTEGER},
+        f_cId = #{record.customer.cId,jdbcType=INTEGER},
+        f_date = #{record.fDate,jdbcType=VARCHAR},
+        f_cmId = #{record.comment.cmId,jdbcType=INTEGER},
+        f_content = #{record.fContent,jdbcType=LONGVARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update forum
+        set f_id = #{record.fId,jdbcType=INTEGER},
+        f_cId = #{record.customer.cId,jdbcType=INTEGER},
+        f_date = #{record.fDate,jdbcType=VARCHAR},
+        f_cmId = #{record.comment.cmId,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mezereon.springtest.bean.Forum">
+        update forum
+        <set>
+            <if test="customer.cId != null">
+                f_cId = #{customer.cId,jdbcType=INTEGER},
+            </if>
+            <if test="fDate != null">
+                f_date = #{fDate,jdbcType=VARCHAR},
+            </if>
+            <if test="fCmid != null">
+                f_cmId = #{comment.cmId,jdbcType=INTEGER},
+            </if>
+            <if test="fContent != null">
+                f_content = #{fContent,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where f_id = #{fId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mezereon.springtest.bean.Forum">
+    update forum
+    set f_cId = #{customer.cId,jdbcType=INTEGER},
+      f_date = #{fDate,jdbcType=VARCHAR},
+      f_cmId = #{comment.cmId,jdbcType=INTEGER},
+      f_content = #{fContent,jdbcType=LONGVARCHAR}
+    where f_id = #{fId,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.mezereon.springtest.bean.Forum">
+    update forum
+    set f_cId = #{customer.cId,jdbcType=INTEGER},
+      f_date = #{fDate,jdbcType=VARCHAR},
+      f_cmId = #{comment.cmId,jdbcType=INTEGER}
+    where f_id = #{fId,jdbcType=INTEGER}
+  </update>
+</mapper>
