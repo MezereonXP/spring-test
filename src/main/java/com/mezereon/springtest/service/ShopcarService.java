@@ -66,14 +66,14 @@ public class ShopcarService {
                 }
             }
         }
-//        for (int j = 0; j < list.size() - 1; j++) {
-//            for (int i = 0; i < goodsList.size() - 1; i++) {
-//                if (goodsList.get(i).getgId() == list.get(j).getGoods().getgId()) {
-//                    System.out.println("移除购物车已有：" + goodsList.get(i).getgName());
-//                    goodsList.remove(i);
-//                }
-//            }
-//        }
+        for (int j = 0; j < list.size() - 1; j++) {
+            for (int i = 0; i < goodsList.size() - 1; i++) {
+                if (goodsList.get(i).getgId() == list.get(j).getGoods().getgId()) {
+                    System.out.println("移除购物车已有：" + goodsList.get(i).getgName());
+                    goodsList.remove(i);
+                }
+            }
+        }
 
         for (int i = 0; i < goodsList.size() - 1; i++) {
             for (int j = goodsList.size() - 1; j > i; j--) {
