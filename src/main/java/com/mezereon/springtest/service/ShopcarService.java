@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -41,7 +41,7 @@ public class ShopcarService {
 
     public List<Goods> getRecommendGoods(int customerId) {
         List<Goods> goodsList = new ArrayList<Goods>();
-
+        List<Goods> fianalGoodsList = new ArrayList<Goods>();
         //先得到当前客户的购物车所有的商品
         List<ShopCar> list = shopCarMapper.selectByCustomerId(customerId);
 
@@ -59,7 +59,7 @@ public class ShopcarService {
                 for (OrderGoods ordergoods : orderGoodsList) {
 
                     //遍历 加入list
-                    if(shopcar.getGoods().getgId()!=ordergoods.getGoods().getgId()){
+                    if (shopcar.getGoods().getgId() != ordergoods.getGoods().getgId()) {
                         System.out.println("推荐：" + ordergoods.getGoods().getgName());
                         goodsList.add(ordergoods.getGoods());
                     }
@@ -76,11 +76,14 @@ public class ShopcarService {
             }
         }
 
-        HashSet h = new HashSet(goodsList);
-        goodsList.clear();
-        goodsList.addAll(h);
-        System.out.println(list);
-
-        return goodsList;
+        //去除重复
+        Iterator it = goodsList.listIterator();
+        while (it.hasNext()) {
+            Object o = it.next();
+            if (!fianalGoodsList.contains(o)) { //如果还没有这个元素，就添加
+                fianalGoodsList.add((Goods) o);
+            }
+        }
+        return fianalGoodsList;
     }
 }
