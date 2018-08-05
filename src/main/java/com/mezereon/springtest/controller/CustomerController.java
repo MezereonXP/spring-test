@@ -6,6 +6,8 @@ import com.mezereon.springtest.dao.CustomerMapper;
 import com.mezereon.springtest.response.Response;
 import com.mezereon.springtest.service.CustomerService;
 import com.mezereon.springtest.util.Util;
+import com.qiniu.util.Auth;
+import com.qiniu.util.StringMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,12 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class CustomerController {
+
+    private static final String AK = "abU8ljS-9-uzNytI930nbkM656gRN0JQXc393gB0";
+    private static final String SK = "STkJeKm7sPreBn_I0tneJQLDg8AMAL7-45v5cike";
+
     @Autowired
     CustomerService customerService;
 
@@ -198,5 +206,45 @@ public class CustomerController {
        } catch (Exception e) {
            System.out.println(e.getMessage());
        }
+    }
+
+    /**
+     * 获得上传的签名
+     *
+     * @return
+     */
+    @RequestMapping(value = "/api/getSign", method = RequestMethod.GET)
+    @CrossOrigin
+    public Map<String, String> getSign() {
+        Response response = new Response();
+        try {
+            response.setStatus(true);
+            Auth auth = Auth.create(AK, SK);
+            Map<String, String> result = new HashMap<String, String>();
+            StringMap stringMap = new StringMap();
+            stringMap.put("keyPrefix", "uploads");
+            result.put("uptoken", auth.uploadToken("data", null, 3600L, stringMap));
+            response.setData(result);
+            return result;
+        } catch (Exception e) {
+            response.setMsg(e.getMessage());
+            response.setStatus(false);
+            return new HashMap<>();
+        }
+    }
+
+    @RequestMapping(value = "/api/updateCustomer", method = RequestMethod.POST)
+    @CrossOrigin
+    public Response updateCustomer(@RequestBody Customer customer) {
+        Response response = new Response();
+        try {
+            response.setStatus(true);
+            customerMapper.updateByPrimaryKey(customer);
+            return response;
+        } catch (Exception e) {
+            response.setMsg(e.getMessage());
+            response.setStatus(false);
+            return response;
+        }
     }
 }
