@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -75,14 +76,10 @@ public class ShopcarService {
             }
         }
 
-        for (int i = 0; i < goodsList.size() ; i++) {
-            for (int j = 0; j < goodsList.size(); j++) {
-                if (goodsList.get(j).equals(goodsList.get(i))) {
-                    System.out.println("移除重复：" + goodsList.get(i).getgName());
-                    goodsList.remove(j);
-                }
-            }
-        }
+        HashSet h = new HashSet(goodsList);
+        goodsList.clear();
+        goodsList.addAll(h);
+        System.out.println(list);
 
         return goodsList;
     }
