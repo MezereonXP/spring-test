@@ -78,7 +78,7 @@ public class ShopcarService {
 
         //去除重复
 
-        for(int i=0;i<list.size();i++){
+        for(int i=0;i<goodsList.size();i++){
             if(!fianalGoodsList.contains(goodsList.get(i))){
                 fianalGoodsList.add(goodsList.get(i));
             }
