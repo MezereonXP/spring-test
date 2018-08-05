@@ -77,11 +77,10 @@ public class ShopcarService {
         }
 
         //去除重复
-        Iterator it = goodsList.listIterator();
-        while (it.hasNext()) {
-            Object o = it.next();
-            if (!fianalGoodsList.contains(o)) { //如果还没有这个元素，就添加
-                fianalGoodsList.add((Goods) o);
+
+        for(int i=0;i<list.size();i++){
+            if(!fianalGoodsList.contains(goodsList.get(i))){
+                fianalGoodsList.add(goodsList.get(i));
             }
         }
         return fianalGoodsList;
