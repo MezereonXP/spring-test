@@ -76,7 +76,7 @@ public class ShopcarService {
         }
 
         for (int i = 0; i < goodsList.size() ; i++) {
-            for (int j = goodsList.size() ; j > i; j--) {
+            for (int j = 0; j < goodsList.size(); j++) {
                 if (goodsList.get(j).equals(goodsList.get(i))) {
                     System.out.println("移除重复：" + goodsList.get(i).getgName());
                     goodsList.remove(j);
