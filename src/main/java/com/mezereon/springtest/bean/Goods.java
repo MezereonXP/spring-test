@@ -70,4 +70,16 @@ public class Goods {
     public void setgStatus(Integer gStatus) {
         this.gStatus = gStatus;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Goods) {
+            Goods g = (Goods) o;
+            return this.gId.equals(g.getgId());
+
+        }
+        return super.equals(o);
+    }
 }
+
+

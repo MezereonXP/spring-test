@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -40,7 +41,7 @@ public class ShopcarService {
 
     public List<Goods> getRecommendGoods(int customerId) {
         List<Goods> goodsList = new ArrayList<Goods>();
-
+        List<Goods> fianalGoodsList = new ArrayList<Goods>();
         //先得到当前客户的购物车所有的商品
         List<ShopCar> list = shopCarMapper.selectByCustomerId(customerId);
 
@@ -58,7 +59,7 @@ public class ShopcarService {
                 for (OrderGoods ordergoods : orderGoodsList) {
 
                     //遍历 加入list
-                    if(shopcar.getGoods().getgId()!=ordergoods.getGoods().getgId()){
+                    if (shopcar.getGoods().getgId() != ordergoods.getGoods().getgId()) {
                         System.out.println("推荐：" + ordergoods.getGoods().getgName());
                         goodsList.add(ordergoods.getGoods());
                     }
@@ -66,24 +67,22 @@ public class ShopcarService {
                 }
             }
         }
-//        for (int j = 0; j < list.size() - 1; j++) {
-//            for (int i = 0; i < goodsList.size() - 1; i++) {
-//                if (goodsList.get(i).getgId() == list.get(j).getGoods().getgId()) {
-//                    System.out.println("移除购物车已有：" + goodsList.get(i).getgName());
-//                    goodsList.remove(i);
-//                }
-//            }
-//        }
-
-        for (int i = 0; i < goodsList.size() - 1; i++) {
-            for (int j = goodsList.size() - 1; j > i; j--) {
-                if (goodsList.get(j).equals(goodsList.get(i))) {
-                    System.out.println("移除重复：" + goodsList.get(i).getgName());
-                    goodsList.remove(j);
+        for (int j = 0; j < list.size(); j++) {
+            for (int i = 0; i < goodsList.size(); i++) {
+                if (goodsList.get(i).getgId() == list.get(j).getGoods().getgId()) {
+                    System.out.println("移除购物车已有：" + goodsList.get(i).getgName());
+                    goodsList.remove(i);
                 }
             }
         }
 
-        return goodsList;
+        //去除重复
+
+        for(int i=0;i<goodsList.size();i++){
+            if(!fianalGoodsList.contains(goodsList.get(i))){
+                fianalGoodsList.add(goodsList.get(i));
+            }
+        }
+        return fianalGoodsList;
     }
 }
