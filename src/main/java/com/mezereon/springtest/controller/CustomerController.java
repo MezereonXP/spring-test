@@ -1,5 +1,8 @@
 package com.mezereon.springtest.controller;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.RequestMobileCodeCallback;
 import com.mezereon.springtest.bean.Customer;
 import com.mezereon.springtest.bean.CustomerExample;
 import com.mezereon.springtest.dao.CustomerMapper;
@@ -283,6 +286,37 @@ public class CustomerController {
             e.printStackTrace();
             map.put("error", e.getMessage());
             return map;
+        }
+    }
+
+    @RequestMapping(value = "/api/sendMessage", method = RequestMethod.GET)
+    @CrossOrigin
+    public Response sendMessage(@RequestParam("phone") String phone) {
+        Response response = new Response();
+        try {
+            response.setStatus(true);
+            AVOSCloud.requestSMSCode(phone, "Dami", "验证", 10);
+            return response;
+        } catch (AVException e) {
+            response.setMsg(e.getMessage());
+            response.setStatus(false);
+            return response;
+        }
+    }
+
+    @RequestMapping(value = "/api/checkCode", method = RequestMethod.GET)
+    @CrossOrigin
+    public Response sendMessage(@RequestParam("phone") String phone,
+                                @RequestParam("code") String code) {
+        Response response = new Response();
+        try {
+            response.setStatus(true);
+            AVOSCloud.verifySMSCode(code, phone);
+            return response;
+        } catch (AVException e) {
+            response.setMsg(e.getMessage());
+            response.setStatus(false);
+            return response;
         }
     }
 }
