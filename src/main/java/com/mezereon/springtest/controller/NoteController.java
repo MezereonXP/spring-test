@@ -26,6 +26,7 @@ public class NoteController {
     public Response AddNote(@RequestParam(value = "cId", required = true) Integer cId,
                             @RequestParam(value = "kgName", required = true) String kgName,
                             @RequestParam(value = "time", required = true) String time,
+                            @RequestParam(value = "killGoodDate", required = true) String killGoodDate,
                             @RequestParam(value = "kgMsg", required = true) String kgMsg) {
 
         List<Note> noteList = new ArrayList<>();
@@ -35,7 +36,7 @@ public class NoteController {
 
         customer.setcId(1);
         note.setnCustomer(customer);
-        note.setnTipTime(time);
+        note.setnTipTime(killGoodDate);
         String kgNote = "你抢购的商品" + " " + kgName + " " + "将于" + time + "开始抢购，请您做好准备";
         note.setnNote(kgNote);
         try {
