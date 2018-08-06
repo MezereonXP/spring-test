@@ -61,11 +61,11 @@ public class TeamShopGoodsService {
             List<TeamShopGoods> teamShopGoods = teamShopGoodsMapper.selectAllTSG();
             List<TeamShopGoodsDisplay> teamShopGoodsDisplays = new ArrayList<>();
             for (TeamShopGoods teamShopGood : teamShopGoods) {
-                int tgId = teamShopGood.getTgId();
-                Goods goods = goodsMapper.selectByPrimaryKey(tgId);
-                int nowTeam = teamShopGoodsMapper.selectNofTeam(tgId);
+                int gId = teamShopGood.getGoods().getgId();
+                Goods goods = goodsMapper.selectByPrimaryKey(gId);
+                int nowTeam = teamShopGoodsMapper.selectNofTeam(gId);
                 TeamShopGoodsDisplay teamShopGoodsDisplay = new TeamShopGoodsDisplay();
-                teamShopGoodsDisplay.setTeamGoodsId(tgId);
+                teamShopGoodsDisplay.setTeamGoodsId(gId);
                 teamShopGoodsDisplay.setName(goods.getgName());
                 teamShopGoodsDisplay.setDate(teamShopGood.getTgDate());
                 teamShopGoodsDisplay.setNowTeam(nowTeam);
@@ -101,11 +101,11 @@ public class TeamShopGoodsService {
             }
             List<TeamShopGoodsDisplay> teamShopGoodsDisplays = new ArrayList<>();
             for (TeamShopGoods teamShopGood : teamShopGoods) {
-                int tgId = teamShopGood.getTgId();
-                Goods goods = goodsMapper.selectByPrimaryKey(tgId);
-                int nowTeam = teamShopGoodsMapper.selectNofTeam(tgId);
+                int gId = teamShopGood.getGoods().getgId();
+                Goods goods = goodsMapper.selectByPrimaryKey(gId);
+                int nowTeam = teamShopGoodsMapper.selectNofTeam(gId);
                 TeamShopGoodsDisplay teamShopGoodsDisplay = new TeamShopGoodsDisplay();
-                teamShopGoodsDisplay.setTeamGoodsId(tgId);
+                teamShopGoodsDisplay.setTeamGoodsId(gId);
                 teamShopGoodsDisplay.setName(goods.getgName());
                 teamShopGoodsDisplay.setDate(teamShopGood.getTgDate());
                 teamShopGoodsDisplay.setNowTeam(nowTeam);

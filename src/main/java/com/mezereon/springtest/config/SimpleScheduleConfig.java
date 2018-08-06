@@ -82,6 +82,7 @@ public class SimpleScheduleConfig {
                     note.setnCustomer(teamCustomer.getCustomer());
                     note.setnTipTime(Long.toString(date));
                     note.setnNote("团购成功，请静候商品到家");
+                    System.out.println(note.getnTipTime());
                     noteMapper.insert(note);
                 }
                 teamCustomerMapper.deleteByExample(teamCustomerExample);
