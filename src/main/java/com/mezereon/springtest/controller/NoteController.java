@@ -34,7 +34,7 @@ public class NoteController {
         Note note = new Note();
         Customer customer = new Customer();
 
-        customer.setcId(1);
+        customer.setcId(cId);
         note.setnCustomer(customer);
         note.setnTipTime(killGoodDate);
         String kgNote = "你抢购的商品" + " " + kgName + " " + "将于" + time + "开始抢购，请您做好准备";
