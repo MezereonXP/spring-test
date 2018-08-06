@@ -6,6 +6,9 @@ import com.mezereon.springtest.dao.CustomerMapper;
 import com.mezereon.springtest.response.Response;
 import com.mezereon.springtest.service.CustomerService;
 import com.mezereon.springtest.util.Util;
+import com.qiniu.common.Zone;
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -245,6 +254,35 @@ public class CustomerController {
             response.setMsg(e.getMessage());
             response.setStatus(false);
             return response;
+        }
+    }
+
+    @RequestMapping(value = "/api/upload", method = RequestMethod.POST)
+    @CrossOrigin
+    public Map<String, String> singleFileUpload(@RequestParam("file") MultipartFile file,
+                                                RedirectAttributes redirectAttributes,
+                                                @RequestParam("token") String token) {
+        Map<String, String> map = new HashMap<>();
+        //构造一个带指定Zone对象的配置类
+        Configuration cfg = new Configuration(Zone.zone0());
+        //...其他参数参考类注释
+        UploadManager uploadManager = new UploadManager(cfg);
+        if (file.isEmpty()) {
+            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
+            map.put("message", "Please select a file to upload");
+            return map;
+        }
+
+        try {
+            // Get the file and save it somewhere
+            Path path = Paths.get(new Date().getTime() + file.getOriginalFilename());
+            uploadManager.put(file.getBytes(), path.toString(), token);
+            map.put("link", "http://ol3p4szw6.bkt.clouddn.com/" + path.toString());
+            return map;
+        } catch (IOException e) {
+            e.printStackTrace();
+            map.put("error", e.getMessage());
+            return map;
         }
     }
 }
