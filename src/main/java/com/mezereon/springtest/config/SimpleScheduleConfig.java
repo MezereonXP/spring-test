@@ -59,6 +59,8 @@ public class SimpleScheduleConfig {
                     note.setnCustomer(teamCustomer.getCustomer());
                     note.setnTipTime(teamShopGood.getTgDate());
                     note.setnNote("团购超时,失败");
+                    System.out.println("tId" + team.gettId());
+                    System.out.println("cId" + teamCustomer.getCustomer().getcId());
                     noteMapper.insert(note);
                 }
                 teamCustomerMapper.deleteByExample(teamCustomerExample);

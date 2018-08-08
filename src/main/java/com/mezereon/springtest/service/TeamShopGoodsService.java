@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,23 +62,26 @@ public class TeamShopGoodsService {
             List<TeamShopGoods> teamShopGoods = teamShopGoodsMapper.selectAllTSG();
             List<TeamShopGoodsDisplay> teamShopGoodsDisplays = new ArrayList<>();
             for (TeamShopGoods teamShopGood : teamShopGoods) {
-                int gId = teamShopGood.getGoods().getgId();
-                int tgId = teamShopGood.getTgId();
-                Goods goods = goodsMapper.selectByPrimaryKey(gId);
-                int nowTeam = teamShopGoodsMapper.selectNofTeam(tgId);
-                TeamShopGoodsDisplay teamShopGoodsDisplay = new TeamShopGoodsDisplay();
-                teamShopGoodsDisplay.setTeamGoodsId(tgId);
-                teamShopGoodsDisplay.setName(goods.getgName());
-                teamShopGoodsDisplay.setDate(teamShopGood.getTgDate());
-                teamShopGoodsDisplay.setNowTeam(nowTeam);
-                int leftTeam = teamShopGood.getTgMaxpeople() / teamShopGood.getTgQuantity() - nowTeam;
-                teamShopGoodsDisplay.setLeftTeam(leftTeam);
-                teamShopGoodsDisplay.setOriginPrice(goods.getgPrice());
-                double price1 = teamShopGood.getTgDiscount() * goods.getgPrice();
-                double price = (double) Math.round(price1 * 100) / 100;
-                teamShopGoodsDisplay.setNowPrice(price);
-                teamShopGoodsDisplay.setPic(goods.getgPictureurl());
-                teamShopGoodsDisplays.add(teamShopGoodsDisplay);
+                long date = new Date().getTime();
+                if (date <= Long.parseLong(teamShopGood.getTgDate())) {
+                    int gId = teamShopGood.getGoods().getgId();
+                    int tgId = teamShopGood.getTgId();
+                    Goods goods = goodsMapper.selectByPrimaryKey(gId);
+                    int nowTeam = teamShopGoodsMapper.selectNofTeam(tgId);
+                    TeamShopGoodsDisplay teamShopGoodsDisplay = new TeamShopGoodsDisplay();
+                    teamShopGoodsDisplay.setTeamGoodsId(tgId);
+                    teamShopGoodsDisplay.setName(goods.getgName());
+                    teamShopGoodsDisplay.setDate(teamShopGood.getTgDate());
+                    teamShopGoodsDisplay.setNowTeam(nowTeam);
+                    int leftTeam = teamShopGood.getTgMaxpeople() / teamShopGood.getTgQuantity() - nowTeam;
+                    teamShopGoodsDisplay.setLeftTeam(leftTeam);
+                    teamShopGoodsDisplay.setOriginPrice(goods.getgPrice());
+                    double price1 = teamShopGood.getTgDiscount() * goods.getgPrice();
+                    double price = (double) Math.round(price1 * 100) / 100;
+                    teamShopGoodsDisplay.setNowPrice(price);
+                    teamShopGoodsDisplay.setPic(goods.getgPictureurl());
+                    teamShopGoodsDisplays.add(teamShopGoodsDisplay);
+                }
             }
             response.setData(teamShopGoodsDisplays);
             return response;
@@ -102,23 +106,26 @@ public class TeamShopGoodsService {
             }
             List<TeamShopGoodsDisplay> teamShopGoodsDisplays = new ArrayList<>();
             for (TeamShopGoods teamShopGood : teamShopGoods) {
-                int gId = teamShopGood.getGoods().getgId();
-                int tgId = teamShopGood.getTgId();
-                Goods goods = goodsMapper.selectByPrimaryKey(gId);
-                int nowTeam = teamShopGoodsMapper.selectNofTeam(tgId);
-                TeamShopGoodsDisplay teamShopGoodsDisplay = new TeamShopGoodsDisplay();
-                teamShopGoodsDisplay.setTeamGoodsId(tgId);
-                teamShopGoodsDisplay.setName(goods.getgName());
-                teamShopGoodsDisplay.setDate(teamShopGood.getTgDate());
-                teamShopGoodsDisplay.setNowTeam(nowTeam);
-                int leftTeam = teamShopGood.getTgMaxpeople() / teamShopGood.getTgQuantity() - nowTeam;
-                teamShopGoodsDisplay.setLeftTeam(leftTeam);
-                teamShopGoodsDisplay.setOriginPrice(goods.getgPrice());
-                double price1 = teamShopGood.getTgDiscount() * goods.getgPrice();
-                double price = (double) Math.round(price1 * 100) / 100;
-                teamShopGoodsDisplay.setNowPrice(price);
-                teamShopGoodsDisplay.setPic(goods.getgPictureurl());
-                teamShopGoodsDisplays.add(teamShopGoodsDisplay);
+                long date = new Date().getTime();
+                if (date <= Long.parseLong(teamShopGood.getTgDate())) {
+                    int gId = teamShopGood.getGoods().getgId();
+                    int tgId = teamShopGood.getTgId();
+                    Goods goods = goodsMapper.selectByPrimaryKey(gId);
+                    int nowTeam = teamShopGoodsMapper.selectNofTeam(tgId);
+                    TeamShopGoodsDisplay teamShopGoodsDisplay = new TeamShopGoodsDisplay();
+                    teamShopGoodsDisplay.setTeamGoodsId(tgId);
+                    teamShopGoodsDisplay.setName(goods.getgName());
+                    teamShopGoodsDisplay.setDate(teamShopGood.getTgDate());
+                    teamShopGoodsDisplay.setNowTeam(nowTeam);
+                    int leftTeam = teamShopGood.getTgMaxpeople() / teamShopGood.getTgQuantity() - nowTeam;
+                    teamShopGoodsDisplay.setLeftTeam(leftTeam);
+                    teamShopGoodsDisplay.setOriginPrice(goods.getgPrice());
+                    double price1 = teamShopGood.getTgDiscount() * goods.getgPrice();
+                    double price = (double) Math.round(price1 * 100) / 100;
+                    teamShopGoodsDisplay.setNowPrice(price);
+                    teamShopGoodsDisplay.setPic(goods.getgPictureurl());
+                    teamShopGoodsDisplays.add(teamShopGoodsDisplay);
+                }
             }
             response.setData(teamShopGoodsDisplays);
             return response;
